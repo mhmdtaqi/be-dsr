@@ -13,3 +13,52 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+enum Role {
+  CIVITAS_FASTE
+  STAFF
+  KEPALA_BAGIAN_AKADEMIK
+}
+model User {
+  id         Int     @id @default(autoincrement())
+  nama       String
+  nik        String   @unique
+  email      String   @unique 
+  password   String
+  role       Role     @default(CIVITAS_FASTE)
+  createdAt  DateTime @default(now())
+  updateAt   DateTime @updatedAt
+
+  peminjamanP PeminjamanP[]
+}
+
+enum StatusP{
+  Tersedia
+  Digunakan
+  Rusak
+}
+
+model Proyektor{
+  id        Int       @id @default(autoincrement())
+  merek     String  
+  status    StatusP   @default(Tersedia)
+  createdAt DateTime  @default(now())
+
+  peminjamanP PeminjamanP[]
+}
+
+model PeminjamanP{
+  id            Int       @id @default(autoincrement())
+  userId        Int
+  proyektorId   Int
+  no_hp         String    @unique
+  createdAt     DateTime  @default(now())
+  Lokasi        String    
+  Agenda        String
+  
+  waktuMulai    DateTime
+  waktuSelesai  DateTime
+
+  user        User        @relation(fields: [userId], references: [id])
+  proyektor   Proyektor   @relation(fields: [proyektorId], references: [id])
+}
