@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
   output   = "../generated/prisma"
@@ -14,51 +8,48 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model User {
+  id          Int           @id @default(autoincrement())
+  nama        String
+  nik         String        @unique
+  email       String        @unique
+  password    String
+  role        Role          @default(CIVITAS_FASTE)
+  createdAt   DateTime      @default(now())
+  updateAt    DateTime      @updatedAt
+  peminjamanP PeminjamanP[]
+}
+
+model Proyektor {
+  id          Int           @id @default(autoincrement())
+  merek       String
+  status      StatusP       @default(Tersedia)
+  createdAt   DateTime      @default(now())
+  peminjamanP PeminjamanP[]
+}
+
+model PeminjamanP {
+  id           Int       @id @default(autoincrement())
+  userId       Int
+  proyektorId  Int
+  no_hp        String    @unique
+  createdAt    DateTime  @default(now())
+  Lokasi       String
+  Agenda       String
+  waktuMulai   DateTime
+  waktuSelesai DateTime
+  proyektor    Proyektor @relation(fields: [proyektorId], references: [id])
+  user         User      @relation(fields: [userId], references: [id])
+}
+
 enum Role {
   CIVITAS_FASTE
   STAFF
   KEPALA_BAGIAN_AKADEMIK
 }
-model User {
-  id         Int     @id @default(autoincrement())
-  nama       String
-  nik        String   @unique
-  email      String   @unique 
-  password   String
-  role       Role     @default(CIVITAS_FASTE)
-  createdAt  DateTime @default(now())
-  updateAt   DateTime @updatedAt
 
-  peminjamanP PeminjamanP[]
-}
-
-enum StatusP{
+enum StatusP {
   Tersedia
   Digunakan
   Rusak
-}
-
-model Proyektor{
-  id        Int       @id @default(autoincrement())
-  merek     String  
-  status    StatusP   @default(Tersedia)
-  createdAt DateTime  @default(now())
-
-  peminjamanP PeminjamanP[]
-}
-
-model PeminjamanP{
-  id            Int       @id @default(autoincrement())
-  userId        Int
-  proyektorId   Int
-  no_hp         String    @unique
-  createdAt     DateTime  @default(now())
-  Lokasi        String    
-  Agenda        String
-  
-  waktuMulai    DateTime
-  waktuSelesai  DateTime
-
-  user        User        @relation(fields: [userId], references: [id])
-  proyektor   Proyektor   @relation(fields: [proyektorId], references: [id])
 }
