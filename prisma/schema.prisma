@@ -9,47 +9,105 @@ datasource db {
 }
 
 model User {
-  id          Int           @id @default(autoincrement())
-  nama        String
-  nik         String        @unique
-  email       String        @unique
-  password    String
-  role        Role          @default(CIVITAS_FASTE)
-  createdAt   DateTime      @default(now())
-  updateAt    DateTime      @updatedAt
-  peminjamanP PeminjamanP[]
+  nik                       String        @id
+  nomor_identitas_tunggal   String        @unique
+  email                     String        @unique
+  password                  String
+  nama                      String
+  role                      Role          @default(CIVITAS_FASTE)
+  createdAt                 DateTime      @default(now())
+  updateAt                  DateTime      @updatedAt
+  peminjamanP               PeminjamanP[]
 }
 
-model Proyektor {
-  id          Int           @id @default(autoincrement())
-  merek       String
-  status      StatusP       @default(Tersedia)
+model BarangUnit {
+  nup         String        @id
+  kodeBarang  String
+  dataLokasi  String
+  nikUser     String 
+  status      StatusB       @default(Tersedia)
   createdAt   DateTime      @default(now())
   peminjamanP PeminjamanP[]
+  user        User          @relation(fields: [nikUser], references: [nik])
+  dataBarang  DataBarang    @relation(fields: [kodeBarang], references: [kode_barang])
+  DataLokasi  DataLokasi    @relation(fields: [dataLokasi], references: [kode_lokasi])
+}
+
+model DataBarang {
+  kode_barang   String           @id
+  jenis_barang  String
+  merek         String
+}
+
+model DataLokasi {
+  kode_lokasi   String          @id
+  lokasi        String
+  status        StatusLokasi    @default(dipinjam)
 }
 
 model PeminjamanP {
-  id           Int       @id @default(autoincrement())
-  userId       Int
-  proyektorId  Int
-  no_hp        String    @unique
-  createdAt    DateTime  @default(now())
-  Lokasi       String
-  Agenda       String
-  waktuMulai   DateTime
-  waktuSelesai DateTime
-  proyektor    Proyektor @relation(fields: [proyektorId], references: [id])
-  user         User      @relation(fields: [userId], references: [id])
+  id              Int         @id @default(autoincrement())
+  userNik         String
+  barangUnitId    String
+  kodeLokasi      String?
+  lokasiTambahan  String?
+  no_hp           String
+  createdAt       DateTime    @default(now())
+  Agenda          String
+  waktuMulai      DateTime
+  waktuSelesai    DateTime
+  verifikasi      StatusBooking @default(pending)
+  status          StatusP     @default(booking)
+  lokasi          DataLokasi? @relation(fields: [kodeLokasi], references: [kode_lokasi])
+  barangUnit      BarangUnit  @relation(fields: [barangUnitId], references: [nup])
+  user            User        @relation(fields: [userNik], references: [nik])
+}
+
+model Monitoring {
+  id              String          @id
+  nupBarang       String     
+  waktu           DateTime
+  plt             String
+  kondisiBarang   KondisiBarangM  @default(baik)
+  lokasiBarang    String?
+  lokasiTambahan  String?
+  foto            String
+  keterangan      String?
+  dataLokasi      DataLokasi? @relation(fields: [lokasiBarang], references: [kode_lokasi])  
+  barangUnit      BarangUnit  @relation(fields: [nupBarang], references: [nup])   
 }
 
 enum Role {
   CIVITAS_FASTE
   STAFF
   KEPALA_BAGIAN_AKADEMIK
+  KEPALA_PRODI
+}
+
+enum StatusBooking {
+  pending
+  diterima
+  ditolak
 }
 
 enum StatusP {
+  booking
+  aktif
+  selesai
+}
+
+enum StatusB {
   Tersedia
-  Digunakan
-  Rusak
+  TidakTersedia
+}
+
+enum KondisiBarangM {
+  baik
+  rusak_ringan
+  rusak_berat
+}
+
+enum StatusLokasi {
+  dipinjam
+  tidakDipinjam
 }
