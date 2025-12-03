@@ -1,77 +1,189 @@
 import cron from "node-cron";
 import prisma from "../prismaClient";
 import dayjs from "dayjs";
+import { StatusP, StatusB, StatusBooking, StatusLokasi } from "../../generated/prisma";
 
-// 1. Otomatis aktifkan peminjaman ketika waktu mulai tiba
-cron.schedule("*/1 * * * *", async () => {
-  const now = new Date();
+/**
+ * CRON JOB 1: Auto-activate peminjaman ketika waktu mulai tiba
+ */
+export const autoActivateBookings = cron.schedule("*/1 * * * *", async () => {
+  try {
+    const now = new Date();
 
-  const bookings = await prisma.peminjamanP.findMany({
-    where: {
-      status: "booking",
-      verifikasi: "diterima",
-      waktuMulai: { lte: now },
-    },
-    include: { items: true },
-  });
-
-  for (const booking of bookings) {
-    await prisma.peminjamanP.update({
-      where: { id: booking.id },
-      data: { status: "aktif" },
+    const bookings = await prisma.peminjamanP.findMany({
+      where: {
+        status: StatusP.booking,
+        verifikasi: StatusBooking.diterima,
+        waktuMulai: { lte: now },
+      },
+      include: { 
+        items: true,
+        lokasi: true,
+      },
     });
 
-    // ubah barang jadi TidakTersedia
-    for (const item of booking.items) {
-      await prisma.barangUnit.update({
-        where: { nup: item.nupBarang },
-        data: { status: "TidakTersedia" },
-      });
+    if (bookings.length === 0) return;
+
+    console.log(`[CRON] Found ${bookings.length} booking(s) to activate`);
+
+    for (const booking of bookings) {
+      try {
+        await prisma.$transaction(async (tx) => {
+          await tx.peminjamanP.update({
+            where: { id: booking.id },
+            data: { status: StatusP.aktif },
+          });
+
+          const nupList = booking.items.map(item => item.nupBarang);
+          await tx.barangUnit.updateMany({
+            where: { nup: { in: nupList } },
+            data: { status: StatusB.TidakTersedia },
+          });
+
+          if (booking.kodeLokasi) {
+            await tx.dataLokasi.update({
+              where: { kode_lokasi: booking.kodeLokasi },
+              data: { status: StatusLokasi.dipinjam },
+            });
+          }
+        });
+
+        console.log(`[CRON] ✓ Booking ${booking.id} activated`);
+      } catch (error) {
+        console.error(`[CRON] ✗ Failed to activate booking ${booking.id}:`, error);
+      }
     }
-
-    console.log("Booking otomatis aktif:", booking.id);
+  } catch (error) {
+    console.error("[CRON] Auto-activate error:", error);
   }
 });
 
-// 2. Otomatis selesai ketika waktu habis (TIDAK mengubah status barang)
-cron.schedule("*/1 * * * *", async () => {
-  const now = new Date();
+/**
+ * CRON JOB 2: Auto-complete peminjaman ketika waktu selesai
+ */
+export const autoCompleteBookings = cron.schedule("*/1 * * * *", async () => {
+  try {
+    const now = new Date();
 
-  const active = await prisma.peminjamanP.findMany({
-    where: {
-      status: "aktif",
-      waktuSelesai: { lte: now },
-    },
-  });
-
-  for (const booking of active) {
-    await prisma.peminjamanP.update({
-      where: { id: booking.id },
-      data: { status: "selesai" },
+    const activeBookings = await prisma.peminjamanP.findMany({
+      where: {
+        status: StatusP.aktif,
+        waktuSelesai: { lte: now },
+      },
+      include: {
+        items: true,
+        lokasi: true,
+      }
     });
 
-    console.log("Booking otomatis selesai:", booking.id);
+    if (activeBookings.length === 0) return;
+
+    console.log(`[CRON] Found ${activeBookings.length} active booking(s) to complete`);
+
+    for (const booking of activeBookings) {
+      try {
+        await prisma.$transaction(async (tx) => {
+          await tx.peminjamanP.update({
+            where: { id: booking.id },
+            data: { status: StatusP.selesai },
+          });
+
+          const nupList = booking.items.map(item => item.nupBarang);
+          await tx.barangUnit.updateMany({
+            where: { nup: { in: nupList } },
+            data: { status: StatusB.Tersedia },
+          });
+
+          if (booking.kodeLokasi) {
+            await tx.dataLokasi.update({
+              where: { kode_lokasi: booking.kodeLokasi },
+              data: { status: StatusLokasi.tidakDipinjam },
+            });
+          }
+        });
+
+        console.log(`[CRON] ✓ Booking ${booking.id} completed`);
+      } catch (error) {
+        console.error(`[CRON] ✗ Failed to complete booking ${booking.id}:`, error);
+      }
+    }
+  } catch (error) {
+    console.error("[CRON] Auto-complete error:", error);
   }
 });
 
-// 3. Batalkan pending BMN yang lebih dari 5 menit
-cron.schedule("*/1 * * * *", async () => {
-  const nowMinus5 = dayjs().subtract(5, "minute").toDate();
+/**
+ * CRON JOB 3: Auto-cancel pending peminjaman
+ */
+export const autoCancelPendingBookings = cron.schedule("*/5 * * * *", async () => {
+  try {
+    const cutoffTime = dayjs().subtract(30, "minute").toDate();
 
-  const pending = await prisma.peminjamanP.findMany({
-    where: {
-      verifikasi: "pending",
-      createdAt: { lte: nowMinus5 },
-      items: { some: {} }, // BMN only
-    },
-  });
-
-  for (const booking of pending) {
-    await prisma.peminjamanP.update({
-      where: { id: booking.id },
-      data: { status: "batal", verifikasi: "ditolak" },
+    const pendingBookings = await prisma.peminjamanP.findMany({
+      where: {
+        verifikasi: StatusBooking.pending,
+        status: StatusP.booking,
+        createdAt: { lte: cutoffTime },
+      },
+      include: { 
+        items: true,
+        lokasi: true,
+      },
     });
 
-    console.log("Booking pending dibatalkan:", booking.id);
+    if (pendingBookings.length === 0) return;
+
+    console.log(`[CRON] Found ${pendingBookings.length} pending booking(s) to cancel`);
+
+    for (const booking of pendingBookings) {
+      try {
+        await prisma.$transaction(async (tx) => {
+          await tx.peminjamanP.update({
+            where: { id: booking.id },
+            data: { 
+              status: StatusP.batal,
+              verifikasi: StatusBooking.ditolak 
+            },
+          });
+
+          const nupList = booking.items.map(item => item.nupBarang);
+          await tx.barangUnit.updateMany({
+            where: { nup: { in: nupList } },
+            data: { status: StatusB.Tersedia },
+          });
+
+          if (booking.kodeLokasi) {
+            await tx.dataLokasi.update({
+              where: { kode_lokasi: booking.kodeLokasi },
+              data: { status: StatusLokasi.tidakDipinjam },
+            });
+          }
+        });
+
+        console.log(`[CRON] ✓ Pending booking ${booking.id} auto-cancelled`);
+      } catch (error) {
+        console.error(`[CRON] ✗ Failed to cancel booking ${booking.id}:`, error);
+      }
+    }
+  } catch (error) {
+    console.error("[CRON] Auto-cancel error:", error);
   }
 });
+
+/**
+ * Start all cron jobs (mereka sudah auto-start, ini untuk logging saja)
+ */
+export const startCronJobs = () => {
+  console.log("[CRON] Cron jobs are running");
+};
+
+/**
+ * Stop all cron jobs
+ */
+export const stopCronJobs = () => {
+  console.log("[CRON] Stopping cron jobs...");
+  autoActivateBookings.stop();
+  autoCompleteBookings.stop();
+  autoCancelPendingBookings.stop();
+  console.log("[CRON] All cron jobs stopped");
+};

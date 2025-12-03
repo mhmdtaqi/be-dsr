@@ -3,12 +3,18 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { validationResult } from "express-validator";
 import { authService } from "../services/authservice";
+import { Role } from "../../generated/prisma"; // Import dari generated folder custom
 
 export const authController = {
-  register: async (req: Request, res: Response) => {
+  register: async (req: Request, res: Response): Promise<void> => {
     const errors = validationResult(req);
-    if (!errors.isEmpty())
-      return res.status(400).json({ errors: errors.array() });
+    if (!errors.isEmpty()) {
+      res.status(400).json({ 
+        success: false,
+        errors: errors.array() 
+      });
+      return;
+    }
 
     try {
       const {
@@ -21,14 +27,30 @@ export const authController = {
       } = req.body;
 
       const existEmail = await authService.findByEmail(email);
-      if (existEmail)
-        return res.status(400).json({ message: "Email sudah digunakan" });
+      if (existEmail) {
+        res.status(409).json({ 
+          success: false,
+          message: "Email sudah terdaftar" 
+        });
+        return;
+      }
 
       const existNik = await authService.findByNik(nik);
-      if (existNik)
-        return res.status(400).json({ message: "NIK sudah digunakan" });
+      if (existNik) {
+        res.status(409).json({ 
+          success: false,
+          message: "NIK sudah terdaftar" 
+        });
+        return;
+      }
 
-      const hashed = await bcrypt.hash(password, 10);
+      const hashed = await bcrypt.hash(password, 12);
+
+      // Validasi role jika dikirim dari request
+      let userRole: Role = Role.civitas_faste;
+      if (role && Object.values(Role).includes(role)) {
+        userRole = role as Role;
+      }
 
       const newUser = await authService.createUser({
         nik,
@@ -36,12 +58,13 @@ export const authController = {
         email,
         password: hashed,
         nama,
-        role, // default CIVITAS_FASTE jika tidak dikirim
+        role: userRole,
       });
 
       res.status(201).json({
+        success: true,
         message: "Registrasi berhasil",
-        user: {
+        data: {
           nik: newUser.nik,
           email: newUser.email,
           nama: newUser.nama,
@@ -49,49 +72,79 @@ export const authController = {
         }
       });
     } catch (err) {
-      console.log(err);
-      res.status(500).json({ message: "Server error" });
+      console.error("Register error:", err);
+      res.status(500).json({ 
+        success: false,
+        message: "Terjadi kesalahan server" 
+      });
     }
   },
 
-  login: async (req: Request, res: Response) => {
+  login: async (req: Request, res: Response): Promise<void> => {
     const errors = validationResult(req);
-    if (!errors.isEmpty())
-      return res.status(400).json({ errors: errors.array() });
+    if (!errors.isEmpty()) {
+      res.status(400).json({ 
+        success: false,
+        errors: errors.array() 
+      });
+      return;
+    }
 
     try {
       const { email, password } = req.body;
 
       const user = await authService.findByEmail(email);
-      if (!user)
-        return res.status(404).json({ message: "User tidak ditemukan" });
+      
+      if (!user) {
+        res.status(401).json({ 
+          success: false,
+          message: "Email atau password tidak valid" 
+        });
+        return;
+      }
 
       const match = await bcrypt.compare(password, user.password);
-      if (!match)
-        return res.status(401).json({ message: "Password salah" });
+      if (!match) {
+        res.status(401).json({ 
+          success: false,
+          message: "Email atau password tidak valid" 
+        });
+        return;
+      }
 
-      const token = jwt.sign(
+      const secret = process.env.JWT_SECRET;
+      if (!secret) {
+        throw new Error("JWT_SECRET is not defined");
+      }
+
+      const accessToken = jwt.sign(
         {
           nik: user.nik,
           role: user.role
         },
-        process.env.JWT_SECRET!,
-        { expiresIn: "1d" }
+        secret,
+        { expiresIn: "1h" }
       );
 
       res.json({
+        success: true,
         message: "Login berhasil",
-        token,
-        user: {
-          nik: user.nik,
-          email: user.email,
-          nama: user.nama,
-          role: user.role
+        data: {
+          accessToken,
+          user: {
+            nik: user.nik,
+            email: user.email,
+            nama: user.nama,
+            role: user.role
+          }
         }
       });
     } catch (err) {
-      console.log(err);
-      res.status(500).json({ message: "Server error" });
+      console.error("Login error:", err);
+      res.status(500).json({ 
+        success: false,
+        message: "Terjadi kesalahan server" 
+      });
     }
   }
 };
