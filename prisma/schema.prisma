@@ -90,17 +90,30 @@ model PeminjamanP {
   verifikasi     StatusBooking @default(pending)
   status         StatusP       @default(booking)
 
-  // —————— Relasi ——————
+  // Tambahan untuk QR (bukan per hari, cuma pertama & terakhir)
+  waktuAmbil     DateTime?
+  waktuKembali   DateTime?
+
+  // Relasi
   user           User          @relation(fields: [userNik], references: [nik])
   lokasi         DataLokasi?   @relation(fields: [kodeLokasi], references: [kode_lokasi])
-
-  // relasi baru: banyak barang dalam 1 peminjaman
   items          PeminjamanItem[]
+  logScanBMN     LogScanBMN[]
 
-  // FIELD LAMA (supaya data lama aman)
-  // Setelah migrasi dan data dipindah, baru hapus.
+  // Legacy field (boleh dibiarkan dulu)
   barangUnitId   String?
-  qrCode   String?   // QR code base64 / url
+  qrCode         String?
+}
+
+model LogScanBMN {
+  id           Int          @id @default(autoincrement())
+  peminjamanId Int
+  peminjaman   PeminjamanP  @relation(fields: [peminjamanId], references: [id])
+
+  jenis        String       // "pickup" atau "return"
+  waktuScan    DateTime     @default(now())
+  petugasNik   String
+  keterangan   String?
 }
 
 /* ============================
