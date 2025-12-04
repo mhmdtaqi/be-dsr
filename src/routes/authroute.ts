@@ -2,7 +2,8 @@ import express from "express";
 import { authController } from "../controllers/authcontroller";
 import { body } from "express-validator";
 import rateLimit from "express-rate-limit";
-import { Role } from "../../generated/prisma"; // Import dari generated folder custom
+import { Role } from "../../generated/prisma";
+import { authMiddleware } from "../middleware/authmiddleware";
 
 const router = express.Router();
 
@@ -11,7 +12,8 @@ const loginLimiter = rateLimit({
   max: 5,
   message: {
     success: false,
-    message: "Terlalu banyak percobaan login. Silakan coba lagi dalam 15 menit"
+    message:
+      "Terlalu banyak percobaan login. Silakan coba lagi dalam 15 menit",
   },
   standardHeaders: true,
   legacyHeaders: false,
@@ -22,12 +24,13 @@ const registerLimiter = rateLimit({
   max: 3,
   message: {
     success: false,
-    message: "Terlalu banyak percobaan registrasi. Silakan coba lagi nanti"
+    message: "Terlalu banyak percobaan registrasi. Silakan coba lagi nanti",
   },
   standardHeaders: true,
   legacyHeaders: false,
 });
 
+// REGISTER
 router.post(
   "/register",
   registerLimiter,
@@ -48,20 +51,21 @@ router.post(
       .isLength({ min: 8 })
       .withMessage("Password minimal 8 karakter")
       .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/)
-      .withMessage("Password harus mengandung huruf besar, huruf kecil, dan angka"),
-    body("nama")
-      .notEmpty()
-      .withMessage("Nama wajib diisi")
-      .trim(),
+      .withMessage(
+        "Password harus mengandung huruf besar, huruf kecil, dan angka"
+      ),
+    body("nama").notEmpty().withMessage("Nama wajib diisi").trim(),
     body("role")
       .optional()
       .isIn(Object.values(Role))
-      .withMessage(`Role harus salah satu dari: ${Object.values(Role).join(", ")}`),
+      .withMessage(
+        `Role harus salah satu dari: ${Object.values(Role).join(", ")}`
+      ),
   ],
   authController.register
 );
-// LOGIN
 
+// LOGIN
 router.post(
   "/login",
   loginLimiter,
@@ -70,11 +74,32 @@ router.post(
       .isEmail()
       .withMessage("Format email tidak valid")
       .normalizeEmail(),
-    body("password")
-      .notEmpty()
-      .withMessage("Password wajib diisi"),
+    body("password").notEmpty().withMessage("Password wajib diisi"),
   ],
   authController.login
+);
+
+// UPDATE AKUN (diproteksi JWT)
+router.put(
+  "/akun",
+  authMiddleware,
+  [
+    body("nama").optional().isString().trim(),
+    body("email")
+      .optional()
+      .isEmail()
+      .withMessage("Format email tidak valid")
+      .normalizeEmail(),
+    body("password")
+      .optional()
+      .isLength({ min: 8 })
+      .withMessage("Password minimal 8 karakter")
+      .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/)
+      .withMessage(
+        "Password harus mengandung huruf besar, huruf kecil, dan angka"
+      ),
+  ],
+  authController.updateMe
 );
 
 export default router;
