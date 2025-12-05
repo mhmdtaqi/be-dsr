@@ -8,6 +8,9 @@ import {
   Role,
 } from "../../generated/prisma";
 
+// ✅ hanya jenis_barang berikut yang boleh dipinjam
+const ALLOWED_JENIS = ["Proyektor", "Microphone", "Sound System"];
+
 export const peminjamanService = {
   // CREATE (booking + barang)
   create: async (data: {
@@ -31,12 +34,10 @@ export const peminjamanService = {
       barangList,
     } = data;
 
-    // Validasi barang list
     if (!barangList || barangList.length === 0) {
       throw new Error("Daftar barang (barangList) wajib diisi minimal 1 item");
     }
 
-    // Validasi lokasi (salah satu harus ada)
     if (!kodeLokasi && !lokasiTambahan) {
       throw new Error("Lokasi atau lokasi tambahan wajib diisi");
     }
@@ -47,7 +48,6 @@ export const peminjamanService = {
       );
     }
 
-    // RULE 1 — hanya 1 booking/aktif per user
     const existingActive = await prisma.peminjamanP.findFirst({
       where: {
         userNik,
@@ -61,7 +61,6 @@ export const peminjamanService = {
       );
     }
 
-    // RULE 2 — maksimal 3 peminjaman (exclude batal)
     const total = await prisma.peminjamanP.count({
       where: {
         userNik,
@@ -73,7 +72,6 @@ export const peminjamanService = {
       throw new Error("Anda sudah mencapai batas maksimal 3 peminjaman");
     }
 
-    // CEK VALIDASI BARANG
     const barangChecks = await prisma.barangUnit.findMany({
       where: { nup: { in: barangList } },
       select: {
@@ -88,25 +86,43 @@ export const peminjamanService = {
       },
     });
 
-    // Cek apakah semua barang ditemukan
     if (barangChecks.length !== barangList.length) {
       const foundNups = barangChecks.map((b) => b.nup);
       const notFound = barangList.filter((nup) => !foundNups.includes(nup));
       throw new Error(`Barang tidak ditemukan: ${notFound.join(", ")}`);
     }
 
-    // Cek apakah ada barang yang tidak tersedia
+    // ✅ hanya boleh jenis Proyektor, Microphone, Sound System
+    const notAllowed = barangChecks.filter((b) => {
+      const jenis = b.dataBarang?.jenis_barang;
+      if (!jenis) return true;
+      return !ALLOWED_JENIS.includes(jenis);
+    });
+
+    if (notAllowed.length > 0) {
+      const list = notAllowed
+        .map(
+          (b) =>
+            `${b.nup} (${b.dataBarang?.jenis_barang ?? "-"} - ${
+              b.dataBarang?.merek ?? "-"
+            })`
+        )
+        .join(", ");
+      throw new Error(
+        `Barang berikut tidak boleh dipinjam melalui sistem ini: ${list}`
+      );
+    }
+
     const unavailable = barangChecks.filter(
       (b) => b.status !== StatusB.Tersedia
     );
     if (unavailable.length > 0) {
       const unavailableList = unavailable
-        .map((b) => `${b.nup} (${b.dataBarang.jenis_barang})`)
+        .map((b) => `${b.nup} (${b.dataBarang?.jenis_barang})`)
         .join(", ");
       throw new Error(`Barang tidak tersedia: ${unavailableList}`);
     }
 
-    // Validasi lokasi jika menggunakan kodeLokasi
     if (kodeLokasi) {
       const lokasiData = await prisma.dataLokasi.findUnique({
         where: { kode_lokasi: kodeLokasi },
@@ -125,7 +141,6 @@ export const peminjamanService = {
       }
     }
 
-    // BUAT PEMINJAMAN + ITEMS dalam transaction
     const pinjam = await prisma.$transaction(async (tx) => {
       const newPeminjaman = await tx.peminjamanP.create({
         data: {
@@ -138,7 +153,6 @@ export const peminjamanService = {
           waktuSelesai: new Date(waktuSelesai),
           status: StatusP.booking,
           verifikasi: StatusBooking.pending,
-          // waktuAmbil & waktuKembali dibiarkan null (belum scan)
           items: {
             create: barangList.map((nup: string) => ({
               nupBarang: nup,
@@ -166,7 +180,6 @@ export const peminjamanService = {
         },
       });
 
-      // Model lama: barang langsung TidakTersedia, lokasi langsung dipinjam
       await tx.barangUnit.updateMany({
         where: { nup: { in: barangList } },
         data: { status: StatusB.TidakTersedia },

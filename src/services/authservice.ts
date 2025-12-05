@@ -1,5 +1,5 @@
 import prisma from "../prismaClient";
-import { Role } from "../../generated/prisma"; // Import dari generated folder custom
+import { Role } from "../../generated/prisma";
 
 export const authService = {
   findByEmail: (email: string) =>
@@ -13,7 +13,7 @@ export const authService = {
         nama: true,
         role: true,
         createdAt: true,
-      }
+      },
     }),
 
   findByNik: (nik: string) =>
@@ -24,7 +24,7 @@ export const authService = {
         email: true,
         nama: true,
         role: true,
-      }
+      },
     }),
 
   createUser: (data: {
@@ -35,7 +35,7 @@ export const authService = {
     nama: string;
     role?: Role;
   }) =>
-    prisma.user.create({ 
+    prisma.user.create({
       data,
       select: {
         nik: true,
@@ -44,6 +44,46 @@ export const authService = {
         nama: true,
         role: true,
         createdAt: true,
-      }
+      },
     }),
+
+  // ✅ update data akun user (nama/email/password)
+  // nik diambil dari user yg sedang login (misal dari JWT)
+  updateUserByNik: (
+    nik: string,
+    data: {
+      nama?: string;
+      email?: string;
+      password?: string; // sudah di-hash sebelum dipassing ke sini
+    }
+  ) => {
+    const updateData: {
+      nama?: string;
+      email?: string;
+      password?: string;
+    } = {};
+
+    if (data.nama !== undefined) {
+      updateData.nama = data.nama;
+    }
+    if (data.email !== undefined) {
+      updateData.email = data.email;
+    }
+    if (data.password !== undefined) {
+      updateData.password = data.password;
+    }
+
+    return prisma.user.update({
+      where: { nik },
+      data: updateData,
+      select: {
+        nik: true,
+        nomor_identitas_tunggal: true,
+        email: true,
+        nama: true,
+        role: true,
+        createdAt: true,
+      },
+    });
+  },
 };
