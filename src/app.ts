@@ -26,7 +26,8 @@ app.use(
   cors({
     origin: [ 
       "http://localhost:3000",
-      "http://bmn-faste.vercel.app",  
+      "http://bmn-faste.vercel.app",
+      "https://bmn-faste.vercel.app",  
       process.env.FRONTEND_URL || ""
     ],
     credentials: true,
