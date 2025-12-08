@@ -1,5 +1,4 @@
 import express, { Request, Response, NextFunction } from "express";
-import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
 import dotenv from "dotenv";
@@ -23,46 +22,42 @@ const PORT = process.env.PORT || 5000;
 // Security middleware
 app.use(helmet());
 
-// CORS configuration
+// CORS configuration for Vercel serverless
 const allowedOrigins = [
   "http://localhost:3000",
   "https://bmn-faste.vercel.app",
 ];
 
-// Handle preflight OPTIONS requests
-app.options("*", (req, res) => {
+// Manual CORS middleware for Vercel
+app.use((req, res, next) => {
   const origin = req.headers.origin;
+  console.log("Request from origin:", origin);
+  console.log("Allowed origins:", allowedOrigins);
+
   if (!origin || allowedOrigins.includes(origin)) {
     res.setHeader("Access-Control-Allow-Origin", origin || "*");
     res.setHeader(
       "Access-Control-Allow-Methods",
-      "GET, POST, PUT, DELETE, OPTIONS"
+      "GET, POST, PUT, DELETE, OPTIONS, PATCH"
     );
     res.setHeader(
       "Access-Control-Allow-Headers",
-      "Content-Type, Authorization"
+      "Content-Type, Authorization, X-Requested-With"
     );
     res.setHeader("Access-Control-Allow-Credentials", "true");
+    console.log("CORS allowed for origin:", origin);
+  } else {
+    console.log("CORS denied for origin:", origin);
   }
-  res.sendStatus(200);
-});
 
-app.use(
-  cors({
-    origin: (origin, callback) => {
-      console.log("CORS check for origin:", origin);
-      console.log("Allowed origins:", allowedOrigins);
-      if (!origin || allowedOrigins.includes(origin)) {
-        console.log("CORS allowed for origin:", origin);
-        callback(null, true);
-      } else {
-        console.log("CORS denied for origin:", origin);
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-    credentials: true,
-  })
-);
+  // Handle preflight requests
+  if (req.method === "OPTIONS") {
+    res.sendStatus(200);
+    return;
+  }
+
+  next();
+});
 
 // Body parser middleware
 app.use(express.json({ limit: "10mb" }));
