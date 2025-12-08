@@ -2,7 +2,6 @@ import express, { Request, Response, NextFunction } from "express";
 import helmet from "helmet";
 import morgan from "morgan";
 import dotenv from "dotenv";
-import { startCronJobs, stopCronJobs } from "./utils/cron";
 
 // Import routes
 import authRoutes from "./routes/authroute";
@@ -122,49 +121,16 @@ app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
   });
 });
 
-// Start server
-const server = app.listen(PORT, () => {
-  console.log("=================================");
-  console.log(`🚀 Server running on port ${PORT}`);
-  console.log(`📍 Environment: ${process.env.NODE_ENV || "development"}`);
-  console.log(`🌐 API URL: http://localhost:${PORT}${API_PREFIX}`);
-  console.log("=================================");
-
-  startCronJobs();
-});
-
-// Graceful shutdown
-const gracefulShutdown = (signal: string) => {
-  console.log(`\n${signal} signal received: closing HTTP server`);
-
-  stopCronJobs();
-
-  server.close(() => {
-    console.log("HTTP server closed");
-    process.exit(0);
+// For Vercel serverless deployment
+if (process.env.NODE_ENV !== "production") {
+  // Only start server in development
+  const server = app.listen(PORT, () => {
+    console.log("=================================");
+    console.log(`🚀 Server running on port ${PORT}`);
+    console.log(`📍 Environment: ${process.env.NODE_ENV || "development"}`);
+    console.log(`🌐 API URL: http://localhost:${PORT}${API_PREFIX}`);
+    console.log("=================================");
   });
-
-  setTimeout(() => {
-    console.error(
-      "Could not close connections in time, forcefully shutting down"
-    );
-    process.exit(1);
-  }, 10000);
-};
-
-process.on("SIGTERM", () => gracefulShutdown("SIGTERM"));
-process.on("SIGINT", () => gracefulShutdown("SIGINT"));
-
-process.on("unhandledRejection", (reason: any) => {
-  console.error("Unhandled Rejection:", reason);
-  if (process.env.NODE_ENV === "development") {
-    process.exit(1);
-  }
-});
-
-process.on("uncaughtException", (error: Error) => {
-  console.error("Uncaught Exception:", error);
-  process.exit(1);
-});
+}
 
 export default app;
