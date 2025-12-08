@@ -29,22 +29,22 @@ const allowedOrigins = [
   "https://bmn-faste.vercel.app",
 ];
 
-app.use(cors({
-  origin: (origin, callback) => {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-  credentials: true,
-}));
-
-// Handle preflight requests for all routes
-app.options("*", cors({
-  origin: allowedOrigins,
-  credentials: true
-}));
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      console.log("CORS check for origin:", origin);
+      console.log("Allowed origins:", allowedOrigins);
+      if (!origin || allowedOrigins.includes(origin)) {
+        console.log("CORS allowed for origin:", origin);
+        callback(null, true);
+      } else {
+        console.log("CORS denied for origin:", origin);
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true,
+  })
+);
 
 // Body parser middleware
 app.use(express.json({ limit: "10mb" }));
