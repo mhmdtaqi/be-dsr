@@ -12,7 +12,7 @@ import barangunitRoutes from "./routes/barangunitroute";
 import lokasiRoutes from "./routes/lokasiroute";
 import monitoringRoutes from "./routes/monitoringroute";
 import peminjamanRoutes from "./routes/peminjamanroute";
-import laporanRoutes from "./routes/laporanroute"; // <– TAMBAHAN
+import laporanRoutes from "./routes/laporanroute";
 
 // Load environment variables
 dotenv.config();
@@ -22,17 +22,29 @@ const PORT = process.env.PORT || 5000;
 
 // Security middleware
 app.use(helmet());
-app.use(
-  cors({
-    origin: [ 
-      "http://localhost:3000",
-      "http://bmn-faste.vercel.app",
-      "https://bmn-faste.vercel.app",  
-      process.env.FRONTEND_URL || ""
-    ],
-    credentials: true,
-  })
-);
+
+// CORS configuration
+const allowedOrigins = [
+  "http://localhost:3000",
+  "https://bmn-faste.vercel.app",
+];
+
+app.use(cors({
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true,
+}));
+
+// Handle preflight requests for all routes
+app.options("*", cors({
+  origin: allowedOrigins,
+  credentials: true
+}));
 
 // Body parser middleware
 app.use(express.json({ limit: "10mb" }));
@@ -45,7 +57,7 @@ if (process.env.NODE_ENV === "development") {
   app.use(morgan("combined"));
 }
 
-// Health check endpoint
+// Health check
 app.get("/", (_req: Request, res: Response) => {
   res.json({
     success: true,
@@ -73,7 +85,7 @@ app.use(`${API_PREFIX}/barangunit`, barangunitRoutes);
 app.use(`${API_PREFIX}/lokasi`, lokasiRoutes);
 app.use(`${API_PREFIX}/monitoring`, monitoringRoutes);
 app.use(`${API_PREFIX}/peminjaman`, peminjamanRoutes);
-app.use(`${API_PREFIX}/laporan`, laporanRoutes); // <– TAMBAHAN
+app.use(`${API_PREFIX}/laporan`, laporanRoutes);
 
 // 404 Handler
 app.use((_req: Request, res: Response) => {
@@ -105,7 +117,6 @@ const server = app.listen(PORT, () => {
   console.log(`🌐 API URL: http://localhost:${PORT}${API_PREFIX}`);
   console.log("=================================");
 
-  // Start cron jobs
   startCronJobs();
 });
 
