@@ -11,23 +11,21 @@ export const authController = {
     if (!errors.isEmpty()) {
       res.status(400).json({
         success: false,
+        message: "Data input tidak valid",
         errors: errors.array(),
       });
       return;
     }
 
     try {
-      const {
-        nik,
-        nomor_identitas_tunggal,
-        email,
-        password,
-        nama,
-        role,
-      } = req.body;
+      const { nik, nomor_identitas_tunggal, email, password, nama, role } =
+        req.body;
+
+      console.log("Register attempt for email:", email, "NIK:", nik);
 
       const existEmail = await authService.findByEmail(email);
       if (existEmail) {
+        console.log("Email already exists:", email);
         res.status(409).json({
           success: false,
           message: "Email sudah terdaftar",
@@ -37,6 +35,7 @@ export const authController = {
 
       const existNik = await authService.findByNik(nik);
       if (existNik) {
+        console.log("NIK already exists:", nik);
         res.status(409).json({
           success: false,
           message: "NIK sudah terdaftar",
@@ -44,6 +43,7 @@ export const authController = {
         return;
       }
 
+      console.log("Hashing password for user:", email);
       const hashed = await bcrypt.hash(password, 12);
 
       let userRole: Role = Role.civitas_faste;
@@ -51,6 +51,7 @@ export const authController = {
         userRole = role as Role;
       }
 
+      console.log("Creating user:", email, "with role:", userRole);
       const newUser = await authService.createUser({
         nik,
         nomor_identitas_tunggal,
@@ -60,6 +61,7 @@ export const authController = {
         role: userRole,
       });
 
+      console.log("User created successfully:", newUser.nik);
       res.status(201).json({
         success: true,
         message: "Registrasi berhasil",
@@ -70,11 +72,32 @@ export const authController = {
           role: newUser.role,
         },
       });
-    } catch (err) {
+    } catch (err: any) {
       console.error("Register error:", err);
-      res.status(500).json({
+
+      // Provide more specific error messages based on error type
+      let errorMessage = "Terjadi kesalahan server";
+      let statusCode = 500;
+
+      if (err.code === "P1001") {
+        errorMessage = "Tidak dapat terhubung ke database";
+        statusCode = 503;
+      } else if (err.code === "P2002") {
+        errorMessage = "Data sudah ada di database";
+        statusCode = 409;
+      } else if (err.message?.includes("connect")) {
+        errorMessage = "Masalah koneksi database";
+        statusCode = 503;
+      }
+
+      res.status(statusCode).json({
         success: false,
-        message: "Terjadi kesalahan server",
+        message:
+          process.env.NODE_ENV === "development" ? err.message : errorMessage,
+        ...(process.env.NODE_ENV === "development" && {
+          stack: err.stack,
+          code: err.code,
+        }),
       });
     }
   },
@@ -84,6 +107,7 @@ export const authController = {
     if (!errors.isEmpty()) {
       res.status(400).json({
         success: false,
+        message: "Data input tidak valid",
         errors: errors.array(),
       });
       return;
@@ -92,8 +116,11 @@ export const authController = {
     try {
       const { email, password } = req.body;
 
+      console.log("Login attempt for email:", email);
+
       const user = await authService.findByEmail(email);
       if (!user) {
+        console.log("User not found for email:", email);
         res.status(401).json({
           success: false,
           message: "Email atau password tidak valid",
@@ -101,8 +128,10 @@ export const authController = {
         return;
       }
 
+      console.log("Verifying password for user:", email);
       const match = await bcrypt.compare(password, user.password);
       if (!match) {
+        console.log("Password mismatch for user:", email);
         res.status(401).json({
           success: false,
           message: "Email atau password tidak valid",
@@ -112,9 +141,11 @@ export const authController = {
 
       const secret = process.env.JWT_SECRET;
       if (!secret) {
-        throw new Error("JWT_SECRET is not defined");
+        console.error("JWT_SECRET environment variable not set");
+        throw new Error("Server configuration error");
       }
 
+      console.log("Generating JWT token for user:", user.nik);
       const accessToken = jwt.sign(
         {
           nik: user.nik,
@@ -124,6 +155,7 @@ export const authController = {
         { expiresIn: "1h" }
       );
 
+      console.log("Login successful for user:", user.nik);
       res.json({
         success: true,
         message: "Login berhasil",
@@ -137,11 +169,32 @@ export const authController = {
           },
         },
       });
-    } catch (err) {
+    } catch (err: any) {
       console.error("Login error:", err);
-      res.status(500).json({
+
+      // Provide more specific error messages based on error type
+      let errorMessage = "Terjadi kesalahan server";
+      let statusCode = 500;
+
+      if (err.code === "P1001") {
+        errorMessage = "Tidak dapat terhubung ke database";
+        statusCode = 503;
+      } else if (err.message?.includes("connect")) {
+        errorMessage = "Masalah koneksi database";
+        statusCode = 503;
+      } else if (err.message?.includes("JWT")) {
+        errorMessage = "Konfigurasi server tidak valid";
+        statusCode = 500;
+      }
+
+      res.status(statusCode).json({
         success: false,
-        message: "Terjadi kesalahan server",
+        message:
+          process.env.NODE_ENV === "development" ? err.message : errorMessage,
+        ...(process.env.NODE_ENV === "development" && {
+          stack: err.stack,
+          code: err.code,
+        }),
       });
     }
   },
@@ -152,6 +205,7 @@ export const authController = {
     if (!errors.isEmpty()) {
       res.status(400).json({
         success: false,
+        message: "Data input tidak valid",
         errors: errors.array(),
       });
       return;
@@ -161,6 +215,7 @@ export const authController = {
       // authMiddleware mengisi req.user dari JWT
       const userFromToken = (req as any).user as { nik: string };
       if (!userFromToken?.nik) {
+        console.log("Invalid or missing token in update request");
         res.status(401).json({
           success: false,
           message: "Token tidak valid",
@@ -174,8 +229,11 @@ export const authController = {
         password?: string;
       };
 
+      console.log("Update attempt for user:", userFromToken.nik);
+
       let hashed: string | undefined;
       if (password) {
+        console.log("Hashing new password for user:", userFromToken.nik);
         hashed = await bcrypt.hash(password, 12);
       }
 
@@ -189,11 +247,13 @@ export const authController = {
       if (email !== undefined) updatePayload.email = email;
       if (hashed !== undefined) updatePayload.password = hashed;
 
+      console.log("Updating user profile for:", userFromToken.nik);
       const updated = await authService.updateUserByNik(
         userFromToken.nik,
         updatePayload
       );
 
+      console.log("Profile updated successfully for user:", userFromToken.nik);
       res.json({
         success: true,
         message: "Akun berhasil diperbarui",
@@ -204,11 +264,32 @@ export const authController = {
           role: updated.role,
         },
       });
-    } catch (err) {
+    } catch (err: any) {
       console.error("Update akun error:", err);
-      res.status(500).json({
+
+      // Provide more specific error messages based on error type
+      let errorMessage = "Terjadi kesalahan server";
+      let statusCode = 500;
+
+      if (err.code === "P1001") {
+        errorMessage = "Tidak dapat terhubung ke database";
+        statusCode = 503;
+      } else if (err.code === "P2025") {
+        errorMessage = "User tidak ditemukan";
+        statusCode = 404;
+      } else if (err.message?.includes("connect")) {
+        errorMessage = "Masalah koneksi database";
+        statusCode = 503;
+      }
+
+      res.status(statusCode).json({
         success: false,
-        message: "Terjadi kesalahan server",
+        message:
+          process.env.NODE_ENV === "development" ? err.message : errorMessage,
+        ...(process.env.NODE_ENV === "development" && {
+          stack: err.stack,
+          code: err.code,
+        }),
       });
     }
   },

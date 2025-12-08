@@ -111,13 +111,38 @@ app.use((_req: Request, res: Response) => {
 app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
   console.error("Global error handler:", err);
 
-  res.status(500).json({
+  // Provide more specific error messages for common issues
+  let errorMessage = "Terjadi kesalahan server";
+  let statusCode = 500;
+
+  if ((err as any).code === "P1001") {
+    errorMessage = "Tidak dapat terhubung ke database";
+    statusCode = 503;
+  } else if ((err as any).code === "P2002") {
+    errorMessage = "Data duplikat ditemukan";
+    statusCode = 409;
+  } else if ((err as any).code === "P2025") {
+    errorMessage = "Data tidak ditemukan";
+    statusCode = 404;
+  } else if (err.message?.includes("CORS")) {
+    errorMessage = "Masalah konfigurasi CORS";
+    statusCode = 500;
+  } else if (err.message?.includes("JWT")) {
+    errorMessage = "Token tidak valid";
+    statusCode = 401;
+  } else if (err.message?.includes("bcrypt")) {
+    errorMessage = "Masalah enkripsi password";
+    statusCode = 500;
+  }
+
+  res.status(statusCode).json({
     success: false,
-    message:
-      process.env.NODE_ENV === "production"
-        ? "Terjadi kesalahan server"
-        : err.message,
-    ...(process.env.NODE_ENV === "development" && { stack: err.stack }),
+    message: process.env.NODE_ENV === "production" ? errorMessage : err.message,
+    ...(process.env.NODE_ENV === "development" && {
+      stack: err.stack,
+      code: (err as any).code,
+      originalMessage: err.message,
+    }),
   });
 });
 
