@@ -121,14 +121,14 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
 });
 
 exports.Prisma.UserScalarFieldEnum = {
+  nama: 'nama',
   nik: 'nik',
-  nomor_identitas_tunggal: 'nomor_identitas_tunggal',
   email: 'email',
   password: 'password',
-  nama: 'nama',
   role: 'role',
   createdAt: 'createdAt',
-  updateAt: 'updateAt'
+  updateAt: 'updateAt',
+  nomor_identitas_tunggal: 'nomor_identitas_tunggal'
 };
 
 exports.Prisma.DataBarangScalarFieldEnum = {
@@ -155,6 +155,7 @@ exports.Prisma.BarangUnitScalarFieldEnum = {
 exports.Prisma.PeminjamanPScalarFieldEnum = {
   id: 'id',
   userNik: 'userNik',
+  barangUnitId: 'barangUnitId',
   kodeLokasi: 'kodeLokasi',
   lokasiTambahan: 'lokasiTambahan',
   no_hp: 'no_hp',
@@ -164,10 +165,9 @@ exports.Prisma.PeminjamanPScalarFieldEnum = {
   waktuSelesai: 'waktuSelesai',
   verifikasi: 'verifikasi',
   status: 'status',
+  qrCode: 'qrCode',
   waktuAmbil: 'waktuAmbil',
-  waktuKembali: 'waktuKembali',
-  barangUnitId: 'barangUnitId',
-  qrCode: 'qrCode'
+  waktuKembali: 'waktuKembali'
 };
 
 exports.Prisma.LogScanBMNScalarFieldEnum = {

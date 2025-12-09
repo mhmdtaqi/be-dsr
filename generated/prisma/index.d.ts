@@ -1581,13 +1581,13 @@ export namespace Prisma {
    */
 
   export type UserCountOutputType = {
-    peminjamanP: number
     barangUnit: number
+    peminjamanP: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    peminjamanP?: boolean | UserCountOutputTypeCountPeminjamanPArgs
     barangUnit?: boolean | UserCountOutputTypeCountBarangUnitArgs
+    peminjamanP?: boolean | UserCountOutputTypeCountPeminjamanPArgs
   }
 
   // Custom InputTypes
@@ -1604,15 +1604,15 @@ export namespace Prisma {
   /**
    * UserCountOutputType without action
    */
-  export type UserCountOutputTypeCountPeminjamanPArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: PeminjamanPWhereInput
+  export type UserCountOutputTypeCountBarangUnitArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BarangUnitWhereInput
   }
 
   /**
    * UserCountOutputType without action
    */
-  export type UserCountOutputTypeCountBarangUnitArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: BarangUnitWhereInput
+  export type UserCountOutputTypeCountPeminjamanPArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PeminjamanPWhereInput
   }
 
 
@@ -1653,14 +1653,14 @@ export namespace Prisma {
 
   export type DataLokasiCountOutputType = {
     barangUnit: number
-    peminjamanP: number
     monitoring: number
+    peminjamanP: number
   }
 
   export type DataLokasiCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     barangUnit?: boolean | DataLokasiCountOutputTypeCountBarangUnitArgs
-    peminjamanP?: boolean | DataLokasiCountOutputTypeCountPeminjamanPArgs
     monitoring?: boolean | DataLokasiCountOutputTypeCountMonitoringArgs
+    peminjamanP?: boolean | DataLokasiCountOutputTypeCountPeminjamanPArgs
   }
 
   // Custom InputTypes
@@ -1684,15 +1684,15 @@ export namespace Prisma {
   /**
    * DataLokasiCountOutputType without action
    */
-  export type DataLokasiCountOutputTypeCountPeminjamanPArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: PeminjamanPWhereInput
+  export type DataLokasiCountOutputTypeCountMonitoringArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MonitoringWhereInput
   }
 
   /**
    * DataLokasiCountOutputType without action
    */
-  export type DataLokasiCountOutputTypeCountMonitoringArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: MonitoringWhereInput
+  export type DataLokasiCountOutputTypeCountPeminjamanPArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PeminjamanPWhereInput
   }
 
 
@@ -1741,13 +1741,13 @@ export namespace Prisma {
    */
 
   export type PeminjamanPCountOutputType = {
-    items: number
     logScanBMN: number
+    items: number
   }
 
   export type PeminjamanPCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    items?: boolean | PeminjamanPCountOutputTypeCountItemsArgs
     logScanBMN?: boolean | PeminjamanPCountOutputTypeCountLogScanBMNArgs
+    items?: boolean | PeminjamanPCountOutputTypeCountItemsArgs
   }
 
   // Custom InputTypes
@@ -1764,15 +1764,15 @@ export namespace Prisma {
   /**
    * PeminjamanPCountOutputType without action
    */
-  export type PeminjamanPCountOutputTypeCountItemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: PeminjamanItemWhereInput
+  export type PeminjamanPCountOutputTypeCountLogScanBMNArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LogScanBMNWhereInput
   }
 
   /**
    * PeminjamanPCountOutputType without action
    */
-  export type PeminjamanPCountOutputTypeCountLogScanBMNArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: LogScanBMNWhereInput
+  export type PeminjamanPCountOutputTypeCountItemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PeminjamanItemWhereInput
   }
 
 
@@ -1791,71 +1791,71 @@ export namespace Prisma {
   }
 
   export type UserMinAggregateOutputType = {
+    nama: string | null
     nik: string | null
-    nomor_identitas_tunggal: string | null
     email: string | null
     password: string | null
-    nama: string | null
     role: $Enums.Role | null
     createdAt: Date | null
     updateAt: Date | null
+    nomor_identitas_tunggal: string | null
   }
 
   export type UserMaxAggregateOutputType = {
+    nama: string | null
     nik: string | null
-    nomor_identitas_tunggal: string | null
     email: string | null
     password: string | null
-    nama: string | null
     role: $Enums.Role | null
     createdAt: Date | null
     updateAt: Date | null
+    nomor_identitas_tunggal: string | null
   }
 
   export type UserCountAggregateOutputType = {
+    nama: number
     nik: number
-    nomor_identitas_tunggal: number
     email: number
     password: number
-    nama: number
     role: number
     createdAt: number
     updateAt: number
+    nomor_identitas_tunggal: number
     _all: number
   }
 
 
   export type UserMinAggregateInputType = {
+    nama?: true
     nik?: true
-    nomor_identitas_tunggal?: true
     email?: true
     password?: true
-    nama?: true
     role?: true
     createdAt?: true
     updateAt?: true
+    nomor_identitas_tunggal?: true
   }
 
   export type UserMaxAggregateInputType = {
+    nama?: true
     nik?: true
-    nomor_identitas_tunggal?: true
     email?: true
     password?: true
-    nama?: true
     role?: true
     createdAt?: true
     updateAt?: true
+    nomor_identitas_tunggal?: true
   }
 
   export type UserCountAggregateInputType = {
+    nama?: true
     nik?: true
-    nomor_identitas_tunggal?: true
     email?: true
     password?: true
-    nama?: true
     role?: true
     createdAt?: true
     updateAt?: true
+    nomor_identitas_tunggal?: true
     _all?: true
   }
 
@@ -1932,14 +1932,14 @@ export namespace Prisma {
   }
 
   export type UserGroupByOutputType = {
+    nama: string
     nik: string
-    nomor_identitas_tunggal: string
     email: string
     password: string
-    nama: string
     role: $Enums.Role
     createdAt: Date
     updateAt: Date
+    nomor_identitas_tunggal: string
     _count: UserCountAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
@@ -1960,56 +1960,56 @@ export namespace Prisma {
 
 
   export type UserSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    nama?: boolean
     nik?: boolean
-    nomor_identitas_tunggal?: boolean
     email?: boolean
     password?: boolean
-    nama?: boolean
     role?: boolean
     createdAt?: boolean
     updateAt?: boolean
-    peminjamanP?: boolean | User$peminjamanPArgs<ExtArgs>
+    nomor_identitas_tunggal?: boolean
     barangUnit?: boolean | User$barangUnitArgs<ExtArgs>
+    peminjamanP?: boolean | User$peminjamanPArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    nama?: boolean
     nik?: boolean
-    nomor_identitas_tunggal?: boolean
     email?: boolean
     password?: boolean
-    nama?: boolean
     role?: boolean
     createdAt?: boolean
     updateAt?: boolean
+    nomor_identitas_tunggal?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    nama?: boolean
     nik?: boolean
-    nomor_identitas_tunggal?: boolean
     email?: boolean
     password?: boolean
-    nama?: boolean
     role?: boolean
     createdAt?: boolean
     updateAt?: boolean
+    nomor_identitas_tunggal?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
+    nama?: boolean
     nik?: boolean
-    nomor_identitas_tunggal?: boolean
     email?: boolean
     password?: boolean
-    nama?: boolean
     role?: boolean
     createdAt?: boolean
     updateAt?: boolean
+    nomor_identitas_tunggal?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"nik" | "nomor_identitas_tunggal" | "email" | "password" | "nama" | "role" | "createdAt" | "updateAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"nama" | "nik" | "email" | "password" | "role" | "createdAt" | "updateAt" | "nomor_identitas_tunggal", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    peminjamanP?: boolean | User$peminjamanPArgs<ExtArgs>
     barangUnit?: boolean | User$barangUnitArgs<ExtArgs>
+    peminjamanP?: boolean | User$peminjamanPArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -2018,18 +2018,18 @@ export namespace Prisma {
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
     objects: {
-      peminjamanP: Prisma.$PeminjamanPPayload<ExtArgs>[]
       barangUnit: Prisma.$BarangUnitPayload<ExtArgs>[]
+      peminjamanP: Prisma.$PeminjamanPPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
+      nama: string
       nik: string
-      nomor_identitas_tunggal: string
       email: string
       password: string
-      nama: string
       role: $Enums.Role
       createdAt: Date
       updateAt: Date
+      nomor_identitas_tunggal: string
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -2113,8 +2113,8 @@ export namespace Prisma {
      * // Get first 10 Users
      * const users = await prisma.user.findMany({ take: 10 })
      * 
-     * // Only select the `nik`
-     * const userWithNikOnly = await prisma.user.findMany({ select: { nik: true } })
+     * // Only select the `nama`
+     * const userWithNamaOnly = await prisma.user.findMany({ select: { nama: true } })
      * 
      */
     findMany<T extends UserFindManyArgs>(args?: SelectSubset<T, UserFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
@@ -2158,9 +2158,9 @@ export namespace Prisma {
      *   ]
      * })
      * 
-     * // Create many Users and only return the `nik`
-     * const userWithNikOnly = await prisma.user.createManyAndReturn({
-     *   select: { nik: true },
+     * // Create many Users and only return the `nama`
+     * const userWithNamaOnly = await prisma.user.createManyAndReturn({
+     *   select: { nama: true },
      *   data: [
      *     // ... provide data here
      *   ]
@@ -2249,9 +2249,9 @@ export namespace Prisma {
      *   ]
      * })
      * 
-     * // Update zero or more Users and only return the `nik`
-     * const userWithNikOnly = await prisma.user.updateManyAndReturn({
-     *   select: { nik: true },
+     * // Update zero or more Users and only return the `nama`
+     * const userWithNamaOnly = await prisma.user.updateManyAndReturn({
+     *   select: { nama: true },
      *   where: {
      *     // ... provide filter here
      *   },
@@ -2424,8 +2424,8 @@ export namespace Prisma {
    */
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    peminjamanP<T extends User$peminjamanPArgs<ExtArgs> = {}>(args?: Subset<T, User$peminjamanPArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PeminjamanPPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     barangUnit<T extends User$barangUnitArgs<ExtArgs> = {}>(args?: Subset<T, User$barangUnitArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BarangUnitPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    peminjamanP<T extends User$peminjamanPArgs<ExtArgs> = {}>(args?: Subset<T, User$peminjamanPArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PeminjamanPPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2455,14 +2455,14 @@ export namespace Prisma {
    * Fields of the User model
    */
   interface UserFieldRefs {
+    readonly nama: FieldRef<"User", 'String'>
     readonly nik: FieldRef<"User", 'String'>
-    readonly nomor_identitas_tunggal: FieldRef<"User", 'String'>
     readonly email: FieldRef<"User", 'String'>
     readonly password: FieldRef<"User", 'String'>
-    readonly nama: FieldRef<"User", 'String'>
     readonly role: FieldRef<"User", 'Role'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updateAt: FieldRef<"User", 'DateTime'>
+    readonly nomor_identitas_tunggal: FieldRef<"User", 'String'>
   }
     
 
@@ -2851,30 +2851,6 @@ export namespace Prisma {
   }
 
   /**
-   * User.peminjamanP
-   */
-  export type User$peminjamanPArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the PeminjamanP
-     */
-    select?: PeminjamanPSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the PeminjamanP
-     */
-    omit?: PeminjamanPOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: PeminjamanPInclude<ExtArgs> | null
-    where?: PeminjamanPWhereInput
-    orderBy?: PeminjamanPOrderByWithRelationInput | PeminjamanPOrderByWithRelationInput[]
-    cursor?: PeminjamanPWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: PeminjamanPScalarFieldEnum | PeminjamanPScalarFieldEnum[]
-  }
-
-  /**
    * User.barangUnit
    */
   export type User$barangUnitArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2896,6 +2872,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: BarangUnitScalarFieldEnum | BarangUnitScalarFieldEnum[]
+  }
+
+  /**
+   * User.peminjamanP
+   */
+  export type User$peminjamanPArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PeminjamanP
+     */
+    select?: PeminjamanPSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PeminjamanP
+     */
+    omit?: PeminjamanPOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PeminjamanPInclude<ExtArgs> | null
+    where?: PeminjamanPWhereInput
+    orderBy?: PeminjamanPOrderByWithRelationInput | PeminjamanPOrderByWithRelationInput[]
+    cursor?: PeminjamanPWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PeminjamanPScalarFieldEnum | PeminjamanPScalarFieldEnum[]
   }
 
   /**
@@ -4110,8 +4110,8 @@ export namespace Prisma {
     lokasi?: boolean
     status?: boolean
     barangUnit?: boolean | DataLokasi$barangUnitArgs<ExtArgs>
-    peminjamanP?: boolean | DataLokasi$peminjamanPArgs<ExtArgs>
     monitoring?: boolean | DataLokasi$monitoringArgs<ExtArgs>
+    peminjamanP?: boolean | DataLokasi$peminjamanPArgs<ExtArgs>
     _count?: boolean | DataLokasiCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["dataLokasi"]>
 
@@ -4136,8 +4136,8 @@ export namespace Prisma {
   export type DataLokasiOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"kode_lokasi" | "lokasi" | "status", ExtArgs["result"]["dataLokasi"]>
   export type DataLokasiInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     barangUnit?: boolean | DataLokasi$barangUnitArgs<ExtArgs>
-    peminjamanP?: boolean | DataLokasi$peminjamanPArgs<ExtArgs>
     monitoring?: boolean | DataLokasi$monitoringArgs<ExtArgs>
+    peminjamanP?: boolean | DataLokasi$peminjamanPArgs<ExtArgs>
     _count?: boolean | DataLokasiCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type DataLokasiIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -4147,8 +4147,8 @@ export namespace Prisma {
     name: "DataLokasi"
     objects: {
       barangUnit: Prisma.$BarangUnitPayload<ExtArgs>[]
-      peminjamanP: Prisma.$PeminjamanPPayload<ExtArgs>[]
       monitoring: Prisma.$MonitoringPayload<ExtArgs>[]
+      peminjamanP: Prisma.$PeminjamanPPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       kode_lokasi: string
@@ -4549,8 +4549,8 @@ export namespace Prisma {
   export interface Prisma__DataLokasiClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     barangUnit<T extends DataLokasi$barangUnitArgs<ExtArgs> = {}>(args?: Subset<T, DataLokasi$barangUnitArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BarangUnitPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    peminjamanP<T extends DataLokasi$peminjamanPArgs<ExtArgs> = {}>(args?: Subset<T, DataLokasi$peminjamanPArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PeminjamanPPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     monitoring<T extends DataLokasi$monitoringArgs<ExtArgs> = {}>(args?: Subset<T, DataLokasi$monitoringArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MonitoringPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    peminjamanP<T extends DataLokasi$peminjamanPArgs<ExtArgs> = {}>(args?: Subset<T, DataLokasi$peminjamanPArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PeminjamanPPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4995,30 +4995,6 @@ export namespace Prisma {
   }
 
   /**
-   * DataLokasi.peminjamanP
-   */
-  export type DataLokasi$peminjamanPArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the PeminjamanP
-     */
-    select?: PeminjamanPSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the PeminjamanP
-     */
-    omit?: PeminjamanPOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: PeminjamanPInclude<ExtArgs> | null
-    where?: PeminjamanPWhereInput
-    orderBy?: PeminjamanPOrderByWithRelationInput | PeminjamanPOrderByWithRelationInput[]
-    cursor?: PeminjamanPWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: PeminjamanPScalarFieldEnum | PeminjamanPScalarFieldEnum[]
-  }
-
-  /**
    * DataLokasi.monitoring
    */
   export type DataLokasi$monitoringArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5040,6 +5016,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: MonitoringScalarFieldEnum | MonitoringScalarFieldEnum[]
+  }
+
+  /**
+   * DataLokasi.peminjamanP
+   */
+  export type DataLokasi$peminjamanPArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PeminjamanP
+     */
+    select?: PeminjamanPSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PeminjamanP
+     */
+    omit?: PeminjamanPOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PeminjamanPInclude<ExtArgs> | null
+    where?: PeminjamanPWhereInput
+    orderBy?: PeminjamanPOrderByWithRelationInput | PeminjamanPOrderByWithRelationInput[]
+    cursor?: PeminjamanPWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PeminjamanPScalarFieldEnum | PeminjamanPScalarFieldEnum[]
   }
 
   /**
@@ -6229,6 +6229,7 @@ export namespace Prisma {
   export type PeminjamanPMinAggregateOutputType = {
     id: number | null
     userNik: string | null
+    barangUnitId: string | null
     kodeLokasi: string | null
     lokasiTambahan: string | null
     no_hp: string | null
@@ -6238,15 +6239,15 @@ export namespace Prisma {
     waktuSelesai: Date | null
     verifikasi: $Enums.StatusBooking | null
     status: $Enums.StatusP | null
+    qrCode: string | null
     waktuAmbil: Date | null
     waktuKembali: Date | null
-    barangUnitId: string | null
-    qrCode: string | null
   }
 
   export type PeminjamanPMaxAggregateOutputType = {
     id: number | null
     userNik: string | null
+    barangUnitId: string | null
     kodeLokasi: string | null
     lokasiTambahan: string | null
     no_hp: string | null
@@ -6256,15 +6257,15 @@ export namespace Prisma {
     waktuSelesai: Date | null
     verifikasi: $Enums.StatusBooking | null
     status: $Enums.StatusP | null
+    qrCode: string | null
     waktuAmbil: Date | null
     waktuKembali: Date | null
-    barangUnitId: string | null
-    qrCode: string | null
   }
 
   export type PeminjamanPCountAggregateOutputType = {
     id: number
     userNik: number
+    barangUnitId: number
     kodeLokasi: number
     lokasiTambahan: number
     no_hp: number
@@ -6274,10 +6275,9 @@ export namespace Prisma {
     waktuSelesai: number
     verifikasi: number
     status: number
+    qrCode: number
     waktuAmbil: number
     waktuKembali: number
-    barangUnitId: number
-    qrCode: number
     _all: number
   }
 
@@ -6293,6 +6293,7 @@ export namespace Prisma {
   export type PeminjamanPMinAggregateInputType = {
     id?: true
     userNik?: true
+    barangUnitId?: true
     kodeLokasi?: true
     lokasiTambahan?: true
     no_hp?: true
@@ -6302,15 +6303,15 @@ export namespace Prisma {
     waktuSelesai?: true
     verifikasi?: true
     status?: true
+    qrCode?: true
     waktuAmbil?: true
     waktuKembali?: true
-    barangUnitId?: true
-    qrCode?: true
   }
 
   export type PeminjamanPMaxAggregateInputType = {
     id?: true
     userNik?: true
+    barangUnitId?: true
     kodeLokasi?: true
     lokasiTambahan?: true
     no_hp?: true
@@ -6320,15 +6321,15 @@ export namespace Prisma {
     waktuSelesai?: true
     verifikasi?: true
     status?: true
+    qrCode?: true
     waktuAmbil?: true
     waktuKembali?: true
-    barangUnitId?: true
-    qrCode?: true
   }
 
   export type PeminjamanPCountAggregateInputType = {
     id?: true
     userNik?: true
+    barangUnitId?: true
     kodeLokasi?: true
     lokasiTambahan?: true
     no_hp?: true
@@ -6338,10 +6339,9 @@ export namespace Prisma {
     waktuSelesai?: true
     verifikasi?: true
     status?: true
+    qrCode?: true
     waktuAmbil?: true
     waktuKembali?: true
-    barangUnitId?: true
-    qrCode?: true
     _all?: true
   }
 
@@ -6434,6 +6434,7 @@ export namespace Prisma {
   export type PeminjamanPGroupByOutputType = {
     id: number
     userNik: string
+    barangUnitId: string | null
     kodeLokasi: string | null
     lokasiTambahan: string | null
     no_hp: string
@@ -6443,10 +6444,9 @@ export namespace Prisma {
     waktuSelesai: Date
     verifikasi: $Enums.StatusBooking
     status: $Enums.StatusP
+    qrCode: string | null
     waktuAmbil: Date | null
     waktuKembali: Date | null
-    barangUnitId: string | null
-    qrCode: string | null
     _count: PeminjamanPCountAggregateOutputType | null
     _avg: PeminjamanPAvgAggregateOutputType | null
     _sum: PeminjamanPSumAggregateOutputType | null
@@ -6471,6 +6471,7 @@ export namespace Prisma {
   export type PeminjamanPSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userNik?: boolean
+    barangUnitId?: boolean
     kodeLokasi?: boolean
     lokasiTambahan?: boolean
     no_hp?: boolean
@@ -6480,20 +6481,20 @@ export namespace Prisma {
     waktuSelesai?: boolean
     verifikasi?: boolean
     status?: boolean
+    qrCode?: boolean
     waktuAmbil?: boolean
     waktuKembali?: boolean
-    barangUnitId?: boolean
-    qrCode?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
-    lokasi?: boolean | PeminjamanP$lokasiArgs<ExtArgs>
-    items?: boolean | PeminjamanP$itemsArgs<ExtArgs>
     logScanBMN?: boolean | PeminjamanP$logScanBMNArgs<ExtArgs>
+    items?: boolean | PeminjamanP$itemsArgs<ExtArgs>
+    lokasi?: boolean | PeminjamanP$lokasiArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
     _count?: boolean | PeminjamanPCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["peminjamanP"]>
 
   export type PeminjamanPSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userNik?: boolean
+    barangUnitId?: boolean
     kodeLokasi?: boolean
     lokasiTambahan?: boolean
     no_hp?: boolean
@@ -6503,17 +6504,17 @@ export namespace Prisma {
     waktuSelesai?: boolean
     verifikasi?: boolean
     status?: boolean
+    qrCode?: boolean
     waktuAmbil?: boolean
     waktuKembali?: boolean
-    barangUnitId?: boolean
-    qrCode?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
     lokasi?: boolean | PeminjamanP$lokasiArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["peminjamanP"]>
 
   export type PeminjamanPSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userNik?: boolean
+    barangUnitId?: boolean
     kodeLokasi?: boolean
     lokasiTambahan?: boolean
     no_hp?: boolean
@@ -6523,17 +6524,17 @@ export namespace Prisma {
     waktuSelesai?: boolean
     verifikasi?: boolean
     status?: boolean
+    qrCode?: boolean
     waktuAmbil?: boolean
     waktuKembali?: boolean
-    barangUnitId?: boolean
-    qrCode?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
     lokasi?: boolean | PeminjamanP$lokasiArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["peminjamanP"]>
 
   export type PeminjamanPSelectScalar = {
     id?: boolean
     userNik?: boolean
+    barangUnitId?: boolean
     kodeLokasi?: boolean
     lokasiTambahan?: boolean
     no_hp?: boolean
@@ -6543,40 +6544,40 @@ export namespace Prisma {
     waktuSelesai?: boolean
     verifikasi?: boolean
     status?: boolean
+    qrCode?: boolean
     waktuAmbil?: boolean
     waktuKembali?: boolean
-    barangUnitId?: boolean
-    qrCode?: boolean
   }
 
-  export type PeminjamanPOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userNik" | "kodeLokasi" | "lokasiTambahan" | "no_hp" | "createdAt" | "Agenda" | "waktuMulai" | "waktuSelesai" | "verifikasi" | "status" | "waktuAmbil" | "waktuKembali" | "barangUnitId" | "qrCode", ExtArgs["result"]["peminjamanP"]>
+  export type PeminjamanPOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userNik" | "barangUnitId" | "kodeLokasi" | "lokasiTambahan" | "no_hp" | "createdAt" | "Agenda" | "waktuMulai" | "waktuSelesai" | "verifikasi" | "status" | "qrCode" | "waktuAmbil" | "waktuKembali", ExtArgs["result"]["peminjamanP"]>
   export type PeminjamanPInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
-    lokasi?: boolean | PeminjamanP$lokasiArgs<ExtArgs>
-    items?: boolean | PeminjamanP$itemsArgs<ExtArgs>
     logScanBMN?: boolean | PeminjamanP$logScanBMNArgs<ExtArgs>
+    items?: boolean | PeminjamanP$itemsArgs<ExtArgs>
+    lokasi?: boolean | PeminjamanP$lokasiArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
     _count?: boolean | PeminjamanPCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type PeminjamanPIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
     lokasi?: boolean | PeminjamanP$lokasiArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
   export type PeminjamanPIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
     lokasi?: boolean | PeminjamanP$lokasiArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
 
   export type $PeminjamanPPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "PeminjamanP"
     objects: {
-      user: Prisma.$UserPayload<ExtArgs>
-      lokasi: Prisma.$DataLokasiPayload<ExtArgs> | null
-      items: Prisma.$PeminjamanItemPayload<ExtArgs>[]
       logScanBMN: Prisma.$LogScanBMNPayload<ExtArgs>[]
+      items: Prisma.$PeminjamanItemPayload<ExtArgs>[]
+      lokasi: Prisma.$DataLokasiPayload<ExtArgs> | null
+      user: Prisma.$UserPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       userNik: string
+      barangUnitId: string | null
       kodeLokasi: string | null
       lokasiTambahan: string | null
       no_hp: string
@@ -6586,10 +6587,9 @@ export namespace Prisma {
       waktuSelesai: Date
       verifikasi: $Enums.StatusBooking
       status: $Enums.StatusP
+      qrCode: string | null
       waktuAmbil: Date | null
       waktuKembali: Date | null
-      barangUnitId: string | null
-      qrCode: string | null
     }, ExtArgs["result"]["peminjamanP"]>
     composites: {}
   }
@@ -6984,10 +6984,10 @@ export namespace Prisma {
    */
   export interface Prisma__PeminjamanPClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    lokasi<T extends PeminjamanP$lokasiArgs<ExtArgs> = {}>(args?: Subset<T, PeminjamanP$lokasiArgs<ExtArgs>>): Prisma__DataLokasiClient<$Result.GetResult<Prisma.$DataLokasiPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    items<T extends PeminjamanP$itemsArgs<ExtArgs> = {}>(args?: Subset<T, PeminjamanP$itemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PeminjamanItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     logScanBMN<T extends PeminjamanP$logScanBMNArgs<ExtArgs> = {}>(args?: Subset<T, PeminjamanP$logScanBMNArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LogScanBMNPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    items<T extends PeminjamanP$itemsArgs<ExtArgs> = {}>(args?: Subset<T, PeminjamanP$itemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PeminjamanItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    lokasi<T extends PeminjamanP$lokasiArgs<ExtArgs> = {}>(args?: Subset<T, PeminjamanP$lokasiArgs<ExtArgs>>): Prisma__DataLokasiClient<$Result.GetResult<Prisma.$DataLokasiPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -7019,6 +7019,7 @@ export namespace Prisma {
   interface PeminjamanPFieldRefs {
     readonly id: FieldRef<"PeminjamanP", 'Int'>
     readonly userNik: FieldRef<"PeminjamanP", 'String'>
+    readonly barangUnitId: FieldRef<"PeminjamanP", 'String'>
     readonly kodeLokasi: FieldRef<"PeminjamanP", 'String'>
     readonly lokasiTambahan: FieldRef<"PeminjamanP", 'String'>
     readonly no_hp: FieldRef<"PeminjamanP", 'String'>
@@ -7028,10 +7029,9 @@ export namespace Prisma {
     readonly waktuSelesai: FieldRef<"PeminjamanP", 'DateTime'>
     readonly verifikasi: FieldRef<"PeminjamanP", 'StatusBooking'>
     readonly status: FieldRef<"PeminjamanP", 'StatusP'>
+    readonly qrCode: FieldRef<"PeminjamanP", 'String'>
     readonly waktuAmbil: FieldRef<"PeminjamanP", 'DateTime'>
     readonly waktuKembali: FieldRef<"PeminjamanP", 'DateTime'>
-    readonly barangUnitId: FieldRef<"PeminjamanP", 'String'>
-    readonly qrCode: FieldRef<"PeminjamanP", 'String'>
   }
     
 
@@ -7428,22 +7428,27 @@ export namespace Prisma {
   }
 
   /**
-   * PeminjamanP.lokasi
+   * PeminjamanP.logScanBMN
    */
-  export type PeminjamanP$lokasiArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PeminjamanP$logScanBMNArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the DataLokasi
+     * Select specific fields to fetch from the LogScanBMN
      */
-    select?: DataLokasiSelect<ExtArgs> | null
+    select?: LogScanBMNSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the DataLokasi
+     * Omit specific fields from the LogScanBMN
      */
-    omit?: DataLokasiOmit<ExtArgs> | null
+    omit?: LogScanBMNOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: DataLokasiInclude<ExtArgs> | null
-    where?: DataLokasiWhereInput
+    include?: LogScanBMNInclude<ExtArgs> | null
+    where?: LogScanBMNWhereInput
+    orderBy?: LogScanBMNOrderByWithRelationInput | LogScanBMNOrderByWithRelationInput[]
+    cursor?: LogScanBMNWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: LogScanBMNScalarFieldEnum | LogScanBMNScalarFieldEnum[]
   }
 
   /**
@@ -7471,27 +7476,22 @@ export namespace Prisma {
   }
 
   /**
-   * PeminjamanP.logScanBMN
+   * PeminjamanP.lokasi
    */
-  export type PeminjamanP$logScanBMNArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PeminjamanP$lokasiArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the LogScanBMN
+     * Select specific fields to fetch from the DataLokasi
      */
-    select?: LogScanBMNSelect<ExtArgs> | null
+    select?: DataLokasiSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the LogScanBMN
+     * Omit specific fields from the DataLokasi
      */
-    omit?: LogScanBMNOmit<ExtArgs> | null
+    omit?: DataLokasiOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: LogScanBMNInclude<ExtArgs> | null
-    where?: LogScanBMNWhereInput
-    orderBy?: LogScanBMNOrderByWithRelationInput | LogScanBMNOrderByWithRelationInput[]
-    cursor?: LogScanBMNWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: LogScanBMNScalarFieldEnum | LogScanBMNScalarFieldEnum[]
+    include?: DataLokasiInclude<ExtArgs> | null
+    where?: DataLokasiWhereInput
   }
 
   /**
@@ -8808,24 +8808,24 @@ export namespace Prisma {
     id?: boolean
     peminjamanId?: boolean
     nupBarang?: boolean
-    peminjaman?: boolean | PeminjamanPDefaultArgs<ExtArgs>
     barangUnit?: boolean | BarangUnitDefaultArgs<ExtArgs>
+    peminjaman?: boolean | PeminjamanPDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["peminjamanItem"]>
 
   export type PeminjamanItemSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     peminjamanId?: boolean
     nupBarang?: boolean
-    peminjaman?: boolean | PeminjamanPDefaultArgs<ExtArgs>
     barangUnit?: boolean | BarangUnitDefaultArgs<ExtArgs>
+    peminjaman?: boolean | PeminjamanPDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["peminjamanItem"]>
 
   export type PeminjamanItemSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     peminjamanId?: boolean
     nupBarang?: boolean
-    peminjaman?: boolean | PeminjamanPDefaultArgs<ExtArgs>
     barangUnit?: boolean | BarangUnitDefaultArgs<ExtArgs>
+    peminjaman?: boolean | PeminjamanPDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["peminjamanItem"]>
 
   export type PeminjamanItemSelectScalar = {
@@ -8836,23 +8836,23 @@ export namespace Prisma {
 
   export type PeminjamanItemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "peminjamanId" | "nupBarang", ExtArgs["result"]["peminjamanItem"]>
   export type PeminjamanItemInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    peminjaman?: boolean | PeminjamanPDefaultArgs<ExtArgs>
     barangUnit?: boolean | BarangUnitDefaultArgs<ExtArgs>
+    peminjaman?: boolean | PeminjamanPDefaultArgs<ExtArgs>
   }
   export type PeminjamanItemIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    peminjaman?: boolean | PeminjamanPDefaultArgs<ExtArgs>
     barangUnit?: boolean | BarangUnitDefaultArgs<ExtArgs>
+    peminjaman?: boolean | PeminjamanPDefaultArgs<ExtArgs>
   }
   export type PeminjamanItemIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    peminjaman?: boolean | PeminjamanPDefaultArgs<ExtArgs>
     barangUnit?: boolean | BarangUnitDefaultArgs<ExtArgs>
+    peminjaman?: boolean | PeminjamanPDefaultArgs<ExtArgs>
   }
 
   export type $PeminjamanItemPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "PeminjamanItem"
     objects: {
-      peminjaman: Prisma.$PeminjamanPPayload<ExtArgs>
       barangUnit: Prisma.$BarangUnitPayload<ExtArgs>
+      peminjaman: Prisma.$PeminjamanPPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -9252,8 +9252,8 @@ export namespace Prisma {
    */
   export interface Prisma__PeminjamanItemClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    peminjaman<T extends PeminjamanPDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PeminjamanPDefaultArgs<ExtArgs>>): Prisma__PeminjamanPClient<$Result.GetResult<Prisma.$PeminjamanPPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     barangUnit<T extends BarangUnitDefaultArgs<ExtArgs> = {}>(args?: Subset<T, BarangUnitDefaultArgs<ExtArgs>>): Prisma__BarangUnitClient<$Result.GetResult<Prisma.$BarangUnitPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    peminjaman<T extends PeminjamanPDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PeminjamanPDefaultArgs<ExtArgs>>): Prisma__PeminjamanPClient<$Result.GetResult<Prisma.$PeminjamanPPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -9896,8 +9896,8 @@ export namespace Prisma {
     lokasiTambahan?: boolean
     foto?: boolean
     keterangan?: boolean
-    barangUnit?: boolean | BarangUnitDefaultArgs<ExtArgs>
     dataLokasi?: boolean | Monitoring$dataLokasiArgs<ExtArgs>
+    barangUnit?: boolean | BarangUnitDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["monitoring"]>
 
   export type MonitoringSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -9910,8 +9910,8 @@ export namespace Prisma {
     lokasiTambahan?: boolean
     foto?: boolean
     keterangan?: boolean
-    barangUnit?: boolean | BarangUnitDefaultArgs<ExtArgs>
     dataLokasi?: boolean | Monitoring$dataLokasiArgs<ExtArgs>
+    barangUnit?: boolean | BarangUnitDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["monitoring"]>
 
   export type MonitoringSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -9924,8 +9924,8 @@ export namespace Prisma {
     lokasiTambahan?: boolean
     foto?: boolean
     keterangan?: boolean
-    barangUnit?: boolean | BarangUnitDefaultArgs<ExtArgs>
     dataLokasi?: boolean | Monitoring$dataLokasiArgs<ExtArgs>
+    barangUnit?: boolean | BarangUnitDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["monitoring"]>
 
   export type MonitoringSelectScalar = {
@@ -9942,23 +9942,23 @@ export namespace Prisma {
 
   export type MonitoringOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nupBarang" | "waktu" | "plt" | "kondisiBarang" | "lokasiBarang" | "lokasiTambahan" | "foto" | "keterangan", ExtArgs["result"]["monitoring"]>
   export type MonitoringInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    barangUnit?: boolean | BarangUnitDefaultArgs<ExtArgs>
     dataLokasi?: boolean | Monitoring$dataLokasiArgs<ExtArgs>
+    barangUnit?: boolean | BarangUnitDefaultArgs<ExtArgs>
   }
   export type MonitoringIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    barangUnit?: boolean | BarangUnitDefaultArgs<ExtArgs>
     dataLokasi?: boolean | Monitoring$dataLokasiArgs<ExtArgs>
+    barangUnit?: boolean | BarangUnitDefaultArgs<ExtArgs>
   }
   export type MonitoringIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    barangUnit?: boolean | BarangUnitDefaultArgs<ExtArgs>
     dataLokasi?: boolean | Monitoring$dataLokasiArgs<ExtArgs>
+    barangUnit?: boolean | BarangUnitDefaultArgs<ExtArgs>
   }
 
   export type $MonitoringPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Monitoring"
     objects: {
-      barangUnit: Prisma.$BarangUnitPayload<ExtArgs>
       dataLokasi: Prisma.$DataLokasiPayload<ExtArgs> | null
+      barangUnit: Prisma.$BarangUnitPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -10364,8 +10364,8 @@ export namespace Prisma {
    */
   export interface Prisma__MonitoringClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    barangUnit<T extends BarangUnitDefaultArgs<ExtArgs> = {}>(args?: Subset<T, BarangUnitDefaultArgs<ExtArgs>>): Prisma__BarangUnitClient<$Result.GetResult<Prisma.$BarangUnitPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     dataLokasi<T extends Monitoring$dataLokasiArgs<ExtArgs> = {}>(args?: Subset<T, Monitoring$dataLokasiArgs<ExtArgs>>): Prisma__DataLokasiClient<$Result.GetResult<Prisma.$DataLokasiPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    barangUnit<T extends BarangUnitDefaultArgs<ExtArgs> = {}>(args?: Subset<T, BarangUnitDefaultArgs<ExtArgs>>): Prisma__BarangUnitClient<$Result.GetResult<Prisma.$BarangUnitPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -10852,14 +10852,14 @@ export namespace Prisma {
 
 
   export const UserScalarFieldEnum: {
+    nama: 'nama',
     nik: 'nik',
-    nomor_identitas_tunggal: 'nomor_identitas_tunggal',
     email: 'email',
     password: 'password',
-    nama: 'nama',
     role: 'role',
     createdAt: 'createdAt',
-    updateAt: 'updateAt'
+    updateAt: 'updateAt',
+    nomor_identitas_tunggal: 'nomor_identitas_tunggal'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -10898,6 +10898,7 @@ export namespace Prisma {
   export const PeminjamanPScalarFieldEnum: {
     id: 'id',
     userNik: 'userNik',
+    barangUnitId: 'barangUnitId',
     kodeLokasi: 'kodeLokasi',
     lokasiTambahan: 'lokasiTambahan',
     no_hp: 'no_hp',
@@ -10907,10 +10908,9 @@ export namespace Prisma {
     waktuSelesai: 'waktuSelesai',
     verifikasi: 'verifikasi',
     status: 'status',
+    qrCode: 'qrCode',
     waktuAmbil: 'waktuAmbil',
-    waktuKembali: 'waktuKembali',
-    barangUnitId: 'barangUnitId',
-    qrCode: 'qrCode'
+    waktuKembali: 'waktuKembali'
   };
 
   export type PeminjamanPScalarFieldEnum = (typeof PeminjamanPScalarFieldEnum)[keyof typeof PeminjamanPScalarFieldEnum]
@@ -11128,56 +11128,56 @@ export namespace Prisma {
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
+    nama?: StringFilter<"User"> | string
     nik?: StringFilter<"User"> | string
-    nomor_identitas_tunggal?: StringFilter<"User"> | string
     email?: StringFilter<"User"> | string
     password?: StringFilter<"User"> | string
-    nama?: StringFilter<"User"> | string
     role?: EnumRoleFilter<"User"> | $Enums.Role
     createdAt?: DateTimeFilter<"User"> | Date | string
     updateAt?: DateTimeFilter<"User"> | Date | string
-    peminjamanP?: PeminjamanPListRelationFilter
+    nomor_identitas_tunggal?: StringFilter<"User"> | string
     barangUnit?: BarangUnitListRelationFilter
+    peminjamanP?: PeminjamanPListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
+    nama?: SortOrder
     nik?: SortOrder
-    nomor_identitas_tunggal?: SortOrder
     email?: SortOrder
     password?: SortOrder
-    nama?: SortOrder
     role?: SortOrder
     createdAt?: SortOrder
     updateAt?: SortOrder
-    peminjamanP?: PeminjamanPOrderByRelationAggregateInput
+    nomor_identitas_tunggal?: SortOrder
     barangUnit?: BarangUnitOrderByRelationAggregateInput
+    peminjamanP?: PeminjamanPOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
     nik?: string
-    nomor_identitas_tunggal?: string
     email?: string
+    nomor_identitas_tunggal?: string
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
-    password?: StringFilter<"User"> | string
     nama?: StringFilter<"User"> | string
+    password?: StringFilter<"User"> | string
     role?: EnumRoleFilter<"User"> | $Enums.Role
     createdAt?: DateTimeFilter<"User"> | Date | string
     updateAt?: DateTimeFilter<"User"> | Date | string
-    peminjamanP?: PeminjamanPListRelationFilter
     barangUnit?: BarangUnitListRelationFilter
-  }, "nik" | "nomor_identitas_tunggal" | "email">
+    peminjamanP?: PeminjamanPListRelationFilter
+  }, "nik" | "email" | "nomor_identitas_tunggal">
 
   export type UserOrderByWithAggregationInput = {
+    nama?: SortOrder
     nik?: SortOrder
-    nomor_identitas_tunggal?: SortOrder
     email?: SortOrder
     password?: SortOrder
-    nama?: SortOrder
     role?: SortOrder
     createdAt?: SortOrder
     updateAt?: SortOrder
+    nomor_identitas_tunggal?: SortOrder
     _count?: UserCountOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
@@ -11187,14 +11187,14 @@ export namespace Prisma {
     AND?: UserScalarWhereWithAggregatesInput | UserScalarWhereWithAggregatesInput[]
     OR?: UserScalarWhereWithAggregatesInput[]
     NOT?: UserScalarWhereWithAggregatesInput | UserScalarWhereWithAggregatesInput[]
+    nama?: StringWithAggregatesFilter<"User"> | string
     nik?: StringWithAggregatesFilter<"User"> | string
-    nomor_identitas_tunggal?: StringWithAggregatesFilter<"User"> | string
     email?: StringWithAggregatesFilter<"User"> | string
     password?: StringWithAggregatesFilter<"User"> | string
-    nama?: StringWithAggregatesFilter<"User"> | string
     role?: EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updateAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
+    nomor_identitas_tunggal?: StringWithAggregatesFilter<"User"> | string
   }
 
   export type DataBarangWhereInput = {
@@ -11250,8 +11250,8 @@ export namespace Prisma {
     lokasi?: StringFilter<"DataLokasi"> | string
     status?: EnumStatusLokasiFilter<"DataLokasi"> | $Enums.StatusLokasi
     barangUnit?: BarangUnitListRelationFilter
-    peminjamanP?: PeminjamanPListRelationFilter
     monitoring?: MonitoringListRelationFilter
+    peminjamanP?: PeminjamanPListRelationFilter
   }
 
   export type DataLokasiOrderByWithRelationInput = {
@@ -11259,8 +11259,8 @@ export namespace Prisma {
     lokasi?: SortOrder
     status?: SortOrder
     barangUnit?: BarangUnitOrderByRelationAggregateInput
-    peminjamanP?: PeminjamanPOrderByRelationAggregateInput
     monitoring?: MonitoringOrderByRelationAggregateInput
+    peminjamanP?: PeminjamanPOrderByRelationAggregateInput
   }
 
   export type DataLokasiWhereUniqueInput = Prisma.AtLeast<{
@@ -11271,8 +11271,8 @@ export namespace Prisma {
     lokasi?: StringFilter<"DataLokasi"> | string
     status?: EnumStatusLokasiFilter<"DataLokasi"> | $Enums.StatusLokasi
     barangUnit?: BarangUnitListRelationFilter
-    peminjamanP?: PeminjamanPListRelationFilter
     monitoring?: MonitoringListRelationFilter
+    peminjamanP?: PeminjamanPListRelationFilter
   }, "kode_lokasi">
 
   export type DataLokasiOrderByWithAggregationInput = {
@@ -11371,6 +11371,7 @@ export namespace Prisma {
     NOT?: PeminjamanPWhereInput | PeminjamanPWhereInput[]
     id?: IntFilter<"PeminjamanP"> | number
     userNik?: StringFilter<"PeminjamanP"> | string
+    barangUnitId?: StringNullableFilter<"PeminjamanP"> | string | null
     kodeLokasi?: StringNullableFilter<"PeminjamanP"> | string | null
     lokasiTambahan?: StringNullableFilter<"PeminjamanP"> | string | null
     no_hp?: StringFilter<"PeminjamanP"> | string
@@ -11380,19 +11381,19 @@ export namespace Prisma {
     waktuSelesai?: DateTimeFilter<"PeminjamanP"> | Date | string
     verifikasi?: EnumStatusBookingFilter<"PeminjamanP"> | $Enums.StatusBooking
     status?: EnumStatusPFilter<"PeminjamanP"> | $Enums.StatusP
+    qrCode?: StringNullableFilter<"PeminjamanP"> | string | null
     waktuAmbil?: DateTimeNullableFilter<"PeminjamanP"> | Date | string | null
     waktuKembali?: DateTimeNullableFilter<"PeminjamanP"> | Date | string | null
-    barangUnitId?: StringNullableFilter<"PeminjamanP"> | string | null
-    qrCode?: StringNullableFilter<"PeminjamanP"> | string | null
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
-    lokasi?: XOR<DataLokasiNullableScalarRelationFilter, DataLokasiWhereInput> | null
-    items?: PeminjamanItemListRelationFilter
     logScanBMN?: LogScanBMNListRelationFilter
+    items?: PeminjamanItemListRelationFilter
+    lokasi?: XOR<DataLokasiNullableScalarRelationFilter, DataLokasiWhereInput> | null
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
   export type PeminjamanPOrderByWithRelationInput = {
     id?: SortOrder
     userNik?: SortOrder
+    barangUnitId?: SortOrderInput | SortOrder
     kodeLokasi?: SortOrderInput | SortOrder
     lokasiTambahan?: SortOrderInput | SortOrder
     no_hp?: SortOrder
@@ -11402,14 +11403,13 @@ export namespace Prisma {
     waktuSelesai?: SortOrder
     verifikasi?: SortOrder
     status?: SortOrder
+    qrCode?: SortOrderInput | SortOrder
     waktuAmbil?: SortOrderInput | SortOrder
     waktuKembali?: SortOrderInput | SortOrder
-    barangUnitId?: SortOrderInput | SortOrder
-    qrCode?: SortOrderInput | SortOrder
-    user?: UserOrderByWithRelationInput
-    lokasi?: DataLokasiOrderByWithRelationInput
-    items?: PeminjamanItemOrderByRelationAggregateInput
     logScanBMN?: LogScanBMNOrderByRelationAggregateInput
+    items?: PeminjamanItemOrderByRelationAggregateInput
+    lokasi?: DataLokasiOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
   }
 
   export type PeminjamanPWhereUniqueInput = Prisma.AtLeast<{
@@ -11418,6 +11418,7 @@ export namespace Prisma {
     OR?: PeminjamanPWhereInput[]
     NOT?: PeminjamanPWhereInput | PeminjamanPWhereInput[]
     userNik?: StringFilter<"PeminjamanP"> | string
+    barangUnitId?: StringNullableFilter<"PeminjamanP"> | string | null
     kodeLokasi?: StringNullableFilter<"PeminjamanP"> | string | null
     lokasiTambahan?: StringNullableFilter<"PeminjamanP"> | string | null
     no_hp?: StringFilter<"PeminjamanP"> | string
@@ -11427,19 +11428,19 @@ export namespace Prisma {
     waktuSelesai?: DateTimeFilter<"PeminjamanP"> | Date | string
     verifikasi?: EnumStatusBookingFilter<"PeminjamanP"> | $Enums.StatusBooking
     status?: EnumStatusPFilter<"PeminjamanP"> | $Enums.StatusP
+    qrCode?: StringNullableFilter<"PeminjamanP"> | string | null
     waktuAmbil?: DateTimeNullableFilter<"PeminjamanP"> | Date | string | null
     waktuKembali?: DateTimeNullableFilter<"PeminjamanP"> | Date | string | null
-    barangUnitId?: StringNullableFilter<"PeminjamanP"> | string | null
-    qrCode?: StringNullableFilter<"PeminjamanP"> | string | null
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
-    lokasi?: XOR<DataLokasiNullableScalarRelationFilter, DataLokasiWhereInput> | null
-    items?: PeminjamanItemListRelationFilter
     logScanBMN?: LogScanBMNListRelationFilter
+    items?: PeminjamanItemListRelationFilter
+    lokasi?: XOR<DataLokasiNullableScalarRelationFilter, DataLokasiWhereInput> | null
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id">
 
   export type PeminjamanPOrderByWithAggregationInput = {
     id?: SortOrder
     userNik?: SortOrder
+    barangUnitId?: SortOrderInput | SortOrder
     kodeLokasi?: SortOrderInput | SortOrder
     lokasiTambahan?: SortOrderInput | SortOrder
     no_hp?: SortOrder
@@ -11449,10 +11450,9 @@ export namespace Prisma {
     waktuSelesai?: SortOrder
     verifikasi?: SortOrder
     status?: SortOrder
+    qrCode?: SortOrderInput | SortOrder
     waktuAmbil?: SortOrderInput | SortOrder
     waktuKembali?: SortOrderInput | SortOrder
-    barangUnitId?: SortOrderInput | SortOrder
-    qrCode?: SortOrderInput | SortOrder
     _count?: PeminjamanPCountOrderByAggregateInput
     _avg?: PeminjamanPAvgOrderByAggregateInput
     _max?: PeminjamanPMaxOrderByAggregateInput
@@ -11466,6 +11466,7 @@ export namespace Prisma {
     NOT?: PeminjamanPScalarWhereWithAggregatesInput | PeminjamanPScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"PeminjamanP"> | number
     userNik?: StringWithAggregatesFilter<"PeminjamanP"> | string
+    barangUnitId?: StringNullableWithAggregatesFilter<"PeminjamanP"> | string | null
     kodeLokasi?: StringNullableWithAggregatesFilter<"PeminjamanP"> | string | null
     lokasiTambahan?: StringNullableWithAggregatesFilter<"PeminjamanP"> | string | null
     no_hp?: StringWithAggregatesFilter<"PeminjamanP"> | string
@@ -11475,10 +11476,9 @@ export namespace Prisma {
     waktuSelesai?: DateTimeWithAggregatesFilter<"PeminjamanP"> | Date | string
     verifikasi?: EnumStatusBookingWithAggregatesFilter<"PeminjamanP"> | $Enums.StatusBooking
     status?: EnumStatusPWithAggregatesFilter<"PeminjamanP"> | $Enums.StatusP
+    qrCode?: StringNullableWithAggregatesFilter<"PeminjamanP"> | string | null
     waktuAmbil?: DateTimeNullableWithAggregatesFilter<"PeminjamanP"> | Date | string | null
     waktuKembali?: DateTimeNullableWithAggregatesFilter<"PeminjamanP"> | Date | string | null
-    barangUnitId?: StringNullableWithAggregatesFilter<"PeminjamanP"> | string | null
-    qrCode?: StringNullableWithAggregatesFilter<"PeminjamanP"> | string | null
   }
 
   export type LogScanBMNWhereInput = {
@@ -11550,16 +11550,16 @@ export namespace Prisma {
     id?: IntFilter<"PeminjamanItem"> | number
     peminjamanId?: IntFilter<"PeminjamanItem"> | number
     nupBarang?: StringFilter<"PeminjamanItem"> | string
-    peminjaman?: XOR<PeminjamanPScalarRelationFilter, PeminjamanPWhereInput>
     barangUnit?: XOR<BarangUnitScalarRelationFilter, BarangUnitWhereInput>
+    peminjaman?: XOR<PeminjamanPScalarRelationFilter, PeminjamanPWhereInput>
   }
 
   export type PeminjamanItemOrderByWithRelationInput = {
     id?: SortOrder
     peminjamanId?: SortOrder
     nupBarang?: SortOrder
-    peminjaman?: PeminjamanPOrderByWithRelationInput
     barangUnit?: BarangUnitOrderByWithRelationInput
+    peminjaman?: PeminjamanPOrderByWithRelationInput
   }
 
   export type PeminjamanItemWhereUniqueInput = Prisma.AtLeast<{
@@ -11569,8 +11569,8 @@ export namespace Prisma {
     NOT?: PeminjamanItemWhereInput | PeminjamanItemWhereInput[]
     peminjamanId?: IntFilter<"PeminjamanItem"> | number
     nupBarang?: StringFilter<"PeminjamanItem"> | string
-    peminjaman?: XOR<PeminjamanPScalarRelationFilter, PeminjamanPWhereInput>
     barangUnit?: XOR<BarangUnitScalarRelationFilter, BarangUnitWhereInput>
+    peminjaman?: XOR<PeminjamanPScalarRelationFilter, PeminjamanPWhereInput>
   }, "id">
 
   export type PeminjamanItemOrderByWithAggregationInput = {
@@ -11606,8 +11606,8 @@ export namespace Prisma {
     lokasiTambahan?: StringNullableFilter<"Monitoring"> | string | null
     foto?: StringFilter<"Monitoring"> | string
     keterangan?: StringNullableFilter<"Monitoring"> | string | null
-    barangUnit?: XOR<BarangUnitScalarRelationFilter, BarangUnitWhereInput>
     dataLokasi?: XOR<DataLokasiNullableScalarRelationFilter, DataLokasiWhereInput> | null
+    barangUnit?: XOR<BarangUnitScalarRelationFilter, BarangUnitWhereInput>
   }
 
   export type MonitoringOrderByWithRelationInput = {
@@ -11620,8 +11620,8 @@ export namespace Prisma {
     lokasiTambahan?: SortOrderInput | SortOrder
     foto?: SortOrder
     keterangan?: SortOrderInput | SortOrder
-    barangUnit?: BarangUnitOrderByWithRelationInput
     dataLokasi?: DataLokasiOrderByWithRelationInput
+    barangUnit?: BarangUnitOrderByWithRelationInput
   }
 
   export type MonitoringWhereUniqueInput = Prisma.AtLeast<{
@@ -11637,8 +11637,8 @@ export namespace Prisma {
     lokasiTambahan?: StringNullableFilter<"Monitoring"> | string | null
     foto?: StringFilter<"Monitoring"> | string
     keterangan?: StringNullableFilter<"Monitoring"> | string | null
-    barangUnit?: XOR<BarangUnitScalarRelationFilter, BarangUnitWhereInput>
     dataLokasi?: XOR<DataLokasiNullableScalarRelationFilter, DataLokasiWhereInput> | null
+    barangUnit?: XOR<BarangUnitScalarRelationFilter, BarangUnitWhereInput>
   }, "id">
 
   export type MonitoringOrderByWithAggregationInput = {
@@ -11672,88 +11672,88 @@ export namespace Prisma {
   }
 
   export type UserCreateInput = {
+    nama: string
     nik: string
-    nomor_identitas_tunggal: string
     email: string
     password: string
-    nama: string
     role?: $Enums.Role
     createdAt?: Date | string
     updateAt?: Date | string
-    peminjamanP?: PeminjamanPCreateNestedManyWithoutUserInput
+    nomor_identitas_tunggal: string
     barangUnit?: BarangUnitCreateNestedManyWithoutUserInput
+    peminjamanP?: PeminjamanPCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
+    nama: string
     nik: string
-    nomor_identitas_tunggal: string
     email: string
     password: string
-    nama: string
     role?: $Enums.Role
     createdAt?: Date | string
     updateAt?: Date | string
-    peminjamanP?: PeminjamanPUncheckedCreateNestedManyWithoutUserInput
+    nomor_identitas_tunggal: string
     barangUnit?: BarangUnitUncheckedCreateNestedManyWithoutUserInput
+    peminjamanP?: PeminjamanPUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
+    nama?: StringFieldUpdateOperationsInput | string
     nik?: StringFieldUpdateOperationsInput | string
-    nomor_identitas_tunggal?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    nama?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    peminjamanP?: PeminjamanPUpdateManyWithoutUserNestedInput
+    nomor_identitas_tunggal?: StringFieldUpdateOperationsInput | string
     barangUnit?: BarangUnitUpdateManyWithoutUserNestedInput
+    peminjamanP?: PeminjamanPUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
+    nama?: StringFieldUpdateOperationsInput | string
     nik?: StringFieldUpdateOperationsInput | string
-    nomor_identitas_tunggal?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    nama?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    peminjamanP?: PeminjamanPUncheckedUpdateManyWithoutUserNestedInput
+    nomor_identitas_tunggal?: StringFieldUpdateOperationsInput | string
     barangUnit?: BarangUnitUncheckedUpdateManyWithoutUserNestedInput
+    peminjamanP?: PeminjamanPUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
+    nama: string
     nik: string
-    nomor_identitas_tunggal: string
     email: string
     password: string
-    nama: string
     role?: $Enums.Role
     createdAt?: Date | string
     updateAt?: Date | string
+    nomor_identitas_tunggal: string
   }
 
   export type UserUpdateManyMutationInput = {
+    nama?: StringFieldUpdateOperationsInput | string
     nik?: StringFieldUpdateOperationsInput | string
-    nomor_identitas_tunggal?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    nama?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    nomor_identitas_tunggal?: StringFieldUpdateOperationsInput | string
   }
 
   export type UserUncheckedUpdateManyInput = {
+    nama?: StringFieldUpdateOperationsInput | string
     nik?: StringFieldUpdateOperationsInput | string
-    nomor_identitas_tunggal?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    nama?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    nomor_identitas_tunggal?: StringFieldUpdateOperationsInput | string
   }
 
   export type DataBarangCreateInput = {
@@ -11807,8 +11807,8 @@ export namespace Prisma {
     lokasi: string
     status?: $Enums.StatusLokasi
     barangUnit?: BarangUnitCreateNestedManyWithoutDataLokasiInput
-    peminjamanP?: PeminjamanPCreateNestedManyWithoutLokasiInput
     monitoring?: MonitoringCreateNestedManyWithoutDataLokasiInput
+    peminjamanP?: PeminjamanPCreateNestedManyWithoutLokasiInput
   }
 
   export type DataLokasiUncheckedCreateInput = {
@@ -11816,8 +11816,8 @@ export namespace Prisma {
     lokasi: string
     status?: $Enums.StatusLokasi
     barangUnit?: BarangUnitUncheckedCreateNestedManyWithoutDataLokasiInput
-    peminjamanP?: PeminjamanPUncheckedCreateNestedManyWithoutLokasiInput
     monitoring?: MonitoringUncheckedCreateNestedManyWithoutDataLokasiInput
+    peminjamanP?: PeminjamanPUncheckedCreateNestedManyWithoutLokasiInput
   }
 
   export type DataLokasiUpdateInput = {
@@ -11825,8 +11825,8 @@ export namespace Prisma {
     lokasi?: StringFieldUpdateOperationsInput | string
     status?: EnumStatusLokasiFieldUpdateOperationsInput | $Enums.StatusLokasi
     barangUnit?: BarangUnitUpdateManyWithoutDataLokasiNestedInput
-    peminjamanP?: PeminjamanPUpdateManyWithoutLokasiNestedInput
     monitoring?: MonitoringUpdateManyWithoutDataLokasiNestedInput
+    peminjamanP?: PeminjamanPUpdateManyWithoutLokasiNestedInput
   }
 
   export type DataLokasiUncheckedUpdateInput = {
@@ -11834,8 +11834,8 @@ export namespace Prisma {
     lokasi?: StringFieldUpdateOperationsInput | string
     status?: EnumStatusLokasiFieldUpdateOperationsInput | $Enums.StatusLokasi
     barangUnit?: BarangUnitUncheckedUpdateManyWithoutDataLokasiNestedInput
-    peminjamanP?: PeminjamanPUncheckedUpdateManyWithoutLokasiNestedInput
     monitoring?: MonitoringUncheckedUpdateManyWithoutDataLokasiNestedInput
+    peminjamanP?: PeminjamanPUncheckedUpdateManyWithoutLokasiNestedInput
   }
 
   export type DataLokasiCreateManyInput = {
@@ -11925,6 +11925,7 @@ export namespace Prisma {
   }
 
   export type PeminjamanPCreateInput = {
+    barangUnitId?: string | null
     lokasiTambahan?: string | null
     no_hp: string
     createdAt?: Date | string
@@ -11933,19 +11934,19 @@ export namespace Prisma {
     waktuSelesai: Date | string
     verifikasi?: $Enums.StatusBooking
     status?: $Enums.StatusP
+    qrCode?: string | null
     waktuAmbil?: Date | string | null
     waktuKembali?: Date | string | null
-    barangUnitId?: string | null
-    qrCode?: string | null
-    user: UserCreateNestedOneWithoutPeminjamanPInput
-    lokasi?: DataLokasiCreateNestedOneWithoutPeminjamanPInput
-    items?: PeminjamanItemCreateNestedManyWithoutPeminjamanInput
     logScanBMN?: LogScanBMNCreateNestedManyWithoutPeminjamanInput
+    items?: PeminjamanItemCreateNestedManyWithoutPeminjamanInput
+    lokasi?: DataLokasiCreateNestedOneWithoutPeminjamanPInput
+    user: UserCreateNestedOneWithoutPeminjamanPInput
   }
 
   export type PeminjamanPUncheckedCreateInput = {
     id?: number
     userNik: string
+    barangUnitId?: string | null
     kodeLokasi?: string | null
     lokasiTambahan?: string | null
     no_hp: string
@@ -11955,15 +11956,15 @@ export namespace Prisma {
     waktuSelesai: Date | string
     verifikasi?: $Enums.StatusBooking
     status?: $Enums.StatusP
+    qrCode?: string | null
     waktuAmbil?: Date | string | null
     waktuKembali?: Date | string | null
-    barangUnitId?: string | null
-    qrCode?: string | null
-    items?: PeminjamanItemUncheckedCreateNestedManyWithoutPeminjamanInput
     logScanBMN?: LogScanBMNUncheckedCreateNestedManyWithoutPeminjamanInput
+    items?: PeminjamanItemUncheckedCreateNestedManyWithoutPeminjamanInput
   }
 
   export type PeminjamanPUpdateInput = {
+    barangUnitId?: NullableStringFieldUpdateOperationsInput | string | null
     lokasiTambahan?: NullableStringFieldUpdateOperationsInput | string | null
     no_hp?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11972,19 +11973,19 @@ export namespace Prisma {
     waktuSelesai?: DateTimeFieldUpdateOperationsInput | Date | string
     verifikasi?: EnumStatusBookingFieldUpdateOperationsInput | $Enums.StatusBooking
     status?: EnumStatusPFieldUpdateOperationsInput | $Enums.StatusP
+    qrCode?: NullableStringFieldUpdateOperationsInput | string | null
     waktuAmbil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     waktuKembali?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    barangUnitId?: NullableStringFieldUpdateOperationsInput | string | null
-    qrCode?: NullableStringFieldUpdateOperationsInput | string | null
-    user?: UserUpdateOneRequiredWithoutPeminjamanPNestedInput
-    lokasi?: DataLokasiUpdateOneWithoutPeminjamanPNestedInput
-    items?: PeminjamanItemUpdateManyWithoutPeminjamanNestedInput
     logScanBMN?: LogScanBMNUpdateManyWithoutPeminjamanNestedInput
+    items?: PeminjamanItemUpdateManyWithoutPeminjamanNestedInput
+    lokasi?: DataLokasiUpdateOneWithoutPeminjamanPNestedInput
+    user?: UserUpdateOneRequiredWithoutPeminjamanPNestedInput
   }
 
   export type PeminjamanPUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     userNik?: StringFieldUpdateOperationsInput | string
+    barangUnitId?: NullableStringFieldUpdateOperationsInput | string | null
     kodeLokasi?: NullableStringFieldUpdateOperationsInput | string | null
     lokasiTambahan?: NullableStringFieldUpdateOperationsInput | string | null
     no_hp?: StringFieldUpdateOperationsInput | string
@@ -11994,17 +11995,17 @@ export namespace Prisma {
     waktuSelesai?: DateTimeFieldUpdateOperationsInput | Date | string
     verifikasi?: EnumStatusBookingFieldUpdateOperationsInput | $Enums.StatusBooking
     status?: EnumStatusPFieldUpdateOperationsInput | $Enums.StatusP
+    qrCode?: NullableStringFieldUpdateOperationsInput | string | null
     waktuAmbil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     waktuKembali?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    barangUnitId?: NullableStringFieldUpdateOperationsInput | string | null
-    qrCode?: NullableStringFieldUpdateOperationsInput | string | null
-    items?: PeminjamanItemUncheckedUpdateManyWithoutPeminjamanNestedInput
     logScanBMN?: LogScanBMNUncheckedUpdateManyWithoutPeminjamanNestedInput
+    items?: PeminjamanItemUncheckedUpdateManyWithoutPeminjamanNestedInput
   }
 
   export type PeminjamanPCreateManyInput = {
     id?: number
     userNik: string
+    barangUnitId?: string | null
     kodeLokasi?: string | null
     lokasiTambahan?: string | null
     no_hp: string
@@ -12014,13 +12015,13 @@ export namespace Prisma {
     waktuSelesai: Date | string
     verifikasi?: $Enums.StatusBooking
     status?: $Enums.StatusP
+    qrCode?: string | null
     waktuAmbil?: Date | string | null
     waktuKembali?: Date | string | null
-    barangUnitId?: string | null
-    qrCode?: string | null
   }
 
   export type PeminjamanPUpdateManyMutationInput = {
+    barangUnitId?: NullableStringFieldUpdateOperationsInput | string | null
     lokasiTambahan?: NullableStringFieldUpdateOperationsInput | string | null
     no_hp?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12029,15 +12030,15 @@ export namespace Prisma {
     waktuSelesai?: DateTimeFieldUpdateOperationsInput | Date | string
     verifikasi?: EnumStatusBookingFieldUpdateOperationsInput | $Enums.StatusBooking
     status?: EnumStatusPFieldUpdateOperationsInput | $Enums.StatusP
+    qrCode?: NullableStringFieldUpdateOperationsInput | string | null
     waktuAmbil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     waktuKembali?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    barangUnitId?: NullableStringFieldUpdateOperationsInput | string | null
-    qrCode?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type PeminjamanPUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     userNik?: StringFieldUpdateOperationsInput | string
+    barangUnitId?: NullableStringFieldUpdateOperationsInput | string | null
     kodeLokasi?: NullableStringFieldUpdateOperationsInput | string | null
     lokasiTambahan?: NullableStringFieldUpdateOperationsInput | string | null
     no_hp?: StringFieldUpdateOperationsInput | string
@@ -12047,10 +12048,9 @@ export namespace Prisma {
     waktuSelesai?: DateTimeFieldUpdateOperationsInput | Date | string
     verifikasi?: EnumStatusBookingFieldUpdateOperationsInput | $Enums.StatusBooking
     status?: EnumStatusPFieldUpdateOperationsInput | $Enums.StatusP
+    qrCode?: NullableStringFieldUpdateOperationsInput | string | null
     waktuAmbil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     waktuKembali?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    barangUnitId?: NullableStringFieldUpdateOperationsInput | string | null
-    qrCode?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type LogScanBMNCreateInput = {
@@ -12113,8 +12113,8 @@ export namespace Prisma {
   }
 
   export type PeminjamanItemCreateInput = {
-    peminjaman: PeminjamanPCreateNestedOneWithoutItemsInput
     barangUnit: BarangUnitCreateNestedOneWithoutPeminjamanItemsInput
+    peminjaman: PeminjamanPCreateNestedOneWithoutItemsInput
   }
 
   export type PeminjamanItemUncheckedCreateInput = {
@@ -12124,8 +12124,8 @@ export namespace Prisma {
   }
 
   export type PeminjamanItemUpdateInput = {
-    peminjaman?: PeminjamanPUpdateOneRequiredWithoutItemsNestedInput
     barangUnit?: BarangUnitUpdateOneRequiredWithoutPeminjamanItemsNestedInput
+    peminjaman?: PeminjamanPUpdateOneRequiredWithoutItemsNestedInput
   }
 
   export type PeminjamanItemUncheckedUpdateInput = {
@@ -12158,8 +12158,8 @@ export namespace Prisma {
     lokasiTambahan?: string | null
     foto: string
     keterangan?: string | null
-    barangUnit: BarangUnitCreateNestedOneWithoutMonitoringInput
     dataLokasi?: DataLokasiCreateNestedOneWithoutMonitoringInput
+    barangUnit: BarangUnitCreateNestedOneWithoutMonitoringInput
   }
 
   export type MonitoringUncheckedCreateInput = {
@@ -12182,8 +12182,8 @@ export namespace Prisma {
     lokasiTambahan?: NullableStringFieldUpdateOperationsInput | string | null
     foto?: StringFieldUpdateOperationsInput | string
     keterangan?: NullableStringFieldUpdateOperationsInput | string | null
-    barangUnit?: BarangUnitUpdateOneRequiredWithoutMonitoringNestedInput
     dataLokasi?: DataLokasiUpdateOneWithoutMonitoringNestedInput
+    barangUnit?: BarangUnitUpdateOneRequiredWithoutMonitoringNestedInput
   }
 
   export type MonitoringUncheckedUpdateInput = {
@@ -12265,57 +12265,57 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
-  export type PeminjamanPListRelationFilter = {
-    every?: PeminjamanPWhereInput
-    some?: PeminjamanPWhereInput
-    none?: PeminjamanPWhereInput
-  }
-
   export type BarangUnitListRelationFilter = {
     every?: BarangUnitWhereInput
     some?: BarangUnitWhereInput
     none?: BarangUnitWhereInput
   }
 
-  export type PeminjamanPOrderByRelationAggregateInput = {
-    _count?: SortOrder
+  export type PeminjamanPListRelationFilter = {
+    every?: PeminjamanPWhereInput
+    some?: PeminjamanPWhereInput
+    none?: PeminjamanPWhereInput
   }
 
   export type BarangUnitOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
+  export type PeminjamanPOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type UserCountOrderByAggregateInput = {
+    nama?: SortOrder
     nik?: SortOrder
-    nomor_identitas_tunggal?: SortOrder
     email?: SortOrder
     password?: SortOrder
-    nama?: SortOrder
     role?: SortOrder
     createdAt?: SortOrder
     updateAt?: SortOrder
+    nomor_identitas_tunggal?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
+    nama?: SortOrder
     nik?: SortOrder
-    nomor_identitas_tunggal?: SortOrder
     email?: SortOrder
     password?: SortOrder
-    nama?: SortOrder
     role?: SortOrder
     createdAt?: SortOrder
     updateAt?: SortOrder
+    nomor_identitas_tunggal?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
+    nama?: SortOrder
     nik?: SortOrder
-    nomor_identitas_tunggal?: SortOrder
     email?: SortOrder
     password?: SortOrder
-    nama?: SortOrder
     role?: SortOrder
     createdAt?: SortOrder
     updateAt?: SortOrder
+    nomor_identitas_tunggal?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -12543,15 +12543,15 @@ export namespace Prisma {
     not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
-  export type DataLokasiNullableScalarRelationFilter = {
-    is?: DataLokasiWhereInput | null
-    isNot?: DataLokasiWhereInput | null
-  }
-
   export type LogScanBMNListRelationFilter = {
     every?: LogScanBMNWhereInput
     some?: LogScanBMNWhereInput
     none?: LogScanBMNWhereInput
+  }
+
+  export type DataLokasiNullableScalarRelationFilter = {
+    is?: DataLokasiWhereInput | null
+    isNot?: DataLokasiWhereInput | null
   }
 
   export type SortOrderInput = {
@@ -12566,6 +12566,7 @@ export namespace Prisma {
   export type PeminjamanPCountOrderByAggregateInput = {
     id?: SortOrder
     userNik?: SortOrder
+    barangUnitId?: SortOrder
     kodeLokasi?: SortOrder
     lokasiTambahan?: SortOrder
     no_hp?: SortOrder
@@ -12575,10 +12576,9 @@ export namespace Prisma {
     waktuSelesai?: SortOrder
     verifikasi?: SortOrder
     status?: SortOrder
+    qrCode?: SortOrder
     waktuAmbil?: SortOrder
     waktuKembali?: SortOrder
-    barangUnitId?: SortOrder
-    qrCode?: SortOrder
   }
 
   export type PeminjamanPAvgOrderByAggregateInput = {
@@ -12588,6 +12588,7 @@ export namespace Prisma {
   export type PeminjamanPMaxOrderByAggregateInput = {
     id?: SortOrder
     userNik?: SortOrder
+    barangUnitId?: SortOrder
     kodeLokasi?: SortOrder
     lokasiTambahan?: SortOrder
     no_hp?: SortOrder
@@ -12597,15 +12598,15 @@ export namespace Prisma {
     waktuSelesai?: SortOrder
     verifikasi?: SortOrder
     status?: SortOrder
+    qrCode?: SortOrder
     waktuAmbil?: SortOrder
     waktuKembali?: SortOrder
-    barangUnitId?: SortOrder
-    qrCode?: SortOrder
   }
 
   export type PeminjamanPMinOrderByAggregateInput = {
     id?: SortOrder
     userNik?: SortOrder
+    barangUnitId?: SortOrder
     kodeLokasi?: SortOrder
     lokasiTambahan?: SortOrder
     no_hp?: SortOrder
@@ -12615,10 +12616,9 @@ export namespace Prisma {
     waktuSelesai?: SortOrder
     verifikasi?: SortOrder
     status?: SortOrder
+    qrCode?: SortOrder
     waktuAmbil?: SortOrder
     waktuKembali?: SortOrder
-    barangUnitId?: SortOrder
-    qrCode?: SortOrder
   }
 
   export type PeminjamanPSumOrderByAggregateInput = {
@@ -12821,13 +12821,6 @@ export namespace Prisma {
     _max?: NestedEnumKondisiBarangMFilter<$PrismaModel>
   }
 
-  export type PeminjamanPCreateNestedManyWithoutUserInput = {
-    create?: XOR<PeminjamanPCreateWithoutUserInput, PeminjamanPUncheckedCreateWithoutUserInput> | PeminjamanPCreateWithoutUserInput[] | PeminjamanPUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: PeminjamanPCreateOrConnectWithoutUserInput | PeminjamanPCreateOrConnectWithoutUserInput[]
-    createMany?: PeminjamanPCreateManyUserInputEnvelope
-    connect?: PeminjamanPWhereUniqueInput | PeminjamanPWhereUniqueInput[]
-  }
-
   export type BarangUnitCreateNestedManyWithoutUserInput = {
     create?: XOR<BarangUnitCreateWithoutUserInput, BarangUnitUncheckedCreateWithoutUserInput> | BarangUnitCreateWithoutUserInput[] | BarangUnitUncheckedCreateWithoutUserInput[]
     connectOrCreate?: BarangUnitCreateOrConnectWithoutUserInput | BarangUnitCreateOrConnectWithoutUserInput[]
@@ -12835,7 +12828,7 @@ export namespace Prisma {
     connect?: BarangUnitWhereUniqueInput | BarangUnitWhereUniqueInput[]
   }
 
-  export type PeminjamanPUncheckedCreateNestedManyWithoutUserInput = {
+  export type PeminjamanPCreateNestedManyWithoutUserInput = {
     create?: XOR<PeminjamanPCreateWithoutUserInput, PeminjamanPUncheckedCreateWithoutUserInput> | PeminjamanPCreateWithoutUserInput[] | PeminjamanPUncheckedCreateWithoutUserInput[]
     connectOrCreate?: PeminjamanPCreateOrConnectWithoutUserInput | PeminjamanPCreateOrConnectWithoutUserInput[]
     createMany?: PeminjamanPCreateManyUserInputEnvelope
@@ -12849,6 +12842,13 @@ export namespace Prisma {
     connect?: BarangUnitWhereUniqueInput | BarangUnitWhereUniqueInput[]
   }
 
+  export type PeminjamanPUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<PeminjamanPCreateWithoutUserInput, PeminjamanPUncheckedCreateWithoutUserInput> | PeminjamanPCreateWithoutUserInput[] | PeminjamanPUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PeminjamanPCreateOrConnectWithoutUserInput | PeminjamanPCreateOrConnectWithoutUserInput[]
+    createMany?: PeminjamanPCreateManyUserInputEnvelope
+    connect?: PeminjamanPWhereUniqueInput | PeminjamanPWhereUniqueInput[]
+  }
+
   export type StringFieldUpdateOperationsInput = {
     set?: string
   }
@@ -12859,20 +12859,6 @@ export namespace Prisma {
 
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
-  }
-
-  export type PeminjamanPUpdateManyWithoutUserNestedInput = {
-    create?: XOR<PeminjamanPCreateWithoutUserInput, PeminjamanPUncheckedCreateWithoutUserInput> | PeminjamanPCreateWithoutUserInput[] | PeminjamanPUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: PeminjamanPCreateOrConnectWithoutUserInput | PeminjamanPCreateOrConnectWithoutUserInput[]
-    upsert?: PeminjamanPUpsertWithWhereUniqueWithoutUserInput | PeminjamanPUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: PeminjamanPCreateManyUserInputEnvelope
-    set?: PeminjamanPWhereUniqueInput | PeminjamanPWhereUniqueInput[]
-    disconnect?: PeminjamanPWhereUniqueInput | PeminjamanPWhereUniqueInput[]
-    delete?: PeminjamanPWhereUniqueInput | PeminjamanPWhereUniqueInput[]
-    connect?: PeminjamanPWhereUniqueInput | PeminjamanPWhereUniqueInput[]
-    update?: PeminjamanPUpdateWithWhereUniqueWithoutUserInput | PeminjamanPUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: PeminjamanPUpdateManyWithWhereWithoutUserInput | PeminjamanPUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: PeminjamanPScalarWhereInput | PeminjamanPScalarWhereInput[]
   }
 
   export type BarangUnitUpdateManyWithoutUserNestedInput = {
@@ -12889,7 +12875,7 @@ export namespace Prisma {
     deleteMany?: BarangUnitScalarWhereInput | BarangUnitScalarWhereInput[]
   }
 
-  export type PeminjamanPUncheckedUpdateManyWithoutUserNestedInput = {
+  export type PeminjamanPUpdateManyWithoutUserNestedInput = {
     create?: XOR<PeminjamanPCreateWithoutUserInput, PeminjamanPUncheckedCreateWithoutUserInput> | PeminjamanPCreateWithoutUserInput[] | PeminjamanPUncheckedCreateWithoutUserInput[]
     connectOrCreate?: PeminjamanPCreateOrConnectWithoutUserInput | PeminjamanPCreateOrConnectWithoutUserInput[]
     upsert?: PeminjamanPUpsertWithWhereUniqueWithoutUserInput | PeminjamanPUpsertWithWhereUniqueWithoutUserInput[]
@@ -12915,6 +12901,20 @@ export namespace Prisma {
     update?: BarangUnitUpdateWithWhereUniqueWithoutUserInput | BarangUnitUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: BarangUnitUpdateManyWithWhereWithoutUserInput | BarangUnitUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: BarangUnitScalarWhereInput | BarangUnitScalarWhereInput[]
+  }
+
+  export type PeminjamanPUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<PeminjamanPCreateWithoutUserInput, PeminjamanPUncheckedCreateWithoutUserInput> | PeminjamanPCreateWithoutUserInput[] | PeminjamanPUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PeminjamanPCreateOrConnectWithoutUserInput | PeminjamanPCreateOrConnectWithoutUserInput[]
+    upsert?: PeminjamanPUpsertWithWhereUniqueWithoutUserInput | PeminjamanPUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: PeminjamanPCreateManyUserInputEnvelope
+    set?: PeminjamanPWhereUniqueInput | PeminjamanPWhereUniqueInput[]
+    disconnect?: PeminjamanPWhereUniqueInput | PeminjamanPWhereUniqueInput[]
+    delete?: PeminjamanPWhereUniqueInput | PeminjamanPWhereUniqueInput[]
+    connect?: PeminjamanPWhereUniqueInput | PeminjamanPWhereUniqueInput[]
+    update?: PeminjamanPUpdateWithWhereUniqueWithoutUserInput | PeminjamanPUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: PeminjamanPUpdateManyWithWhereWithoutUserInput | PeminjamanPUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: PeminjamanPScalarWhereInput | PeminjamanPScalarWhereInput[]
   }
 
   export type BarangUnitCreateNestedManyWithoutDataBarangInput = {
@@ -12966,18 +12966,18 @@ export namespace Prisma {
     connect?: BarangUnitWhereUniqueInput | BarangUnitWhereUniqueInput[]
   }
 
-  export type PeminjamanPCreateNestedManyWithoutLokasiInput = {
-    create?: XOR<PeminjamanPCreateWithoutLokasiInput, PeminjamanPUncheckedCreateWithoutLokasiInput> | PeminjamanPCreateWithoutLokasiInput[] | PeminjamanPUncheckedCreateWithoutLokasiInput[]
-    connectOrCreate?: PeminjamanPCreateOrConnectWithoutLokasiInput | PeminjamanPCreateOrConnectWithoutLokasiInput[]
-    createMany?: PeminjamanPCreateManyLokasiInputEnvelope
-    connect?: PeminjamanPWhereUniqueInput | PeminjamanPWhereUniqueInput[]
-  }
-
   export type MonitoringCreateNestedManyWithoutDataLokasiInput = {
     create?: XOR<MonitoringCreateWithoutDataLokasiInput, MonitoringUncheckedCreateWithoutDataLokasiInput> | MonitoringCreateWithoutDataLokasiInput[] | MonitoringUncheckedCreateWithoutDataLokasiInput[]
     connectOrCreate?: MonitoringCreateOrConnectWithoutDataLokasiInput | MonitoringCreateOrConnectWithoutDataLokasiInput[]
     createMany?: MonitoringCreateManyDataLokasiInputEnvelope
     connect?: MonitoringWhereUniqueInput | MonitoringWhereUniqueInput[]
+  }
+
+  export type PeminjamanPCreateNestedManyWithoutLokasiInput = {
+    create?: XOR<PeminjamanPCreateWithoutLokasiInput, PeminjamanPUncheckedCreateWithoutLokasiInput> | PeminjamanPCreateWithoutLokasiInput[] | PeminjamanPUncheckedCreateWithoutLokasiInput[]
+    connectOrCreate?: PeminjamanPCreateOrConnectWithoutLokasiInput | PeminjamanPCreateOrConnectWithoutLokasiInput[]
+    createMany?: PeminjamanPCreateManyLokasiInputEnvelope
+    connect?: PeminjamanPWhereUniqueInput | PeminjamanPWhereUniqueInput[]
   }
 
   export type BarangUnitUncheckedCreateNestedManyWithoutDataLokasiInput = {
@@ -12987,18 +12987,18 @@ export namespace Prisma {
     connect?: BarangUnitWhereUniqueInput | BarangUnitWhereUniqueInput[]
   }
 
-  export type PeminjamanPUncheckedCreateNestedManyWithoutLokasiInput = {
-    create?: XOR<PeminjamanPCreateWithoutLokasiInput, PeminjamanPUncheckedCreateWithoutLokasiInput> | PeminjamanPCreateWithoutLokasiInput[] | PeminjamanPUncheckedCreateWithoutLokasiInput[]
-    connectOrCreate?: PeminjamanPCreateOrConnectWithoutLokasiInput | PeminjamanPCreateOrConnectWithoutLokasiInput[]
-    createMany?: PeminjamanPCreateManyLokasiInputEnvelope
-    connect?: PeminjamanPWhereUniqueInput | PeminjamanPWhereUniqueInput[]
-  }
-
   export type MonitoringUncheckedCreateNestedManyWithoutDataLokasiInput = {
     create?: XOR<MonitoringCreateWithoutDataLokasiInput, MonitoringUncheckedCreateWithoutDataLokasiInput> | MonitoringCreateWithoutDataLokasiInput[] | MonitoringUncheckedCreateWithoutDataLokasiInput[]
     connectOrCreate?: MonitoringCreateOrConnectWithoutDataLokasiInput | MonitoringCreateOrConnectWithoutDataLokasiInput[]
     createMany?: MonitoringCreateManyDataLokasiInputEnvelope
     connect?: MonitoringWhereUniqueInput | MonitoringWhereUniqueInput[]
+  }
+
+  export type PeminjamanPUncheckedCreateNestedManyWithoutLokasiInput = {
+    create?: XOR<PeminjamanPCreateWithoutLokasiInput, PeminjamanPUncheckedCreateWithoutLokasiInput> | PeminjamanPCreateWithoutLokasiInput[] | PeminjamanPUncheckedCreateWithoutLokasiInput[]
+    connectOrCreate?: PeminjamanPCreateOrConnectWithoutLokasiInput | PeminjamanPCreateOrConnectWithoutLokasiInput[]
+    createMany?: PeminjamanPCreateManyLokasiInputEnvelope
+    connect?: PeminjamanPWhereUniqueInput | PeminjamanPWhereUniqueInput[]
   }
 
   export type EnumStatusLokasiFieldUpdateOperationsInput = {
@@ -13019,20 +13019,6 @@ export namespace Prisma {
     deleteMany?: BarangUnitScalarWhereInput | BarangUnitScalarWhereInput[]
   }
 
-  export type PeminjamanPUpdateManyWithoutLokasiNestedInput = {
-    create?: XOR<PeminjamanPCreateWithoutLokasiInput, PeminjamanPUncheckedCreateWithoutLokasiInput> | PeminjamanPCreateWithoutLokasiInput[] | PeminjamanPUncheckedCreateWithoutLokasiInput[]
-    connectOrCreate?: PeminjamanPCreateOrConnectWithoutLokasiInput | PeminjamanPCreateOrConnectWithoutLokasiInput[]
-    upsert?: PeminjamanPUpsertWithWhereUniqueWithoutLokasiInput | PeminjamanPUpsertWithWhereUniqueWithoutLokasiInput[]
-    createMany?: PeminjamanPCreateManyLokasiInputEnvelope
-    set?: PeminjamanPWhereUniqueInput | PeminjamanPWhereUniqueInput[]
-    disconnect?: PeminjamanPWhereUniqueInput | PeminjamanPWhereUniqueInput[]
-    delete?: PeminjamanPWhereUniqueInput | PeminjamanPWhereUniqueInput[]
-    connect?: PeminjamanPWhereUniqueInput | PeminjamanPWhereUniqueInput[]
-    update?: PeminjamanPUpdateWithWhereUniqueWithoutLokasiInput | PeminjamanPUpdateWithWhereUniqueWithoutLokasiInput[]
-    updateMany?: PeminjamanPUpdateManyWithWhereWithoutLokasiInput | PeminjamanPUpdateManyWithWhereWithoutLokasiInput[]
-    deleteMany?: PeminjamanPScalarWhereInput | PeminjamanPScalarWhereInput[]
-  }
-
   export type MonitoringUpdateManyWithoutDataLokasiNestedInput = {
     create?: XOR<MonitoringCreateWithoutDataLokasiInput, MonitoringUncheckedCreateWithoutDataLokasiInput> | MonitoringCreateWithoutDataLokasiInput[] | MonitoringUncheckedCreateWithoutDataLokasiInput[]
     connectOrCreate?: MonitoringCreateOrConnectWithoutDataLokasiInput | MonitoringCreateOrConnectWithoutDataLokasiInput[]
@@ -13045,6 +13031,20 @@ export namespace Prisma {
     update?: MonitoringUpdateWithWhereUniqueWithoutDataLokasiInput | MonitoringUpdateWithWhereUniqueWithoutDataLokasiInput[]
     updateMany?: MonitoringUpdateManyWithWhereWithoutDataLokasiInput | MonitoringUpdateManyWithWhereWithoutDataLokasiInput[]
     deleteMany?: MonitoringScalarWhereInput | MonitoringScalarWhereInput[]
+  }
+
+  export type PeminjamanPUpdateManyWithoutLokasiNestedInput = {
+    create?: XOR<PeminjamanPCreateWithoutLokasiInput, PeminjamanPUncheckedCreateWithoutLokasiInput> | PeminjamanPCreateWithoutLokasiInput[] | PeminjamanPUncheckedCreateWithoutLokasiInput[]
+    connectOrCreate?: PeminjamanPCreateOrConnectWithoutLokasiInput | PeminjamanPCreateOrConnectWithoutLokasiInput[]
+    upsert?: PeminjamanPUpsertWithWhereUniqueWithoutLokasiInput | PeminjamanPUpsertWithWhereUniqueWithoutLokasiInput[]
+    createMany?: PeminjamanPCreateManyLokasiInputEnvelope
+    set?: PeminjamanPWhereUniqueInput | PeminjamanPWhereUniqueInput[]
+    disconnect?: PeminjamanPWhereUniqueInput | PeminjamanPWhereUniqueInput[]
+    delete?: PeminjamanPWhereUniqueInput | PeminjamanPWhereUniqueInput[]
+    connect?: PeminjamanPWhereUniqueInput | PeminjamanPWhereUniqueInput[]
+    update?: PeminjamanPUpdateWithWhereUniqueWithoutLokasiInput | PeminjamanPUpdateWithWhereUniqueWithoutLokasiInput[]
+    updateMany?: PeminjamanPUpdateManyWithWhereWithoutLokasiInput | PeminjamanPUpdateManyWithWhereWithoutLokasiInput[]
+    deleteMany?: PeminjamanPScalarWhereInput | PeminjamanPScalarWhereInput[]
   }
 
   export type BarangUnitUncheckedUpdateManyWithoutDataLokasiNestedInput = {
@@ -13061,20 +13061,6 @@ export namespace Prisma {
     deleteMany?: BarangUnitScalarWhereInput | BarangUnitScalarWhereInput[]
   }
 
-  export type PeminjamanPUncheckedUpdateManyWithoutLokasiNestedInput = {
-    create?: XOR<PeminjamanPCreateWithoutLokasiInput, PeminjamanPUncheckedCreateWithoutLokasiInput> | PeminjamanPCreateWithoutLokasiInput[] | PeminjamanPUncheckedCreateWithoutLokasiInput[]
-    connectOrCreate?: PeminjamanPCreateOrConnectWithoutLokasiInput | PeminjamanPCreateOrConnectWithoutLokasiInput[]
-    upsert?: PeminjamanPUpsertWithWhereUniqueWithoutLokasiInput | PeminjamanPUpsertWithWhereUniqueWithoutLokasiInput[]
-    createMany?: PeminjamanPCreateManyLokasiInputEnvelope
-    set?: PeminjamanPWhereUniqueInput | PeminjamanPWhereUniqueInput[]
-    disconnect?: PeminjamanPWhereUniqueInput | PeminjamanPWhereUniqueInput[]
-    delete?: PeminjamanPWhereUniqueInput | PeminjamanPWhereUniqueInput[]
-    connect?: PeminjamanPWhereUniqueInput | PeminjamanPWhereUniqueInput[]
-    update?: PeminjamanPUpdateWithWhereUniqueWithoutLokasiInput | PeminjamanPUpdateWithWhereUniqueWithoutLokasiInput[]
-    updateMany?: PeminjamanPUpdateManyWithWhereWithoutLokasiInput | PeminjamanPUpdateManyWithWhereWithoutLokasiInput[]
-    deleteMany?: PeminjamanPScalarWhereInput | PeminjamanPScalarWhereInput[]
-  }
-
   export type MonitoringUncheckedUpdateManyWithoutDataLokasiNestedInput = {
     create?: XOR<MonitoringCreateWithoutDataLokasiInput, MonitoringUncheckedCreateWithoutDataLokasiInput> | MonitoringCreateWithoutDataLokasiInput[] | MonitoringUncheckedCreateWithoutDataLokasiInput[]
     connectOrCreate?: MonitoringCreateOrConnectWithoutDataLokasiInput | MonitoringCreateOrConnectWithoutDataLokasiInput[]
@@ -13087,6 +13073,20 @@ export namespace Prisma {
     update?: MonitoringUpdateWithWhereUniqueWithoutDataLokasiInput | MonitoringUpdateWithWhereUniqueWithoutDataLokasiInput[]
     updateMany?: MonitoringUpdateManyWithWhereWithoutDataLokasiInput | MonitoringUpdateManyWithWhereWithoutDataLokasiInput[]
     deleteMany?: MonitoringScalarWhereInput | MonitoringScalarWhereInput[]
+  }
+
+  export type PeminjamanPUncheckedUpdateManyWithoutLokasiNestedInput = {
+    create?: XOR<PeminjamanPCreateWithoutLokasiInput, PeminjamanPUncheckedCreateWithoutLokasiInput> | PeminjamanPCreateWithoutLokasiInput[] | PeminjamanPUncheckedCreateWithoutLokasiInput[]
+    connectOrCreate?: PeminjamanPCreateOrConnectWithoutLokasiInput | PeminjamanPCreateOrConnectWithoutLokasiInput[]
+    upsert?: PeminjamanPUpsertWithWhereUniqueWithoutLokasiInput | PeminjamanPUpsertWithWhereUniqueWithoutLokasiInput[]
+    createMany?: PeminjamanPCreateManyLokasiInputEnvelope
+    set?: PeminjamanPWhereUniqueInput | PeminjamanPWhereUniqueInput[]
+    disconnect?: PeminjamanPWhereUniqueInput | PeminjamanPWhereUniqueInput[]
+    delete?: PeminjamanPWhereUniqueInput | PeminjamanPWhereUniqueInput[]
+    connect?: PeminjamanPWhereUniqueInput | PeminjamanPWhereUniqueInput[]
+    update?: PeminjamanPUpdateWithWhereUniqueWithoutLokasiInput | PeminjamanPUpdateWithWhereUniqueWithoutLokasiInput[]
+    updateMany?: PeminjamanPUpdateManyWithWhereWithoutLokasiInput | PeminjamanPUpdateManyWithWhereWithoutLokasiInput[]
+    deleteMany?: PeminjamanPScalarWhereInput | PeminjamanPScalarWhereInput[]
   }
 
   export type DataBarangCreateNestedOneWithoutBarangUnitInput = {
@@ -13219,16 +13219,11 @@ export namespace Prisma {
     deleteMany?: PeminjamanItemScalarWhereInput | PeminjamanItemScalarWhereInput[]
   }
 
-  export type UserCreateNestedOneWithoutPeminjamanPInput = {
-    create?: XOR<UserCreateWithoutPeminjamanPInput, UserUncheckedCreateWithoutPeminjamanPInput>
-    connectOrCreate?: UserCreateOrConnectWithoutPeminjamanPInput
-    connect?: UserWhereUniqueInput
-  }
-
-  export type DataLokasiCreateNestedOneWithoutPeminjamanPInput = {
-    create?: XOR<DataLokasiCreateWithoutPeminjamanPInput, DataLokasiUncheckedCreateWithoutPeminjamanPInput>
-    connectOrCreate?: DataLokasiCreateOrConnectWithoutPeminjamanPInput
-    connect?: DataLokasiWhereUniqueInput
+  export type LogScanBMNCreateNestedManyWithoutPeminjamanInput = {
+    create?: XOR<LogScanBMNCreateWithoutPeminjamanInput, LogScanBMNUncheckedCreateWithoutPeminjamanInput> | LogScanBMNCreateWithoutPeminjamanInput[] | LogScanBMNUncheckedCreateWithoutPeminjamanInput[]
+    connectOrCreate?: LogScanBMNCreateOrConnectWithoutPeminjamanInput | LogScanBMNCreateOrConnectWithoutPeminjamanInput[]
+    createMany?: LogScanBMNCreateManyPeminjamanInputEnvelope
+    connect?: LogScanBMNWhereUniqueInput | LogScanBMNWhereUniqueInput[]
   }
 
   export type PeminjamanItemCreateNestedManyWithoutPeminjamanInput = {
@@ -13238,7 +13233,19 @@ export namespace Prisma {
     connect?: PeminjamanItemWhereUniqueInput | PeminjamanItemWhereUniqueInput[]
   }
 
-  export type LogScanBMNCreateNestedManyWithoutPeminjamanInput = {
+  export type DataLokasiCreateNestedOneWithoutPeminjamanPInput = {
+    create?: XOR<DataLokasiCreateWithoutPeminjamanPInput, DataLokasiUncheckedCreateWithoutPeminjamanPInput>
+    connectOrCreate?: DataLokasiCreateOrConnectWithoutPeminjamanPInput
+    connect?: DataLokasiWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutPeminjamanPInput = {
+    create?: XOR<UserCreateWithoutPeminjamanPInput, UserUncheckedCreateWithoutPeminjamanPInput>
+    connectOrCreate?: UserCreateOrConnectWithoutPeminjamanPInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type LogScanBMNUncheckedCreateNestedManyWithoutPeminjamanInput = {
     create?: XOR<LogScanBMNCreateWithoutPeminjamanInput, LogScanBMNUncheckedCreateWithoutPeminjamanInput> | LogScanBMNCreateWithoutPeminjamanInput[] | LogScanBMNUncheckedCreateWithoutPeminjamanInput[]
     connectOrCreate?: LogScanBMNCreateOrConnectWithoutPeminjamanInput | LogScanBMNCreateOrConnectWithoutPeminjamanInput[]
     createMany?: LogScanBMNCreateManyPeminjamanInputEnvelope
@@ -13250,13 +13257,6 @@ export namespace Prisma {
     connectOrCreate?: PeminjamanItemCreateOrConnectWithoutPeminjamanInput | PeminjamanItemCreateOrConnectWithoutPeminjamanInput[]
     createMany?: PeminjamanItemCreateManyPeminjamanInputEnvelope
     connect?: PeminjamanItemWhereUniqueInput | PeminjamanItemWhereUniqueInput[]
-  }
-
-  export type LogScanBMNUncheckedCreateNestedManyWithoutPeminjamanInput = {
-    create?: XOR<LogScanBMNCreateWithoutPeminjamanInput, LogScanBMNUncheckedCreateWithoutPeminjamanInput> | LogScanBMNCreateWithoutPeminjamanInput[] | LogScanBMNUncheckedCreateWithoutPeminjamanInput[]
-    connectOrCreate?: LogScanBMNCreateOrConnectWithoutPeminjamanInput | LogScanBMNCreateOrConnectWithoutPeminjamanInput[]
-    createMany?: LogScanBMNCreateManyPeminjamanInputEnvelope
-    connect?: LogScanBMNWhereUniqueInput | LogScanBMNWhereUniqueInput[]
   }
 
   export type NullableStringFieldUpdateOperationsInput = {
@@ -13275,22 +13275,18 @@ export namespace Prisma {
     set?: Date | string | null
   }
 
-  export type UserUpdateOneRequiredWithoutPeminjamanPNestedInput = {
-    create?: XOR<UserCreateWithoutPeminjamanPInput, UserUncheckedCreateWithoutPeminjamanPInput>
-    connectOrCreate?: UserCreateOrConnectWithoutPeminjamanPInput
-    upsert?: UserUpsertWithoutPeminjamanPInput
-    connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutPeminjamanPInput, UserUpdateWithoutPeminjamanPInput>, UserUncheckedUpdateWithoutPeminjamanPInput>
-  }
-
-  export type DataLokasiUpdateOneWithoutPeminjamanPNestedInput = {
-    create?: XOR<DataLokasiCreateWithoutPeminjamanPInput, DataLokasiUncheckedCreateWithoutPeminjamanPInput>
-    connectOrCreate?: DataLokasiCreateOrConnectWithoutPeminjamanPInput
-    upsert?: DataLokasiUpsertWithoutPeminjamanPInput
-    disconnect?: DataLokasiWhereInput | boolean
-    delete?: DataLokasiWhereInput | boolean
-    connect?: DataLokasiWhereUniqueInput
-    update?: XOR<XOR<DataLokasiUpdateToOneWithWhereWithoutPeminjamanPInput, DataLokasiUpdateWithoutPeminjamanPInput>, DataLokasiUncheckedUpdateWithoutPeminjamanPInput>
+  export type LogScanBMNUpdateManyWithoutPeminjamanNestedInput = {
+    create?: XOR<LogScanBMNCreateWithoutPeminjamanInput, LogScanBMNUncheckedCreateWithoutPeminjamanInput> | LogScanBMNCreateWithoutPeminjamanInput[] | LogScanBMNUncheckedCreateWithoutPeminjamanInput[]
+    connectOrCreate?: LogScanBMNCreateOrConnectWithoutPeminjamanInput | LogScanBMNCreateOrConnectWithoutPeminjamanInput[]
+    upsert?: LogScanBMNUpsertWithWhereUniqueWithoutPeminjamanInput | LogScanBMNUpsertWithWhereUniqueWithoutPeminjamanInput[]
+    createMany?: LogScanBMNCreateManyPeminjamanInputEnvelope
+    set?: LogScanBMNWhereUniqueInput | LogScanBMNWhereUniqueInput[]
+    disconnect?: LogScanBMNWhereUniqueInput | LogScanBMNWhereUniqueInput[]
+    delete?: LogScanBMNWhereUniqueInput | LogScanBMNWhereUniqueInput[]
+    connect?: LogScanBMNWhereUniqueInput | LogScanBMNWhereUniqueInput[]
+    update?: LogScanBMNUpdateWithWhereUniqueWithoutPeminjamanInput | LogScanBMNUpdateWithWhereUniqueWithoutPeminjamanInput[]
+    updateMany?: LogScanBMNUpdateManyWithWhereWithoutPeminjamanInput | LogScanBMNUpdateManyWithWhereWithoutPeminjamanInput[]
+    deleteMany?: LogScanBMNScalarWhereInput | LogScanBMNScalarWhereInput[]
   }
 
   export type PeminjamanItemUpdateManyWithoutPeminjamanNestedInput = {
@@ -13307,18 +13303,22 @@ export namespace Prisma {
     deleteMany?: PeminjamanItemScalarWhereInput | PeminjamanItemScalarWhereInput[]
   }
 
-  export type LogScanBMNUpdateManyWithoutPeminjamanNestedInput = {
-    create?: XOR<LogScanBMNCreateWithoutPeminjamanInput, LogScanBMNUncheckedCreateWithoutPeminjamanInput> | LogScanBMNCreateWithoutPeminjamanInput[] | LogScanBMNUncheckedCreateWithoutPeminjamanInput[]
-    connectOrCreate?: LogScanBMNCreateOrConnectWithoutPeminjamanInput | LogScanBMNCreateOrConnectWithoutPeminjamanInput[]
-    upsert?: LogScanBMNUpsertWithWhereUniqueWithoutPeminjamanInput | LogScanBMNUpsertWithWhereUniqueWithoutPeminjamanInput[]
-    createMany?: LogScanBMNCreateManyPeminjamanInputEnvelope
-    set?: LogScanBMNWhereUniqueInput | LogScanBMNWhereUniqueInput[]
-    disconnect?: LogScanBMNWhereUniqueInput | LogScanBMNWhereUniqueInput[]
-    delete?: LogScanBMNWhereUniqueInput | LogScanBMNWhereUniqueInput[]
-    connect?: LogScanBMNWhereUniqueInput | LogScanBMNWhereUniqueInput[]
-    update?: LogScanBMNUpdateWithWhereUniqueWithoutPeminjamanInput | LogScanBMNUpdateWithWhereUniqueWithoutPeminjamanInput[]
-    updateMany?: LogScanBMNUpdateManyWithWhereWithoutPeminjamanInput | LogScanBMNUpdateManyWithWhereWithoutPeminjamanInput[]
-    deleteMany?: LogScanBMNScalarWhereInput | LogScanBMNScalarWhereInput[]
+  export type DataLokasiUpdateOneWithoutPeminjamanPNestedInput = {
+    create?: XOR<DataLokasiCreateWithoutPeminjamanPInput, DataLokasiUncheckedCreateWithoutPeminjamanPInput>
+    connectOrCreate?: DataLokasiCreateOrConnectWithoutPeminjamanPInput
+    upsert?: DataLokasiUpsertWithoutPeminjamanPInput
+    disconnect?: DataLokasiWhereInput | boolean
+    delete?: DataLokasiWhereInput | boolean
+    connect?: DataLokasiWhereUniqueInput
+    update?: XOR<XOR<DataLokasiUpdateToOneWithWhereWithoutPeminjamanPInput, DataLokasiUpdateWithoutPeminjamanPInput>, DataLokasiUncheckedUpdateWithoutPeminjamanPInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutPeminjamanPNestedInput = {
+    create?: XOR<UserCreateWithoutPeminjamanPInput, UserUncheckedCreateWithoutPeminjamanPInput>
+    connectOrCreate?: UserCreateOrConnectWithoutPeminjamanPInput
+    upsert?: UserUpsertWithoutPeminjamanPInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutPeminjamanPInput, UserUpdateWithoutPeminjamanPInput>, UserUncheckedUpdateWithoutPeminjamanPInput>
   }
 
   export type IntFieldUpdateOperationsInput = {
@@ -13327,20 +13327,6 @@ export namespace Prisma {
     decrement?: number
     multiply?: number
     divide?: number
-  }
-
-  export type PeminjamanItemUncheckedUpdateManyWithoutPeminjamanNestedInput = {
-    create?: XOR<PeminjamanItemCreateWithoutPeminjamanInput, PeminjamanItemUncheckedCreateWithoutPeminjamanInput> | PeminjamanItemCreateWithoutPeminjamanInput[] | PeminjamanItemUncheckedCreateWithoutPeminjamanInput[]
-    connectOrCreate?: PeminjamanItemCreateOrConnectWithoutPeminjamanInput | PeminjamanItemCreateOrConnectWithoutPeminjamanInput[]
-    upsert?: PeminjamanItemUpsertWithWhereUniqueWithoutPeminjamanInput | PeminjamanItemUpsertWithWhereUniqueWithoutPeminjamanInput[]
-    createMany?: PeminjamanItemCreateManyPeminjamanInputEnvelope
-    set?: PeminjamanItemWhereUniqueInput | PeminjamanItemWhereUniqueInput[]
-    disconnect?: PeminjamanItemWhereUniqueInput | PeminjamanItemWhereUniqueInput[]
-    delete?: PeminjamanItemWhereUniqueInput | PeminjamanItemWhereUniqueInput[]
-    connect?: PeminjamanItemWhereUniqueInput | PeminjamanItemWhereUniqueInput[]
-    update?: PeminjamanItemUpdateWithWhereUniqueWithoutPeminjamanInput | PeminjamanItemUpdateWithWhereUniqueWithoutPeminjamanInput[]
-    updateMany?: PeminjamanItemUpdateManyWithWhereWithoutPeminjamanInput | PeminjamanItemUpdateManyWithWhereWithoutPeminjamanInput[]
-    deleteMany?: PeminjamanItemScalarWhereInput | PeminjamanItemScalarWhereInput[]
   }
 
   export type LogScanBMNUncheckedUpdateManyWithoutPeminjamanNestedInput = {
@@ -13357,6 +13343,20 @@ export namespace Prisma {
     deleteMany?: LogScanBMNScalarWhereInput | LogScanBMNScalarWhereInput[]
   }
 
+  export type PeminjamanItemUncheckedUpdateManyWithoutPeminjamanNestedInput = {
+    create?: XOR<PeminjamanItemCreateWithoutPeminjamanInput, PeminjamanItemUncheckedCreateWithoutPeminjamanInput> | PeminjamanItemCreateWithoutPeminjamanInput[] | PeminjamanItemUncheckedCreateWithoutPeminjamanInput[]
+    connectOrCreate?: PeminjamanItemCreateOrConnectWithoutPeminjamanInput | PeminjamanItemCreateOrConnectWithoutPeminjamanInput[]
+    upsert?: PeminjamanItemUpsertWithWhereUniqueWithoutPeminjamanInput | PeminjamanItemUpsertWithWhereUniqueWithoutPeminjamanInput[]
+    createMany?: PeminjamanItemCreateManyPeminjamanInputEnvelope
+    set?: PeminjamanItemWhereUniqueInput | PeminjamanItemWhereUniqueInput[]
+    disconnect?: PeminjamanItemWhereUniqueInput | PeminjamanItemWhereUniqueInput[]
+    delete?: PeminjamanItemWhereUniqueInput | PeminjamanItemWhereUniqueInput[]
+    connect?: PeminjamanItemWhereUniqueInput | PeminjamanItemWhereUniqueInput[]
+    update?: PeminjamanItemUpdateWithWhereUniqueWithoutPeminjamanInput | PeminjamanItemUpdateWithWhereUniqueWithoutPeminjamanInput[]
+    updateMany?: PeminjamanItemUpdateManyWithWhereWithoutPeminjamanInput | PeminjamanItemUpdateManyWithWhereWithoutPeminjamanInput[]
+    deleteMany?: PeminjamanItemScalarWhereInput | PeminjamanItemScalarWhereInput[]
+  }
+
   export type PeminjamanPCreateNestedOneWithoutLogScanBMNInput = {
     create?: XOR<PeminjamanPCreateWithoutLogScanBMNInput, PeminjamanPUncheckedCreateWithoutLogScanBMNInput>
     connectOrCreate?: PeminjamanPCreateOrConnectWithoutLogScanBMNInput
@@ -13371,24 +13371,16 @@ export namespace Prisma {
     update?: XOR<XOR<PeminjamanPUpdateToOneWithWhereWithoutLogScanBMNInput, PeminjamanPUpdateWithoutLogScanBMNInput>, PeminjamanPUncheckedUpdateWithoutLogScanBMNInput>
   }
 
-  export type PeminjamanPCreateNestedOneWithoutItemsInput = {
-    create?: XOR<PeminjamanPCreateWithoutItemsInput, PeminjamanPUncheckedCreateWithoutItemsInput>
-    connectOrCreate?: PeminjamanPCreateOrConnectWithoutItemsInput
-    connect?: PeminjamanPWhereUniqueInput
-  }
-
   export type BarangUnitCreateNestedOneWithoutPeminjamanItemsInput = {
     create?: XOR<BarangUnitCreateWithoutPeminjamanItemsInput, BarangUnitUncheckedCreateWithoutPeminjamanItemsInput>
     connectOrCreate?: BarangUnitCreateOrConnectWithoutPeminjamanItemsInput
     connect?: BarangUnitWhereUniqueInput
   }
 
-  export type PeminjamanPUpdateOneRequiredWithoutItemsNestedInput = {
+  export type PeminjamanPCreateNestedOneWithoutItemsInput = {
     create?: XOR<PeminjamanPCreateWithoutItemsInput, PeminjamanPUncheckedCreateWithoutItemsInput>
     connectOrCreate?: PeminjamanPCreateOrConnectWithoutItemsInput
-    upsert?: PeminjamanPUpsertWithoutItemsInput
     connect?: PeminjamanPWhereUniqueInput
-    update?: XOR<XOR<PeminjamanPUpdateToOneWithWhereWithoutItemsInput, PeminjamanPUpdateWithoutItemsInput>, PeminjamanPUncheckedUpdateWithoutItemsInput>
   }
 
   export type BarangUnitUpdateOneRequiredWithoutPeminjamanItemsNestedInput = {
@@ -13399,10 +13391,12 @@ export namespace Prisma {
     update?: XOR<XOR<BarangUnitUpdateToOneWithWhereWithoutPeminjamanItemsInput, BarangUnitUpdateWithoutPeminjamanItemsInput>, BarangUnitUncheckedUpdateWithoutPeminjamanItemsInput>
   }
 
-  export type BarangUnitCreateNestedOneWithoutMonitoringInput = {
-    create?: XOR<BarangUnitCreateWithoutMonitoringInput, BarangUnitUncheckedCreateWithoutMonitoringInput>
-    connectOrCreate?: BarangUnitCreateOrConnectWithoutMonitoringInput
-    connect?: BarangUnitWhereUniqueInput
+  export type PeminjamanPUpdateOneRequiredWithoutItemsNestedInput = {
+    create?: XOR<PeminjamanPCreateWithoutItemsInput, PeminjamanPUncheckedCreateWithoutItemsInput>
+    connectOrCreate?: PeminjamanPCreateOrConnectWithoutItemsInput
+    upsert?: PeminjamanPUpsertWithoutItemsInput
+    connect?: PeminjamanPWhereUniqueInput
+    update?: XOR<XOR<PeminjamanPUpdateToOneWithWhereWithoutItemsInput, PeminjamanPUpdateWithoutItemsInput>, PeminjamanPUncheckedUpdateWithoutItemsInput>
   }
 
   export type DataLokasiCreateNestedOneWithoutMonitoringInput = {
@@ -13411,16 +13405,14 @@ export namespace Prisma {
     connect?: DataLokasiWhereUniqueInput
   }
 
-  export type EnumKondisiBarangMFieldUpdateOperationsInput = {
-    set?: $Enums.KondisiBarangM
-  }
-
-  export type BarangUnitUpdateOneRequiredWithoutMonitoringNestedInput = {
+  export type BarangUnitCreateNestedOneWithoutMonitoringInput = {
     create?: XOR<BarangUnitCreateWithoutMonitoringInput, BarangUnitUncheckedCreateWithoutMonitoringInput>
     connectOrCreate?: BarangUnitCreateOrConnectWithoutMonitoringInput
-    upsert?: BarangUnitUpsertWithoutMonitoringInput
     connect?: BarangUnitWhereUniqueInput
-    update?: XOR<XOR<BarangUnitUpdateToOneWithWhereWithoutMonitoringInput, BarangUnitUpdateWithoutMonitoringInput>, BarangUnitUncheckedUpdateWithoutMonitoringInput>
+  }
+
+  export type EnumKondisiBarangMFieldUpdateOperationsInput = {
+    set?: $Enums.KondisiBarangM
   }
 
   export type DataLokasiUpdateOneWithoutMonitoringNestedInput = {
@@ -13431,6 +13423,14 @@ export namespace Prisma {
     delete?: DataLokasiWhereInput | boolean
     connect?: DataLokasiWhereUniqueInput
     update?: XOR<XOR<DataLokasiUpdateToOneWithWhereWithoutMonitoringInput, DataLokasiUpdateWithoutMonitoringInput>, DataLokasiUncheckedUpdateWithoutMonitoringInput>
+  }
+
+  export type BarangUnitUpdateOneRequiredWithoutMonitoringNestedInput = {
+    create?: XOR<BarangUnitCreateWithoutMonitoringInput, BarangUnitUncheckedCreateWithoutMonitoringInput>
+    connectOrCreate?: BarangUnitCreateOrConnectWithoutMonitoringInput
+    upsert?: BarangUnitUpsertWithoutMonitoringInput
+    connect?: BarangUnitWhereUniqueInput
+    update?: XOR<XOR<BarangUnitUpdateToOneWithWhereWithoutMonitoringInput, BarangUnitUpdateWithoutMonitoringInput>, BarangUnitUncheckedUpdateWithoutMonitoringInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -13696,53 +13696,6 @@ export namespace Prisma {
     _max?: NestedEnumKondisiBarangMFilter<$PrismaModel>
   }
 
-  export type PeminjamanPCreateWithoutUserInput = {
-    lokasiTambahan?: string | null
-    no_hp: string
-    createdAt?: Date | string
-    Agenda: string
-    waktuMulai: Date | string
-    waktuSelesai: Date | string
-    verifikasi?: $Enums.StatusBooking
-    status?: $Enums.StatusP
-    waktuAmbil?: Date | string | null
-    waktuKembali?: Date | string | null
-    barangUnitId?: string | null
-    qrCode?: string | null
-    lokasi?: DataLokasiCreateNestedOneWithoutPeminjamanPInput
-    items?: PeminjamanItemCreateNestedManyWithoutPeminjamanInput
-    logScanBMN?: LogScanBMNCreateNestedManyWithoutPeminjamanInput
-  }
-
-  export type PeminjamanPUncheckedCreateWithoutUserInput = {
-    id?: number
-    kodeLokasi?: string | null
-    lokasiTambahan?: string | null
-    no_hp: string
-    createdAt?: Date | string
-    Agenda: string
-    waktuMulai: Date | string
-    waktuSelesai: Date | string
-    verifikasi?: $Enums.StatusBooking
-    status?: $Enums.StatusP
-    waktuAmbil?: Date | string | null
-    waktuKembali?: Date | string | null
-    barangUnitId?: string | null
-    qrCode?: string | null
-    items?: PeminjamanItemUncheckedCreateNestedManyWithoutPeminjamanInput
-    logScanBMN?: LogScanBMNUncheckedCreateNestedManyWithoutPeminjamanInput
-  }
-
-  export type PeminjamanPCreateOrConnectWithoutUserInput = {
-    where: PeminjamanPWhereUniqueInput
-    create: XOR<PeminjamanPCreateWithoutUserInput, PeminjamanPUncheckedCreateWithoutUserInput>
-  }
-
-  export type PeminjamanPCreateManyUserInputEnvelope = {
-    data: PeminjamanPCreateManyUserInput | PeminjamanPCreateManyUserInput[]
-    skipDuplicates?: boolean
-  }
-
   export type BarangUnitCreateWithoutUserInput = {
     nup: string
     status?: $Enums.StatusB
@@ -13773,41 +13726,51 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type PeminjamanPUpsertWithWhereUniqueWithoutUserInput = {
+  export type PeminjamanPCreateWithoutUserInput = {
+    barangUnitId?: string | null
+    lokasiTambahan?: string | null
+    no_hp: string
+    createdAt?: Date | string
+    Agenda: string
+    waktuMulai: Date | string
+    waktuSelesai: Date | string
+    verifikasi?: $Enums.StatusBooking
+    status?: $Enums.StatusP
+    qrCode?: string | null
+    waktuAmbil?: Date | string | null
+    waktuKembali?: Date | string | null
+    logScanBMN?: LogScanBMNCreateNestedManyWithoutPeminjamanInput
+    items?: PeminjamanItemCreateNestedManyWithoutPeminjamanInput
+    lokasi?: DataLokasiCreateNestedOneWithoutPeminjamanPInput
+  }
+
+  export type PeminjamanPUncheckedCreateWithoutUserInput = {
+    id?: number
+    barangUnitId?: string | null
+    kodeLokasi?: string | null
+    lokasiTambahan?: string | null
+    no_hp: string
+    createdAt?: Date | string
+    Agenda: string
+    waktuMulai: Date | string
+    waktuSelesai: Date | string
+    verifikasi?: $Enums.StatusBooking
+    status?: $Enums.StatusP
+    qrCode?: string | null
+    waktuAmbil?: Date | string | null
+    waktuKembali?: Date | string | null
+    logScanBMN?: LogScanBMNUncheckedCreateNestedManyWithoutPeminjamanInput
+    items?: PeminjamanItemUncheckedCreateNestedManyWithoutPeminjamanInput
+  }
+
+  export type PeminjamanPCreateOrConnectWithoutUserInput = {
     where: PeminjamanPWhereUniqueInput
-    update: XOR<PeminjamanPUpdateWithoutUserInput, PeminjamanPUncheckedUpdateWithoutUserInput>
     create: XOR<PeminjamanPCreateWithoutUserInput, PeminjamanPUncheckedCreateWithoutUserInput>
   }
 
-  export type PeminjamanPUpdateWithWhereUniqueWithoutUserInput = {
-    where: PeminjamanPWhereUniqueInput
-    data: XOR<PeminjamanPUpdateWithoutUserInput, PeminjamanPUncheckedUpdateWithoutUserInput>
-  }
-
-  export type PeminjamanPUpdateManyWithWhereWithoutUserInput = {
-    where: PeminjamanPScalarWhereInput
-    data: XOR<PeminjamanPUpdateManyMutationInput, PeminjamanPUncheckedUpdateManyWithoutUserInput>
-  }
-
-  export type PeminjamanPScalarWhereInput = {
-    AND?: PeminjamanPScalarWhereInput | PeminjamanPScalarWhereInput[]
-    OR?: PeminjamanPScalarWhereInput[]
-    NOT?: PeminjamanPScalarWhereInput | PeminjamanPScalarWhereInput[]
-    id?: IntFilter<"PeminjamanP"> | number
-    userNik?: StringFilter<"PeminjamanP"> | string
-    kodeLokasi?: StringNullableFilter<"PeminjamanP"> | string | null
-    lokasiTambahan?: StringNullableFilter<"PeminjamanP"> | string | null
-    no_hp?: StringFilter<"PeminjamanP"> | string
-    createdAt?: DateTimeFilter<"PeminjamanP"> | Date | string
-    Agenda?: StringFilter<"PeminjamanP"> | string
-    waktuMulai?: DateTimeFilter<"PeminjamanP"> | Date | string
-    waktuSelesai?: DateTimeFilter<"PeminjamanP"> | Date | string
-    verifikasi?: EnumStatusBookingFilter<"PeminjamanP"> | $Enums.StatusBooking
-    status?: EnumStatusPFilter<"PeminjamanP"> | $Enums.StatusP
-    waktuAmbil?: DateTimeNullableFilter<"PeminjamanP"> | Date | string | null
-    waktuKembali?: DateTimeNullableFilter<"PeminjamanP"> | Date | string | null
-    barangUnitId?: StringNullableFilter<"PeminjamanP"> | string | null
-    qrCode?: StringNullableFilter<"PeminjamanP"> | string | null
+  export type PeminjamanPCreateManyUserInputEnvelope = {
+    data: PeminjamanPCreateManyUserInput | PeminjamanPCreateManyUserInput[]
+    skipDuplicates?: boolean
   }
 
   export type BarangUnitUpsertWithWhereUniqueWithoutUserInput = {
@@ -13836,6 +13799,43 @@ export namespace Prisma {
     nikUser?: StringFilter<"BarangUnit"> | string
     status?: EnumStatusBFilter<"BarangUnit"> | $Enums.StatusB
     createdAt?: DateTimeFilter<"BarangUnit"> | Date | string
+  }
+
+  export type PeminjamanPUpsertWithWhereUniqueWithoutUserInput = {
+    where: PeminjamanPWhereUniqueInput
+    update: XOR<PeminjamanPUpdateWithoutUserInput, PeminjamanPUncheckedUpdateWithoutUserInput>
+    create: XOR<PeminjamanPCreateWithoutUserInput, PeminjamanPUncheckedCreateWithoutUserInput>
+  }
+
+  export type PeminjamanPUpdateWithWhereUniqueWithoutUserInput = {
+    where: PeminjamanPWhereUniqueInput
+    data: XOR<PeminjamanPUpdateWithoutUserInput, PeminjamanPUncheckedUpdateWithoutUserInput>
+  }
+
+  export type PeminjamanPUpdateManyWithWhereWithoutUserInput = {
+    where: PeminjamanPScalarWhereInput
+    data: XOR<PeminjamanPUpdateManyMutationInput, PeminjamanPUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type PeminjamanPScalarWhereInput = {
+    AND?: PeminjamanPScalarWhereInput | PeminjamanPScalarWhereInput[]
+    OR?: PeminjamanPScalarWhereInput[]
+    NOT?: PeminjamanPScalarWhereInput | PeminjamanPScalarWhereInput[]
+    id?: IntFilter<"PeminjamanP"> | number
+    userNik?: StringFilter<"PeminjamanP"> | string
+    barangUnitId?: StringNullableFilter<"PeminjamanP"> | string | null
+    kodeLokasi?: StringNullableFilter<"PeminjamanP"> | string | null
+    lokasiTambahan?: StringNullableFilter<"PeminjamanP"> | string | null
+    no_hp?: StringFilter<"PeminjamanP"> | string
+    createdAt?: DateTimeFilter<"PeminjamanP"> | Date | string
+    Agenda?: StringFilter<"PeminjamanP"> | string
+    waktuMulai?: DateTimeFilter<"PeminjamanP"> | Date | string
+    waktuSelesai?: DateTimeFilter<"PeminjamanP"> | Date | string
+    verifikasi?: EnumStatusBookingFilter<"PeminjamanP"> | $Enums.StatusBooking
+    status?: EnumStatusPFilter<"PeminjamanP"> | $Enums.StatusP
+    qrCode?: StringNullableFilter<"PeminjamanP"> | string | null
+    waktuAmbil?: DateTimeNullableFilter<"PeminjamanP"> | Date | string | null
+    waktuKembali?: DateTimeNullableFilter<"PeminjamanP"> | Date | string | null
   }
 
   export type BarangUnitCreateWithoutDataBarangInput = {
@@ -13914,53 +13914,6 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type PeminjamanPCreateWithoutLokasiInput = {
-    lokasiTambahan?: string | null
-    no_hp: string
-    createdAt?: Date | string
-    Agenda: string
-    waktuMulai: Date | string
-    waktuSelesai: Date | string
-    verifikasi?: $Enums.StatusBooking
-    status?: $Enums.StatusP
-    waktuAmbil?: Date | string | null
-    waktuKembali?: Date | string | null
-    barangUnitId?: string | null
-    qrCode?: string | null
-    user: UserCreateNestedOneWithoutPeminjamanPInput
-    items?: PeminjamanItemCreateNestedManyWithoutPeminjamanInput
-    logScanBMN?: LogScanBMNCreateNestedManyWithoutPeminjamanInput
-  }
-
-  export type PeminjamanPUncheckedCreateWithoutLokasiInput = {
-    id?: number
-    userNik: string
-    lokasiTambahan?: string | null
-    no_hp: string
-    createdAt?: Date | string
-    Agenda: string
-    waktuMulai: Date | string
-    waktuSelesai: Date | string
-    verifikasi?: $Enums.StatusBooking
-    status?: $Enums.StatusP
-    waktuAmbil?: Date | string | null
-    waktuKembali?: Date | string | null
-    barangUnitId?: string | null
-    qrCode?: string | null
-    items?: PeminjamanItemUncheckedCreateNestedManyWithoutPeminjamanInput
-    logScanBMN?: LogScanBMNUncheckedCreateNestedManyWithoutPeminjamanInput
-  }
-
-  export type PeminjamanPCreateOrConnectWithoutLokasiInput = {
-    where: PeminjamanPWhereUniqueInput
-    create: XOR<PeminjamanPCreateWithoutLokasiInput, PeminjamanPUncheckedCreateWithoutLokasiInput>
-  }
-
-  export type PeminjamanPCreateManyLokasiInputEnvelope = {
-    data: PeminjamanPCreateManyLokasiInput | PeminjamanPCreateManyLokasiInput[]
-    skipDuplicates?: boolean
-  }
-
   export type MonitoringCreateWithoutDataLokasiInput = {
     id: string
     waktu: Date | string
@@ -13993,6 +13946,53 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type PeminjamanPCreateWithoutLokasiInput = {
+    barangUnitId?: string | null
+    lokasiTambahan?: string | null
+    no_hp: string
+    createdAt?: Date | string
+    Agenda: string
+    waktuMulai: Date | string
+    waktuSelesai: Date | string
+    verifikasi?: $Enums.StatusBooking
+    status?: $Enums.StatusP
+    qrCode?: string | null
+    waktuAmbil?: Date | string | null
+    waktuKembali?: Date | string | null
+    logScanBMN?: LogScanBMNCreateNestedManyWithoutPeminjamanInput
+    items?: PeminjamanItemCreateNestedManyWithoutPeminjamanInput
+    user: UserCreateNestedOneWithoutPeminjamanPInput
+  }
+
+  export type PeminjamanPUncheckedCreateWithoutLokasiInput = {
+    id?: number
+    userNik: string
+    barangUnitId?: string | null
+    lokasiTambahan?: string | null
+    no_hp: string
+    createdAt?: Date | string
+    Agenda: string
+    waktuMulai: Date | string
+    waktuSelesai: Date | string
+    verifikasi?: $Enums.StatusBooking
+    status?: $Enums.StatusP
+    qrCode?: string | null
+    waktuAmbil?: Date | string | null
+    waktuKembali?: Date | string | null
+    logScanBMN?: LogScanBMNUncheckedCreateNestedManyWithoutPeminjamanInput
+    items?: PeminjamanItemUncheckedCreateNestedManyWithoutPeminjamanInput
+  }
+
+  export type PeminjamanPCreateOrConnectWithoutLokasiInput = {
+    where: PeminjamanPWhereUniqueInput
+    create: XOR<PeminjamanPCreateWithoutLokasiInput, PeminjamanPUncheckedCreateWithoutLokasiInput>
+  }
+
+  export type PeminjamanPCreateManyLokasiInputEnvelope = {
+    data: PeminjamanPCreateManyLokasiInput | PeminjamanPCreateManyLokasiInput[]
+    skipDuplicates?: boolean
+  }
+
   export type BarangUnitUpsertWithWhereUniqueWithoutDataLokasiInput = {
     where: BarangUnitWhereUniqueInput
     update: XOR<BarangUnitUpdateWithoutDataLokasiInput, BarangUnitUncheckedUpdateWithoutDataLokasiInput>
@@ -14007,22 +14007,6 @@ export namespace Prisma {
   export type BarangUnitUpdateManyWithWhereWithoutDataLokasiInput = {
     where: BarangUnitScalarWhereInput
     data: XOR<BarangUnitUpdateManyMutationInput, BarangUnitUncheckedUpdateManyWithoutDataLokasiInput>
-  }
-
-  export type PeminjamanPUpsertWithWhereUniqueWithoutLokasiInput = {
-    where: PeminjamanPWhereUniqueInput
-    update: XOR<PeminjamanPUpdateWithoutLokasiInput, PeminjamanPUncheckedUpdateWithoutLokasiInput>
-    create: XOR<PeminjamanPCreateWithoutLokasiInput, PeminjamanPUncheckedCreateWithoutLokasiInput>
-  }
-
-  export type PeminjamanPUpdateWithWhereUniqueWithoutLokasiInput = {
-    where: PeminjamanPWhereUniqueInput
-    data: XOR<PeminjamanPUpdateWithoutLokasiInput, PeminjamanPUncheckedUpdateWithoutLokasiInput>
-  }
-
-  export type PeminjamanPUpdateManyWithWhereWithoutLokasiInput = {
-    where: PeminjamanPScalarWhereInput
-    data: XOR<PeminjamanPUpdateManyMutationInput, PeminjamanPUncheckedUpdateManyWithoutLokasiInput>
   }
 
   export type MonitoringUpsertWithWhereUniqueWithoutDataLokasiInput = {
@@ -14056,6 +14040,22 @@ export namespace Prisma {
     keterangan?: StringNullableFilter<"Monitoring"> | string | null
   }
 
+  export type PeminjamanPUpsertWithWhereUniqueWithoutLokasiInput = {
+    where: PeminjamanPWhereUniqueInput
+    update: XOR<PeminjamanPUpdateWithoutLokasiInput, PeminjamanPUncheckedUpdateWithoutLokasiInput>
+    create: XOR<PeminjamanPCreateWithoutLokasiInput, PeminjamanPUncheckedCreateWithoutLokasiInput>
+  }
+
+  export type PeminjamanPUpdateWithWhereUniqueWithoutLokasiInput = {
+    where: PeminjamanPWhereUniqueInput
+    data: XOR<PeminjamanPUpdateWithoutLokasiInput, PeminjamanPUncheckedUpdateWithoutLokasiInput>
+  }
+
+  export type PeminjamanPUpdateManyWithWhereWithoutLokasiInput = {
+    where: PeminjamanPScalarWhereInput
+    data: XOR<PeminjamanPUpdateManyMutationInput, PeminjamanPUncheckedUpdateManyWithoutLokasiInput>
+  }
+
   export type DataBarangCreateWithoutBarangUnitInput = {
     kode_barang: string
     jenis_barang: string
@@ -14077,16 +14077,16 @@ export namespace Prisma {
     kode_lokasi: string
     lokasi: string
     status?: $Enums.StatusLokasi
-    peminjamanP?: PeminjamanPCreateNestedManyWithoutLokasiInput
     monitoring?: MonitoringCreateNestedManyWithoutDataLokasiInput
+    peminjamanP?: PeminjamanPCreateNestedManyWithoutLokasiInput
   }
 
   export type DataLokasiUncheckedCreateWithoutBarangUnitInput = {
     kode_lokasi: string
     lokasi: string
     status?: $Enums.StatusLokasi
-    peminjamanP?: PeminjamanPUncheckedCreateNestedManyWithoutLokasiInput
     monitoring?: MonitoringUncheckedCreateNestedManyWithoutDataLokasiInput
+    peminjamanP?: PeminjamanPUncheckedCreateNestedManyWithoutLokasiInput
   }
 
   export type DataLokasiCreateOrConnectWithoutBarangUnitInput = {
@@ -14095,26 +14095,26 @@ export namespace Prisma {
   }
 
   export type UserCreateWithoutBarangUnitInput = {
+    nama: string
     nik: string
-    nomor_identitas_tunggal: string
     email: string
     password: string
-    nama: string
     role?: $Enums.Role
     createdAt?: Date | string
     updateAt?: Date | string
+    nomor_identitas_tunggal: string
     peminjamanP?: PeminjamanPCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutBarangUnitInput = {
+    nama: string
     nik: string
-    nomor_identitas_tunggal: string
     email: string
     password: string
-    nama: string
     role?: $Enums.Role
     createdAt?: Date | string
     updateAt?: Date | string
+    nomor_identitas_tunggal: string
     peminjamanP?: PeminjamanPUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -14212,16 +14212,16 @@ export namespace Prisma {
     kode_lokasi?: StringFieldUpdateOperationsInput | string
     lokasi?: StringFieldUpdateOperationsInput | string
     status?: EnumStatusLokasiFieldUpdateOperationsInput | $Enums.StatusLokasi
-    peminjamanP?: PeminjamanPUpdateManyWithoutLokasiNestedInput
     monitoring?: MonitoringUpdateManyWithoutDataLokasiNestedInput
+    peminjamanP?: PeminjamanPUpdateManyWithoutLokasiNestedInput
   }
 
   export type DataLokasiUncheckedUpdateWithoutBarangUnitInput = {
     kode_lokasi?: StringFieldUpdateOperationsInput | string
     lokasi?: StringFieldUpdateOperationsInput | string
     status?: EnumStatusLokasiFieldUpdateOperationsInput | $Enums.StatusLokasi
-    peminjamanP?: PeminjamanPUncheckedUpdateManyWithoutLokasiNestedInput
     monitoring?: MonitoringUncheckedUpdateManyWithoutDataLokasiNestedInput
+    peminjamanP?: PeminjamanPUncheckedUpdateManyWithoutLokasiNestedInput
   }
 
   export type UserUpsertWithoutBarangUnitInput = {
@@ -14236,26 +14236,26 @@ export namespace Prisma {
   }
 
   export type UserUpdateWithoutBarangUnitInput = {
+    nama?: StringFieldUpdateOperationsInput | string
     nik?: StringFieldUpdateOperationsInput | string
-    nomor_identitas_tunggal?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    nama?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    nomor_identitas_tunggal?: StringFieldUpdateOperationsInput | string
     peminjamanP?: PeminjamanPUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutBarangUnitInput = {
+    nama?: StringFieldUpdateOperationsInput | string
     nik?: StringFieldUpdateOperationsInput | string
-    nomor_identitas_tunggal?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    nama?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    nomor_identitas_tunggal?: StringFieldUpdateOperationsInput | string
     peminjamanP?: PeminjamanPUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -14300,75 +14300,6 @@ export namespace Prisma {
     nupBarang?: StringFilter<"PeminjamanItem"> | string
   }
 
-  export type UserCreateWithoutPeminjamanPInput = {
-    nik: string
-    nomor_identitas_tunggal: string
-    email: string
-    password: string
-    nama: string
-    role?: $Enums.Role
-    createdAt?: Date | string
-    updateAt?: Date | string
-    barangUnit?: BarangUnitCreateNestedManyWithoutUserInput
-  }
-
-  export type UserUncheckedCreateWithoutPeminjamanPInput = {
-    nik: string
-    nomor_identitas_tunggal: string
-    email: string
-    password: string
-    nama: string
-    role?: $Enums.Role
-    createdAt?: Date | string
-    updateAt?: Date | string
-    barangUnit?: BarangUnitUncheckedCreateNestedManyWithoutUserInput
-  }
-
-  export type UserCreateOrConnectWithoutPeminjamanPInput = {
-    where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutPeminjamanPInput, UserUncheckedCreateWithoutPeminjamanPInput>
-  }
-
-  export type DataLokasiCreateWithoutPeminjamanPInput = {
-    kode_lokasi: string
-    lokasi: string
-    status?: $Enums.StatusLokasi
-    barangUnit?: BarangUnitCreateNestedManyWithoutDataLokasiInput
-    monitoring?: MonitoringCreateNestedManyWithoutDataLokasiInput
-  }
-
-  export type DataLokasiUncheckedCreateWithoutPeminjamanPInput = {
-    kode_lokasi: string
-    lokasi: string
-    status?: $Enums.StatusLokasi
-    barangUnit?: BarangUnitUncheckedCreateNestedManyWithoutDataLokasiInput
-    monitoring?: MonitoringUncheckedCreateNestedManyWithoutDataLokasiInput
-  }
-
-  export type DataLokasiCreateOrConnectWithoutPeminjamanPInput = {
-    where: DataLokasiWhereUniqueInput
-    create: XOR<DataLokasiCreateWithoutPeminjamanPInput, DataLokasiUncheckedCreateWithoutPeminjamanPInput>
-  }
-
-  export type PeminjamanItemCreateWithoutPeminjamanInput = {
-    barangUnit: BarangUnitCreateNestedOneWithoutPeminjamanItemsInput
-  }
-
-  export type PeminjamanItemUncheckedCreateWithoutPeminjamanInput = {
-    id?: number
-    nupBarang: string
-  }
-
-  export type PeminjamanItemCreateOrConnectWithoutPeminjamanInput = {
-    where: PeminjamanItemWhereUniqueInput
-    create: XOR<PeminjamanItemCreateWithoutPeminjamanInput, PeminjamanItemUncheckedCreateWithoutPeminjamanInput>
-  }
-
-  export type PeminjamanItemCreateManyPeminjamanInputEnvelope = {
-    data: PeminjamanItemCreateManyPeminjamanInput | PeminjamanItemCreateManyPeminjamanInput[]
-    skipDuplicates?: boolean
-  }
-
   export type LogScanBMNCreateWithoutPeminjamanInput = {
     jenis: string
     waktuScan?: Date | string
@@ -14394,82 +14325,73 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type UserUpsertWithoutPeminjamanPInput = {
-    update: XOR<UserUpdateWithoutPeminjamanPInput, UserUncheckedUpdateWithoutPeminjamanPInput>
-    create: XOR<UserCreateWithoutPeminjamanPInput, UserUncheckedCreateWithoutPeminjamanPInput>
-    where?: UserWhereInput
+  export type PeminjamanItemCreateWithoutPeminjamanInput = {
+    barangUnit: BarangUnitCreateNestedOneWithoutPeminjamanItemsInput
   }
 
-  export type UserUpdateToOneWithWhereWithoutPeminjamanPInput = {
-    where?: UserWhereInput
-    data: XOR<UserUpdateWithoutPeminjamanPInput, UserUncheckedUpdateWithoutPeminjamanPInput>
+  export type PeminjamanItemUncheckedCreateWithoutPeminjamanInput = {
+    id?: number
+    nupBarang: string
   }
 
-  export type UserUpdateWithoutPeminjamanPInput = {
-    nik?: StringFieldUpdateOperationsInput | string
-    nomor_identitas_tunggal?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    nama?: StringFieldUpdateOperationsInput | string
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    barangUnit?: BarangUnitUpdateManyWithoutUserNestedInput
-  }
-
-  export type UserUncheckedUpdateWithoutPeminjamanPInput = {
-    nik?: StringFieldUpdateOperationsInput | string
-    nomor_identitas_tunggal?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    nama?: StringFieldUpdateOperationsInput | string
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    barangUnit?: BarangUnitUncheckedUpdateManyWithoutUserNestedInput
-  }
-
-  export type DataLokasiUpsertWithoutPeminjamanPInput = {
-    update: XOR<DataLokasiUpdateWithoutPeminjamanPInput, DataLokasiUncheckedUpdateWithoutPeminjamanPInput>
-    create: XOR<DataLokasiCreateWithoutPeminjamanPInput, DataLokasiUncheckedCreateWithoutPeminjamanPInput>
-    where?: DataLokasiWhereInput
-  }
-
-  export type DataLokasiUpdateToOneWithWhereWithoutPeminjamanPInput = {
-    where?: DataLokasiWhereInput
-    data: XOR<DataLokasiUpdateWithoutPeminjamanPInput, DataLokasiUncheckedUpdateWithoutPeminjamanPInput>
-  }
-
-  export type DataLokasiUpdateWithoutPeminjamanPInput = {
-    kode_lokasi?: StringFieldUpdateOperationsInput | string
-    lokasi?: StringFieldUpdateOperationsInput | string
-    status?: EnumStatusLokasiFieldUpdateOperationsInput | $Enums.StatusLokasi
-    barangUnit?: BarangUnitUpdateManyWithoutDataLokasiNestedInput
-    monitoring?: MonitoringUpdateManyWithoutDataLokasiNestedInput
-  }
-
-  export type DataLokasiUncheckedUpdateWithoutPeminjamanPInput = {
-    kode_lokasi?: StringFieldUpdateOperationsInput | string
-    lokasi?: StringFieldUpdateOperationsInput | string
-    status?: EnumStatusLokasiFieldUpdateOperationsInput | $Enums.StatusLokasi
-    barangUnit?: BarangUnitUncheckedUpdateManyWithoutDataLokasiNestedInput
-    monitoring?: MonitoringUncheckedUpdateManyWithoutDataLokasiNestedInput
-  }
-
-  export type PeminjamanItemUpsertWithWhereUniqueWithoutPeminjamanInput = {
+  export type PeminjamanItemCreateOrConnectWithoutPeminjamanInput = {
     where: PeminjamanItemWhereUniqueInput
-    update: XOR<PeminjamanItemUpdateWithoutPeminjamanInput, PeminjamanItemUncheckedUpdateWithoutPeminjamanInput>
     create: XOR<PeminjamanItemCreateWithoutPeminjamanInput, PeminjamanItemUncheckedCreateWithoutPeminjamanInput>
   }
 
-  export type PeminjamanItemUpdateWithWhereUniqueWithoutPeminjamanInput = {
-    where: PeminjamanItemWhereUniqueInput
-    data: XOR<PeminjamanItemUpdateWithoutPeminjamanInput, PeminjamanItemUncheckedUpdateWithoutPeminjamanInput>
+  export type PeminjamanItemCreateManyPeminjamanInputEnvelope = {
+    data: PeminjamanItemCreateManyPeminjamanInput | PeminjamanItemCreateManyPeminjamanInput[]
+    skipDuplicates?: boolean
   }
 
-  export type PeminjamanItemUpdateManyWithWhereWithoutPeminjamanInput = {
-    where: PeminjamanItemScalarWhereInput
-    data: XOR<PeminjamanItemUpdateManyMutationInput, PeminjamanItemUncheckedUpdateManyWithoutPeminjamanInput>
+  export type DataLokasiCreateWithoutPeminjamanPInput = {
+    kode_lokasi: string
+    lokasi: string
+    status?: $Enums.StatusLokasi
+    barangUnit?: BarangUnitCreateNestedManyWithoutDataLokasiInput
+    monitoring?: MonitoringCreateNestedManyWithoutDataLokasiInput
+  }
+
+  export type DataLokasiUncheckedCreateWithoutPeminjamanPInput = {
+    kode_lokasi: string
+    lokasi: string
+    status?: $Enums.StatusLokasi
+    barangUnit?: BarangUnitUncheckedCreateNestedManyWithoutDataLokasiInput
+    monitoring?: MonitoringUncheckedCreateNestedManyWithoutDataLokasiInput
+  }
+
+  export type DataLokasiCreateOrConnectWithoutPeminjamanPInput = {
+    where: DataLokasiWhereUniqueInput
+    create: XOR<DataLokasiCreateWithoutPeminjamanPInput, DataLokasiUncheckedCreateWithoutPeminjamanPInput>
+  }
+
+  export type UserCreateWithoutPeminjamanPInput = {
+    nama: string
+    nik: string
+    email: string
+    password: string
+    role?: $Enums.Role
+    createdAt?: Date | string
+    updateAt?: Date | string
+    nomor_identitas_tunggal: string
+    barangUnit?: BarangUnitCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutPeminjamanPInput = {
+    nama: string
+    nik: string
+    email: string
+    password: string
+    role?: $Enums.Role
+    createdAt?: Date | string
+    updateAt?: Date | string
+    nomor_identitas_tunggal: string
+    barangUnit?: BarangUnitUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutPeminjamanPInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutPeminjamanPInput, UserUncheckedCreateWithoutPeminjamanPInput>
   }
 
   export type LogScanBMNUpsertWithWhereUniqueWithoutPeminjamanInput = {
@@ -14500,7 +14422,86 @@ export namespace Prisma {
     keterangan?: StringNullableFilter<"LogScanBMN"> | string | null
   }
 
+  export type PeminjamanItemUpsertWithWhereUniqueWithoutPeminjamanInput = {
+    where: PeminjamanItemWhereUniqueInput
+    update: XOR<PeminjamanItemUpdateWithoutPeminjamanInput, PeminjamanItemUncheckedUpdateWithoutPeminjamanInput>
+    create: XOR<PeminjamanItemCreateWithoutPeminjamanInput, PeminjamanItemUncheckedCreateWithoutPeminjamanInput>
+  }
+
+  export type PeminjamanItemUpdateWithWhereUniqueWithoutPeminjamanInput = {
+    where: PeminjamanItemWhereUniqueInput
+    data: XOR<PeminjamanItemUpdateWithoutPeminjamanInput, PeminjamanItemUncheckedUpdateWithoutPeminjamanInput>
+  }
+
+  export type PeminjamanItemUpdateManyWithWhereWithoutPeminjamanInput = {
+    where: PeminjamanItemScalarWhereInput
+    data: XOR<PeminjamanItemUpdateManyMutationInput, PeminjamanItemUncheckedUpdateManyWithoutPeminjamanInput>
+  }
+
+  export type DataLokasiUpsertWithoutPeminjamanPInput = {
+    update: XOR<DataLokasiUpdateWithoutPeminjamanPInput, DataLokasiUncheckedUpdateWithoutPeminjamanPInput>
+    create: XOR<DataLokasiCreateWithoutPeminjamanPInput, DataLokasiUncheckedCreateWithoutPeminjamanPInput>
+    where?: DataLokasiWhereInput
+  }
+
+  export type DataLokasiUpdateToOneWithWhereWithoutPeminjamanPInput = {
+    where?: DataLokasiWhereInput
+    data: XOR<DataLokasiUpdateWithoutPeminjamanPInput, DataLokasiUncheckedUpdateWithoutPeminjamanPInput>
+  }
+
+  export type DataLokasiUpdateWithoutPeminjamanPInput = {
+    kode_lokasi?: StringFieldUpdateOperationsInput | string
+    lokasi?: StringFieldUpdateOperationsInput | string
+    status?: EnumStatusLokasiFieldUpdateOperationsInput | $Enums.StatusLokasi
+    barangUnit?: BarangUnitUpdateManyWithoutDataLokasiNestedInput
+    monitoring?: MonitoringUpdateManyWithoutDataLokasiNestedInput
+  }
+
+  export type DataLokasiUncheckedUpdateWithoutPeminjamanPInput = {
+    kode_lokasi?: StringFieldUpdateOperationsInput | string
+    lokasi?: StringFieldUpdateOperationsInput | string
+    status?: EnumStatusLokasiFieldUpdateOperationsInput | $Enums.StatusLokasi
+    barangUnit?: BarangUnitUncheckedUpdateManyWithoutDataLokasiNestedInput
+    monitoring?: MonitoringUncheckedUpdateManyWithoutDataLokasiNestedInput
+  }
+
+  export type UserUpsertWithoutPeminjamanPInput = {
+    update: XOR<UserUpdateWithoutPeminjamanPInput, UserUncheckedUpdateWithoutPeminjamanPInput>
+    create: XOR<UserCreateWithoutPeminjamanPInput, UserUncheckedCreateWithoutPeminjamanPInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutPeminjamanPInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutPeminjamanPInput, UserUncheckedUpdateWithoutPeminjamanPInput>
+  }
+
+  export type UserUpdateWithoutPeminjamanPInput = {
+    nama?: StringFieldUpdateOperationsInput | string
+    nik?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    nomor_identitas_tunggal?: StringFieldUpdateOperationsInput | string
+    barangUnit?: BarangUnitUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutPeminjamanPInput = {
+    nama?: StringFieldUpdateOperationsInput | string
+    nik?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    nomor_identitas_tunggal?: StringFieldUpdateOperationsInput | string
+    barangUnit?: BarangUnitUncheckedUpdateManyWithoutUserNestedInput
+  }
+
   export type PeminjamanPCreateWithoutLogScanBMNInput = {
+    barangUnitId?: string | null
     lokasiTambahan?: string | null
     no_hp: string
     createdAt?: Date | string
@@ -14509,18 +14510,18 @@ export namespace Prisma {
     waktuSelesai: Date | string
     verifikasi?: $Enums.StatusBooking
     status?: $Enums.StatusP
+    qrCode?: string | null
     waktuAmbil?: Date | string | null
     waktuKembali?: Date | string | null
-    barangUnitId?: string | null
-    qrCode?: string | null
-    user: UserCreateNestedOneWithoutPeminjamanPInput
-    lokasi?: DataLokasiCreateNestedOneWithoutPeminjamanPInput
     items?: PeminjamanItemCreateNestedManyWithoutPeminjamanInput
+    lokasi?: DataLokasiCreateNestedOneWithoutPeminjamanPInput
+    user: UserCreateNestedOneWithoutPeminjamanPInput
   }
 
   export type PeminjamanPUncheckedCreateWithoutLogScanBMNInput = {
     id?: number
     userNik: string
+    barangUnitId?: string | null
     kodeLokasi?: string | null
     lokasiTambahan?: string | null
     no_hp: string
@@ -14530,10 +14531,9 @@ export namespace Prisma {
     waktuSelesai: Date | string
     verifikasi?: $Enums.StatusBooking
     status?: $Enums.StatusP
+    qrCode?: string | null
     waktuAmbil?: Date | string | null
     waktuKembali?: Date | string | null
-    barangUnitId?: string | null
-    qrCode?: string | null
     items?: PeminjamanItemUncheckedCreateNestedManyWithoutPeminjamanInput
   }
 
@@ -14554,6 +14554,7 @@ export namespace Prisma {
   }
 
   export type PeminjamanPUpdateWithoutLogScanBMNInput = {
+    barangUnitId?: NullableStringFieldUpdateOperationsInput | string | null
     lokasiTambahan?: NullableStringFieldUpdateOperationsInput | string | null
     no_hp?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -14562,18 +14563,18 @@ export namespace Prisma {
     waktuSelesai?: DateTimeFieldUpdateOperationsInput | Date | string
     verifikasi?: EnumStatusBookingFieldUpdateOperationsInput | $Enums.StatusBooking
     status?: EnumStatusPFieldUpdateOperationsInput | $Enums.StatusP
+    qrCode?: NullableStringFieldUpdateOperationsInput | string | null
     waktuAmbil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     waktuKembali?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    barangUnitId?: NullableStringFieldUpdateOperationsInput | string | null
-    qrCode?: NullableStringFieldUpdateOperationsInput | string | null
-    user?: UserUpdateOneRequiredWithoutPeminjamanPNestedInput
-    lokasi?: DataLokasiUpdateOneWithoutPeminjamanPNestedInput
     items?: PeminjamanItemUpdateManyWithoutPeminjamanNestedInput
+    lokasi?: DataLokasiUpdateOneWithoutPeminjamanPNestedInput
+    user?: UserUpdateOneRequiredWithoutPeminjamanPNestedInput
   }
 
   export type PeminjamanPUncheckedUpdateWithoutLogScanBMNInput = {
     id?: IntFieldUpdateOperationsInput | number
     userNik?: StringFieldUpdateOperationsInput | string
+    barangUnitId?: NullableStringFieldUpdateOperationsInput | string | null
     kodeLokasi?: NullableStringFieldUpdateOperationsInput | string | null
     lokasiTambahan?: NullableStringFieldUpdateOperationsInput | string | null
     no_hp?: StringFieldUpdateOperationsInput | string
@@ -14583,53 +14584,10 @@ export namespace Prisma {
     waktuSelesai?: DateTimeFieldUpdateOperationsInput | Date | string
     verifikasi?: EnumStatusBookingFieldUpdateOperationsInput | $Enums.StatusBooking
     status?: EnumStatusPFieldUpdateOperationsInput | $Enums.StatusP
+    qrCode?: NullableStringFieldUpdateOperationsInput | string | null
     waktuAmbil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     waktuKembali?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    barangUnitId?: NullableStringFieldUpdateOperationsInput | string | null
-    qrCode?: NullableStringFieldUpdateOperationsInput | string | null
     items?: PeminjamanItemUncheckedUpdateManyWithoutPeminjamanNestedInput
-  }
-
-  export type PeminjamanPCreateWithoutItemsInput = {
-    lokasiTambahan?: string | null
-    no_hp: string
-    createdAt?: Date | string
-    Agenda: string
-    waktuMulai: Date | string
-    waktuSelesai: Date | string
-    verifikasi?: $Enums.StatusBooking
-    status?: $Enums.StatusP
-    waktuAmbil?: Date | string | null
-    waktuKembali?: Date | string | null
-    barangUnitId?: string | null
-    qrCode?: string | null
-    user: UserCreateNestedOneWithoutPeminjamanPInput
-    lokasi?: DataLokasiCreateNestedOneWithoutPeminjamanPInput
-    logScanBMN?: LogScanBMNCreateNestedManyWithoutPeminjamanInput
-  }
-
-  export type PeminjamanPUncheckedCreateWithoutItemsInput = {
-    id?: number
-    userNik: string
-    kodeLokasi?: string | null
-    lokasiTambahan?: string | null
-    no_hp: string
-    createdAt?: Date | string
-    Agenda: string
-    waktuMulai: Date | string
-    waktuSelesai: Date | string
-    verifikasi?: $Enums.StatusBooking
-    status?: $Enums.StatusP
-    waktuAmbil?: Date | string | null
-    waktuKembali?: Date | string | null
-    barangUnitId?: string | null
-    qrCode?: string | null
-    logScanBMN?: LogScanBMNUncheckedCreateNestedManyWithoutPeminjamanInput
-  }
-
-  export type PeminjamanPCreateOrConnectWithoutItemsInput = {
-    where: PeminjamanPWhereUniqueInput
-    create: XOR<PeminjamanPCreateWithoutItemsInput, PeminjamanPUncheckedCreateWithoutItemsInput>
   }
 
   export type BarangUnitCreateWithoutPeminjamanItemsInput = {
@@ -14657,52 +14615,46 @@ export namespace Prisma {
     create: XOR<BarangUnitCreateWithoutPeminjamanItemsInput, BarangUnitUncheckedCreateWithoutPeminjamanItemsInput>
   }
 
-  export type PeminjamanPUpsertWithoutItemsInput = {
-    update: XOR<PeminjamanPUpdateWithoutItemsInput, PeminjamanPUncheckedUpdateWithoutItemsInput>
+  export type PeminjamanPCreateWithoutItemsInput = {
+    barangUnitId?: string | null
+    lokasiTambahan?: string | null
+    no_hp: string
+    createdAt?: Date | string
+    Agenda: string
+    waktuMulai: Date | string
+    waktuSelesai: Date | string
+    verifikasi?: $Enums.StatusBooking
+    status?: $Enums.StatusP
+    qrCode?: string | null
+    waktuAmbil?: Date | string | null
+    waktuKembali?: Date | string | null
+    logScanBMN?: LogScanBMNCreateNestedManyWithoutPeminjamanInput
+    lokasi?: DataLokasiCreateNestedOneWithoutPeminjamanPInput
+    user: UserCreateNestedOneWithoutPeminjamanPInput
+  }
+
+  export type PeminjamanPUncheckedCreateWithoutItemsInput = {
+    id?: number
+    userNik: string
+    barangUnitId?: string | null
+    kodeLokasi?: string | null
+    lokasiTambahan?: string | null
+    no_hp: string
+    createdAt?: Date | string
+    Agenda: string
+    waktuMulai: Date | string
+    waktuSelesai: Date | string
+    verifikasi?: $Enums.StatusBooking
+    status?: $Enums.StatusP
+    qrCode?: string | null
+    waktuAmbil?: Date | string | null
+    waktuKembali?: Date | string | null
+    logScanBMN?: LogScanBMNUncheckedCreateNestedManyWithoutPeminjamanInput
+  }
+
+  export type PeminjamanPCreateOrConnectWithoutItemsInput = {
+    where: PeminjamanPWhereUniqueInput
     create: XOR<PeminjamanPCreateWithoutItemsInput, PeminjamanPUncheckedCreateWithoutItemsInput>
-    where?: PeminjamanPWhereInput
-  }
-
-  export type PeminjamanPUpdateToOneWithWhereWithoutItemsInput = {
-    where?: PeminjamanPWhereInput
-    data: XOR<PeminjamanPUpdateWithoutItemsInput, PeminjamanPUncheckedUpdateWithoutItemsInput>
-  }
-
-  export type PeminjamanPUpdateWithoutItemsInput = {
-    lokasiTambahan?: NullableStringFieldUpdateOperationsInput | string | null
-    no_hp?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    Agenda?: StringFieldUpdateOperationsInput | string
-    waktuMulai?: DateTimeFieldUpdateOperationsInput | Date | string
-    waktuSelesai?: DateTimeFieldUpdateOperationsInput | Date | string
-    verifikasi?: EnumStatusBookingFieldUpdateOperationsInput | $Enums.StatusBooking
-    status?: EnumStatusPFieldUpdateOperationsInput | $Enums.StatusP
-    waktuAmbil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    waktuKembali?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    barangUnitId?: NullableStringFieldUpdateOperationsInput | string | null
-    qrCode?: NullableStringFieldUpdateOperationsInput | string | null
-    user?: UserUpdateOneRequiredWithoutPeminjamanPNestedInput
-    lokasi?: DataLokasiUpdateOneWithoutPeminjamanPNestedInput
-    logScanBMN?: LogScanBMNUpdateManyWithoutPeminjamanNestedInput
-  }
-
-  export type PeminjamanPUncheckedUpdateWithoutItemsInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    userNik?: StringFieldUpdateOperationsInput | string
-    kodeLokasi?: NullableStringFieldUpdateOperationsInput | string | null
-    lokasiTambahan?: NullableStringFieldUpdateOperationsInput | string | null
-    no_hp?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    Agenda?: StringFieldUpdateOperationsInput | string
-    waktuMulai?: DateTimeFieldUpdateOperationsInput | Date | string
-    waktuSelesai?: DateTimeFieldUpdateOperationsInput | Date | string
-    verifikasi?: EnumStatusBookingFieldUpdateOperationsInput | $Enums.StatusBooking
-    status?: EnumStatusPFieldUpdateOperationsInput | $Enums.StatusP
-    waktuAmbil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    waktuKembali?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    barangUnitId?: NullableStringFieldUpdateOperationsInput | string | null
-    qrCode?: NullableStringFieldUpdateOperationsInput | string | null
-    logScanBMN?: LogScanBMNUncheckedUpdateManyWithoutPeminjamanNestedInput
   }
 
   export type BarangUnitUpsertWithoutPeminjamanItemsInput = {
@@ -14736,6 +14688,75 @@ export namespace Prisma {
     monitoring?: MonitoringUncheckedUpdateManyWithoutBarangUnitNestedInput
   }
 
+  export type PeminjamanPUpsertWithoutItemsInput = {
+    update: XOR<PeminjamanPUpdateWithoutItemsInput, PeminjamanPUncheckedUpdateWithoutItemsInput>
+    create: XOR<PeminjamanPCreateWithoutItemsInput, PeminjamanPUncheckedCreateWithoutItemsInput>
+    where?: PeminjamanPWhereInput
+  }
+
+  export type PeminjamanPUpdateToOneWithWhereWithoutItemsInput = {
+    where?: PeminjamanPWhereInput
+    data: XOR<PeminjamanPUpdateWithoutItemsInput, PeminjamanPUncheckedUpdateWithoutItemsInput>
+  }
+
+  export type PeminjamanPUpdateWithoutItemsInput = {
+    barangUnitId?: NullableStringFieldUpdateOperationsInput | string | null
+    lokasiTambahan?: NullableStringFieldUpdateOperationsInput | string | null
+    no_hp?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Agenda?: StringFieldUpdateOperationsInput | string
+    waktuMulai?: DateTimeFieldUpdateOperationsInput | Date | string
+    waktuSelesai?: DateTimeFieldUpdateOperationsInput | Date | string
+    verifikasi?: EnumStatusBookingFieldUpdateOperationsInput | $Enums.StatusBooking
+    status?: EnumStatusPFieldUpdateOperationsInput | $Enums.StatusP
+    qrCode?: NullableStringFieldUpdateOperationsInput | string | null
+    waktuAmbil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    waktuKembali?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    logScanBMN?: LogScanBMNUpdateManyWithoutPeminjamanNestedInput
+    lokasi?: DataLokasiUpdateOneWithoutPeminjamanPNestedInput
+    user?: UserUpdateOneRequiredWithoutPeminjamanPNestedInput
+  }
+
+  export type PeminjamanPUncheckedUpdateWithoutItemsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userNik?: StringFieldUpdateOperationsInput | string
+    barangUnitId?: NullableStringFieldUpdateOperationsInput | string | null
+    kodeLokasi?: NullableStringFieldUpdateOperationsInput | string | null
+    lokasiTambahan?: NullableStringFieldUpdateOperationsInput | string | null
+    no_hp?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Agenda?: StringFieldUpdateOperationsInput | string
+    waktuMulai?: DateTimeFieldUpdateOperationsInput | Date | string
+    waktuSelesai?: DateTimeFieldUpdateOperationsInput | Date | string
+    verifikasi?: EnumStatusBookingFieldUpdateOperationsInput | $Enums.StatusBooking
+    status?: EnumStatusPFieldUpdateOperationsInput | $Enums.StatusP
+    qrCode?: NullableStringFieldUpdateOperationsInput | string | null
+    waktuAmbil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    waktuKembali?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    logScanBMN?: LogScanBMNUncheckedUpdateManyWithoutPeminjamanNestedInput
+  }
+
+  export type DataLokasiCreateWithoutMonitoringInput = {
+    kode_lokasi: string
+    lokasi: string
+    status?: $Enums.StatusLokasi
+    barangUnit?: BarangUnitCreateNestedManyWithoutDataLokasiInput
+    peminjamanP?: PeminjamanPCreateNestedManyWithoutLokasiInput
+  }
+
+  export type DataLokasiUncheckedCreateWithoutMonitoringInput = {
+    kode_lokasi: string
+    lokasi: string
+    status?: $Enums.StatusLokasi
+    barangUnit?: BarangUnitUncheckedCreateNestedManyWithoutDataLokasiInput
+    peminjamanP?: PeminjamanPUncheckedCreateNestedManyWithoutLokasiInput
+  }
+
+  export type DataLokasiCreateOrConnectWithoutMonitoringInput = {
+    where: DataLokasiWhereUniqueInput
+    create: XOR<DataLokasiCreateWithoutMonitoringInput, DataLokasiUncheckedCreateWithoutMonitoringInput>
+  }
+
   export type BarangUnitCreateWithoutMonitoringInput = {
     nup: string
     status?: $Enums.StatusB
@@ -14761,25 +14782,31 @@ export namespace Prisma {
     create: XOR<BarangUnitCreateWithoutMonitoringInput, BarangUnitUncheckedCreateWithoutMonitoringInput>
   }
 
-  export type DataLokasiCreateWithoutMonitoringInput = {
-    kode_lokasi: string
-    lokasi: string
-    status?: $Enums.StatusLokasi
-    barangUnit?: BarangUnitCreateNestedManyWithoutDataLokasiInput
-    peminjamanP?: PeminjamanPCreateNestedManyWithoutLokasiInput
-  }
-
-  export type DataLokasiUncheckedCreateWithoutMonitoringInput = {
-    kode_lokasi: string
-    lokasi: string
-    status?: $Enums.StatusLokasi
-    barangUnit?: BarangUnitUncheckedCreateNestedManyWithoutDataLokasiInput
-    peminjamanP?: PeminjamanPUncheckedCreateNestedManyWithoutLokasiInput
-  }
-
-  export type DataLokasiCreateOrConnectWithoutMonitoringInput = {
-    where: DataLokasiWhereUniqueInput
+  export type DataLokasiUpsertWithoutMonitoringInput = {
+    update: XOR<DataLokasiUpdateWithoutMonitoringInput, DataLokasiUncheckedUpdateWithoutMonitoringInput>
     create: XOR<DataLokasiCreateWithoutMonitoringInput, DataLokasiUncheckedCreateWithoutMonitoringInput>
+    where?: DataLokasiWhereInput
+  }
+
+  export type DataLokasiUpdateToOneWithWhereWithoutMonitoringInput = {
+    where?: DataLokasiWhereInput
+    data: XOR<DataLokasiUpdateWithoutMonitoringInput, DataLokasiUncheckedUpdateWithoutMonitoringInput>
+  }
+
+  export type DataLokasiUpdateWithoutMonitoringInput = {
+    kode_lokasi?: StringFieldUpdateOperationsInput | string
+    lokasi?: StringFieldUpdateOperationsInput | string
+    status?: EnumStatusLokasiFieldUpdateOperationsInput | $Enums.StatusLokasi
+    barangUnit?: BarangUnitUpdateManyWithoutDataLokasiNestedInput
+    peminjamanP?: PeminjamanPUpdateManyWithoutLokasiNestedInput
+  }
+
+  export type DataLokasiUncheckedUpdateWithoutMonitoringInput = {
+    kode_lokasi?: StringFieldUpdateOperationsInput | string
+    lokasi?: StringFieldUpdateOperationsInput | string
+    status?: EnumStatusLokasiFieldUpdateOperationsInput | $Enums.StatusLokasi
+    barangUnit?: BarangUnitUncheckedUpdateManyWithoutDataLokasiNestedInput
+    peminjamanP?: PeminjamanPUncheckedUpdateManyWithoutLokasiNestedInput
   }
 
   export type BarangUnitUpsertWithoutMonitoringInput = {
@@ -14813,35 +14840,17 @@ export namespace Prisma {
     peminjamanItems?: PeminjamanItemUncheckedUpdateManyWithoutBarangUnitNestedInput
   }
 
-  export type DataLokasiUpsertWithoutMonitoringInput = {
-    update: XOR<DataLokasiUpdateWithoutMonitoringInput, DataLokasiUncheckedUpdateWithoutMonitoringInput>
-    create: XOR<DataLokasiCreateWithoutMonitoringInput, DataLokasiUncheckedCreateWithoutMonitoringInput>
-    where?: DataLokasiWhereInput
-  }
-
-  export type DataLokasiUpdateToOneWithWhereWithoutMonitoringInput = {
-    where?: DataLokasiWhereInput
-    data: XOR<DataLokasiUpdateWithoutMonitoringInput, DataLokasiUncheckedUpdateWithoutMonitoringInput>
-  }
-
-  export type DataLokasiUpdateWithoutMonitoringInput = {
-    kode_lokasi?: StringFieldUpdateOperationsInput | string
-    lokasi?: StringFieldUpdateOperationsInput | string
-    status?: EnumStatusLokasiFieldUpdateOperationsInput | $Enums.StatusLokasi
-    barangUnit?: BarangUnitUpdateManyWithoutDataLokasiNestedInput
-    peminjamanP?: PeminjamanPUpdateManyWithoutLokasiNestedInput
-  }
-
-  export type DataLokasiUncheckedUpdateWithoutMonitoringInput = {
-    kode_lokasi?: StringFieldUpdateOperationsInput | string
-    lokasi?: StringFieldUpdateOperationsInput | string
-    status?: EnumStatusLokasiFieldUpdateOperationsInput | $Enums.StatusLokasi
-    barangUnit?: BarangUnitUncheckedUpdateManyWithoutDataLokasiNestedInput
-    peminjamanP?: PeminjamanPUncheckedUpdateManyWithoutLokasiNestedInput
+  export type BarangUnitCreateManyUserInput = {
+    nup: string
+    kodeBarang: string
+    lokasi: string
+    status?: $Enums.StatusB
+    createdAt?: Date | string
   }
 
   export type PeminjamanPCreateManyUserInput = {
     id?: number
+    barangUnitId?: string | null
     kodeLokasi?: string | null
     lokasiTambahan?: string | null
     no_hp: string
@@ -14851,72 +14860,9 @@ export namespace Prisma {
     waktuSelesai: Date | string
     verifikasi?: $Enums.StatusBooking
     status?: $Enums.StatusP
+    qrCode?: string | null
     waktuAmbil?: Date | string | null
     waktuKembali?: Date | string | null
-    barangUnitId?: string | null
-    qrCode?: string | null
-  }
-
-  export type BarangUnitCreateManyUserInput = {
-    nup: string
-    kodeBarang: string
-    lokasi: string
-    status?: $Enums.StatusB
-    createdAt?: Date | string
-  }
-
-  export type PeminjamanPUpdateWithoutUserInput = {
-    lokasiTambahan?: NullableStringFieldUpdateOperationsInput | string | null
-    no_hp?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    Agenda?: StringFieldUpdateOperationsInput | string
-    waktuMulai?: DateTimeFieldUpdateOperationsInput | Date | string
-    waktuSelesai?: DateTimeFieldUpdateOperationsInput | Date | string
-    verifikasi?: EnumStatusBookingFieldUpdateOperationsInput | $Enums.StatusBooking
-    status?: EnumStatusPFieldUpdateOperationsInput | $Enums.StatusP
-    waktuAmbil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    waktuKembali?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    barangUnitId?: NullableStringFieldUpdateOperationsInput | string | null
-    qrCode?: NullableStringFieldUpdateOperationsInput | string | null
-    lokasi?: DataLokasiUpdateOneWithoutPeminjamanPNestedInput
-    items?: PeminjamanItemUpdateManyWithoutPeminjamanNestedInput
-    logScanBMN?: LogScanBMNUpdateManyWithoutPeminjamanNestedInput
-  }
-
-  export type PeminjamanPUncheckedUpdateWithoutUserInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    kodeLokasi?: NullableStringFieldUpdateOperationsInput | string | null
-    lokasiTambahan?: NullableStringFieldUpdateOperationsInput | string | null
-    no_hp?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    Agenda?: StringFieldUpdateOperationsInput | string
-    waktuMulai?: DateTimeFieldUpdateOperationsInput | Date | string
-    waktuSelesai?: DateTimeFieldUpdateOperationsInput | Date | string
-    verifikasi?: EnumStatusBookingFieldUpdateOperationsInput | $Enums.StatusBooking
-    status?: EnumStatusPFieldUpdateOperationsInput | $Enums.StatusP
-    waktuAmbil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    waktuKembali?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    barangUnitId?: NullableStringFieldUpdateOperationsInput | string | null
-    qrCode?: NullableStringFieldUpdateOperationsInput | string | null
-    items?: PeminjamanItemUncheckedUpdateManyWithoutPeminjamanNestedInput
-    logScanBMN?: LogScanBMNUncheckedUpdateManyWithoutPeminjamanNestedInput
-  }
-
-  export type PeminjamanPUncheckedUpdateManyWithoutUserInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    kodeLokasi?: NullableStringFieldUpdateOperationsInput | string | null
-    lokasiTambahan?: NullableStringFieldUpdateOperationsInput | string | null
-    no_hp?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    Agenda?: StringFieldUpdateOperationsInput | string
-    waktuMulai?: DateTimeFieldUpdateOperationsInput | Date | string
-    waktuSelesai?: DateTimeFieldUpdateOperationsInput | Date | string
-    verifikasi?: EnumStatusBookingFieldUpdateOperationsInput | $Enums.StatusBooking
-    status?: EnumStatusPFieldUpdateOperationsInput | $Enums.StatusP
-    waktuAmbil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    waktuKembali?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    barangUnitId?: NullableStringFieldUpdateOperationsInput | string | null
-    qrCode?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type BarangUnitUpdateWithoutUserInput = {
@@ -14945,6 +14891,60 @@ export namespace Prisma {
     lokasi?: StringFieldUpdateOperationsInput | string
     status?: EnumStatusBFieldUpdateOperationsInput | $Enums.StatusB
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PeminjamanPUpdateWithoutUserInput = {
+    barangUnitId?: NullableStringFieldUpdateOperationsInput | string | null
+    lokasiTambahan?: NullableStringFieldUpdateOperationsInput | string | null
+    no_hp?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Agenda?: StringFieldUpdateOperationsInput | string
+    waktuMulai?: DateTimeFieldUpdateOperationsInput | Date | string
+    waktuSelesai?: DateTimeFieldUpdateOperationsInput | Date | string
+    verifikasi?: EnumStatusBookingFieldUpdateOperationsInput | $Enums.StatusBooking
+    status?: EnumStatusPFieldUpdateOperationsInput | $Enums.StatusP
+    qrCode?: NullableStringFieldUpdateOperationsInput | string | null
+    waktuAmbil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    waktuKembali?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    logScanBMN?: LogScanBMNUpdateManyWithoutPeminjamanNestedInput
+    items?: PeminjamanItemUpdateManyWithoutPeminjamanNestedInput
+    lokasi?: DataLokasiUpdateOneWithoutPeminjamanPNestedInput
+  }
+
+  export type PeminjamanPUncheckedUpdateWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    barangUnitId?: NullableStringFieldUpdateOperationsInput | string | null
+    kodeLokasi?: NullableStringFieldUpdateOperationsInput | string | null
+    lokasiTambahan?: NullableStringFieldUpdateOperationsInput | string | null
+    no_hp?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Agenda?: StringFieldUpdateOperationsInput | string
+    waktuMulai?: DateTimeFieldUpdateOperationsInput | Date | string
+    waktuSelesai?: DateTimeFieldUpdateOperationsInput | Date | string
+    verifikasi?: EnumStatusBookingFieldUpdateOperationsInput | $Enums.StatusBooking
+    status?: EnumStatusPFieldUpdateOperationsInput | $Enums.StatusP
+    qrCode?: NullableStringFieldUpdateOperationsInput | string | null
+    waktuAmbil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    waktuKembali?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    logScanBMN?: LogScanBMNUncheckedUpdateManyWithoutPeminjamanNestedInput
+    items?: PeminjamanItemUncheckedUpdateManyWithoutPeminjamanNestedInput
+  }
+
+  export type PeminjamanPUncheckedUpdateManyWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    barangUnitId?: NullableStringFieldUpdateOperationsInput | string | null
+    kodeLokasi?: NullableStringFieldUpdateOperationsInput | string | null
+    lokasiTambahan?: NullableStringFieldUpdateOperationsInput | string | null
+    no_hp?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Agenda?: StringFieldUpdateOperationsInput | string
+    waktuMulai?: DateTimeFieldUpdateOperationsInput | Date | string
+    waktuSelesai?: DateTimeFieldUpdateOperationsInput | Date | string
+    verifikasi?: EnumStatusBookingFieldUpdateOperationsInput | $Enums.StatusBooking
+    status?: EnumStatusPFieldUpdateOperationsInput | $Enums.StatusP
+    qrCode?: NullableStringFieldUpdateOperationsInput | string | null
+    waktuAmbil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    waktuKembali?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type BarangUnitCreateManyDataBarangInput = {
@@ -14991,23 +14991,6 @@ export namespace Prisma {
     createdAt?: Date | string
   }
 
-  export type PeminjamanPCreateManyLokasiInput = {
-    id?: number
-    userNik: string
-    lokasiTambahan?: string | null
-    no_hp: string
-    createdAt?: Date | string
-    Agenda: string
-    waktuMulai: Date | string
-    waktuSelesai: Date | string
-    verifikasi?: $Enums.StatusBooking
-    status?: $Enums.StatusP
-    waktuAmbil?: Date | string | null
-    waktuKembali?: Date | string | null
-    barangUnitId?: string | null
-    qrCode?: string | null
-  }
-
   export type MonitoringCreateManyDataLokasiInput = {
     id: string
     nupBarang: string
@@ -15017,6 +15000,23 @@ export namespace Prisma {
     lokasiTambahan?: string | null
     foto: string
     keterangan?: string | null
+  }
+
+  export type PeminjamanPCreateManyLokasiInput = {
+    id?: number
+    userNik: string
+    barangUnitId?: string | null
+    lokasiTambahan?: string | null
+    no_hp: string
+    createdAt?: Date | string
+    Agenda: string
+    waktuMulai: Date | string
+    waktuSelesai: Date | string
+    verifikasi?: $Enums.StatusBooking
+    status?: $Enums.StatusP
+    qrCode?: string | null
+    waktuAmbil?: Date | string | null
+    waktuKembali?: Date | string | null
   }
 
   export type BarangUnitUpdateWithoutDataLokasiInput = {
@@ -15045,60 +15045,6 @@ export namespace Prisma {
     nikUser?: StringFieldUpdateOperationsInput | string
     status?: EnumStatusBFieldUpdateOperationsInput | $Enums.StatusB
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type PeminjamanPUpdateWithoutLokasiInput = {
-    lokasiTambahan?: NullableStringFieldUpdateOperationsInput | string | null
-    no_hp?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    Agenda?: StringFieldUpdateOperationsInput | string
-    waktuMulai?: DateTimeFieldUpdateOperationsInput | Date | string
-    waktuSelesai?: DateTimeFieldUpdateOperationsInput | Date | string
-    verifikasi?: EnumStatusBookingFieldUpdateOperationsInput | $Enums.StatusBooking
-    status?: EnumStatusPFieldUpdateOperationsInput | $Enums.StatusP
-    waktuAmbil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    waktuKembali?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    barangUnitId?: NullableStringFieldUpdateOperationsInput | string | null
-    qrCode?: NullableStringFieldUpdateOperationsInput | string | null
-    user?: UserUpdateOneRequiredWithoutPeminjamanPNestedInput
-    items?: PeminjamanItemUpdateManyWithoutPeminjamanNestedInput
-    logScanBMN?: LogScanBMNUpdateManyWithoutPeminjamanNestedInput
-  }
-
-  export type PeminjamanPUncheckedUpdateWithoutLokasiInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    userNik?: StringFieldUpdateOperationsInput | string
-    lokasiTambahan?: NullableStringFieldUpdateOperationsInput | string | null
-    no_hp?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    Agenda?: StringFieldUpdateOperationsInput | string
-    waktuMulai?: DateTimeFieldUpdateOperationsInput | Date | string
-    waktuSelesai?: DateTimeFieldUpdateOperationsInput | Date | string
-    verifikasi?: EnumStatusBookingFieldUpdateOperationsInput | $Enums.StatusBooking
-    status?: EnumStatusPFieldUpdateOperationsInput | $Enums.StatusP
-    waktuAmbil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    waktuKembali?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    barangUnitId?: NullableStringFieldUpdateOperationsInput | string | null
-    qrCode?: NullableStringFieldUpdateOperationsInput | string | null
-    items?: PeminjamanItemUncheckedUpdateManyWithoutPeminjamanNestedInput
-    logScanBMN?: LogScanBMNUncheckedUpdateManyWithoutPeminjamanNestedInput
-  }
-
-  export type PeminjamanPUncheckedUpdateManyWithoutLokasiInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    userNik?: StringFieldUpdateOperationsInput | string
-    lokasiTambahan?: NullableStringFieldUpdateOperationsInput | string | null
-    no_hp?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    Agenda?: StringFieldUpdateOperationsInput | string
-    waktuMulai?: DateTimeFieldUpdateOperationsInput | Date | string
-    waktuSelesai?: DateTimeFieldUpdateOperationsInput | Date | string
-    verifikasi?: EnumStatusBookingFieldUpdateOperationsInput | $Enums.StatusBooking
-    status?: EnumStatusPFieldUpdateOperationsInput | $Enums.StatusP
-    waktuAmbil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    waktuKembali?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    barangUnitId?: NullableStringFieldUpdateOperationsInput | string | null
-    qrCode?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type MonitoringUpdateWithoutDataLokasiInput = {
@@ -15132,6 +15078,60 @@ export namespace Prisma {
     lokasiTambahan?: NullableStringFieldUpdateOperationsInput | string | null
     foto?: StringFieldUpdateOperationsInput | string
     keterangan?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type PeminjamanPUpdateWithoutLokasiInput = {
+    barangUnitId?: NullableStringFieldUpdateOperationsInput | string | null
+    lokasiTambahan?: NullableStringFieldUpdateOperationsInput | string | null
+    no_hp?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Agenda?: StringFieldUpdateOperationsInput | string
+    waktuMulai?: DateTimeFieldUpdateOperationsInput | Date | string
+    waktuSelesai?: DateTimeFieldUpdateOperationsInput | Date | string
+    verifikasi?: EnumStatusBookingFieldUpdateOperationsInput | $Enums.StatusBooking
+    status?: EnumStatusPFieldUpdateOperationsInput | $Enums.StatusP
+    qrCode?: NullableStringFieldUpdateOperationsInput | string | null
+    waktuAmbil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    waktuKembali?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    logScanBMN?: LogScanBMNUpdateManyWithoutPeminjamanNestedInput
+    items?: PeminjamanItemUpdateManyWithoutPeminjamanNestedInput
+    user?: UserUpdateOneRequiredWithoutPeminjamanPNestedInput
+  }
+
+  export type PeminjamanPUncheckedUpdateWithoutLokasiInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userNik?: StringFieldUpdateOperationsInput | string
+    barangUnitId?: NullableStringFieldUpdateOperationsInput | string | null
+    lokasiTambahan?: NullableStringFieldUpdateOperationsInput | string | null
+    no_hp?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Agenda?: StringFieldUpdateOperationsInput | string
+    waktuMulai?: DateTimeFieldUpdateOperationsInput | Date | string
+    waktuSelesai?: DateTimeFieldUpdateOperationsInput | Date | string
+    verifikasi?: EnumStatusBookingFieldUpdateOperationsInput | $Enums.StatusBooking
+    status?: EnumStatusPFieldUpdateOperationsInput | $Enums.StatusP
+    qrCode?: NullableStringFieldUpdateOperationsInput | string | null
+    waktuAmbil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    waktuKembali?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    logScanBMN?: LogScanBMNUncheckedUpdateManyWithoutPeminjamanNestedInput
+    items?: PeminjamanItemUncheckedUpdateManyWithoutPeminjamanNestedInput
+  }
+
+  export type PeminjamanPUncheckedUpdateManyWithoutLokasiInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userNik?: StringFieldUpdateOperationsInput | string
+    barangUnitId?: NullableStringFieldUpdateOperationsInput | string | null
+    lokasiTambahan?: NullableStringFieldUpdateOperationsInput | string | null
+    no_hp?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Agenda?: StringFieldUpdateOperationsInput | string
+    waktuMulai?: DateTimeFieldUpdateOperationsInput | Date | string
+    waktuSelesai?: DateTimeFieldUpdateOperationsInput | Date | string
+    verifikasi?: EnumStatusBookingFieldUpdateOperationsInput | $Enums.StatusBooking
+    status?: EnumStatusPFieldUpdateOperationsInput | $Enums.StatusP
+    qrCode?: NullableStringFieldUpdateOperationsInput | string | null
+    waktuAmbil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    waktuKembali?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type MonitoringCreateManyBarangUnitInput = {
@@ -15197,11 +15197,6 @@ export namespace Prisma {
     peminjamanId?: IntFieldUpdateOperationsInput | number
   }
 
-  export type PeminjamanItemCreateManyPeminjamanInput = {
-    id?: number
-    nupBarang: string
-  }
-
   export type LogScanBMNCreateManyPeminjamanInput = {
     id?: number
     jenis: string
@@ -15210,18 +15205,9 @@ export namespace Prisma {
     keterangan?: string | null
   }
 
-  export type PeminjamanItemUpdateWithoutPeminjamanInput = {
-    barangUnit?: BarangUnitUpdateOneRequiredWithoutPeminjamanItemsNestedInput
-  }
-
-  export type PeminjamanItemUncheckedUpdateWithoutPeminjamanInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    nupBarang?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type PeminjamanItemUncheckedUpdateManyWithoutPeminjamanInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    nupBarang?: StringFieldUpdateOperationsInput | string
+  export type PeminjamanItemCreateManyPeminjamanInput = {
+    id?: number
+    nupBarang: string
   }
 
   export type LogScanBMNUpdateWithoutPeminjamanInput = {
@@ -15245,6 +15231,20 @@ export namespace Prisma {
     waktuScan?: DateTimeFieldUpdateOperationsInput | Date | string
     petugasNik?: StringFieldUpdateOperationsInput | string
     keterangan?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type PeminjamanItemUpdateWithoutPeminjamanInput = {
+    barangUnit?: BarangUnitUpdateOneRequiredWithoutPeminjamanItemsNestedInput
+  }
+
+  export type PeminjamanItemUncheckedUpdateWithoutPeminjamanInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    nupBarang?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type PeminjamanItemUncheckedUpdateManyWithoutPeminjamanInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    nupBarang?: StringFieldUpdateOperationsInput | string
   }
 
 
