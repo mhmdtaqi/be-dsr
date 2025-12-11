@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { peminjamanService } from "../services/peminjamanservice";
 import { generateQR } from "../utils/generateQR";
 import { StatusBooking, StatusP, Role } from "../../generated/prisma";
+import prisma from "../prismaClient";
 
 export const peminjamanController = {
   create: async (req: Request, res: Response): Promise<void> => {
@@ -38,6 +39,11 @@ export const peminjamanController = {
       });
 
       const qr = await generateQR(`PINJAM-${data.id}`);
+
+      await prisma.peminjamanP.update({
+        where: { id: data.id },
+        data: { qrCode: qr },
+      });
 
       res.status(201).json({
         success: true,
@@ -116,6 +122,7 @@ export const peminjamanController = {
       }
 
       const data = await peminjamanService.findOne(id);
+      console.log("FindOne data:", data);
 
       if (!data) {
         res.status(404).json({
@@ -123,6 +130,17 @@ export const peminjamanController = {
           message: `Peminjaman dengan ID ${id} tidak ditemukan`,
         });
         return;
+      }
+
+      // Generate QR if not exists
+      if (!data.qrCode) {
+        const qr = await generateQR(`PINJAM-${data.id}`);
+        data.qrCode = qr;
+        // Optionally save it
+        await prisma.peminjamanP.update({
+          where: { id },
+          data: { qrCode: qr },
+        });
       }
 
       if (userRole === Role.civitas_faste && data.userNik !== userNik) {

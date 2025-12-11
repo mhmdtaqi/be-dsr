@@ -9,6 +9,32 @@ import prisma from "../prismaClient";
 import { Role } from "../../generated/prisma";
 
 export const authController = {
+  findAll: async (req: Request, res: Response): Promise<void> => {
+    try {
+      const { role } = req.query;
+
+      const filters: { role?: Role } = {};
+      if (role && Object.values(Role).includes(role as Role)) {
+        filters.role = role as Role;
+      }
+
+      const data = await authService.findAll(filters);
+
+      res.json({
+        success: true,
+        message: "Data user berhasil diambil",
+        data,
+        total: data.length,
+      });
+    } catch (err: any) {
+      console.error("Find all users error:", err);
+      res.status(500).json({
+        success: false,
+        message: "Terjadi kesalahan server",
+      });
+    }
+  },
+
   register: async (req: Request, res: Response): Promise<void> => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -303,6 +329,87 @@ export const authController = {
       });
     } catch (err: any) {
       console.error("Reset password error:", err);
+      res.status(500).json({
+        success: false,
+        message: "Terjadi kesalahan server",
+      });
+    }
+  },
+
+  findOne: async (req: Request, res: Response): Promise<void> => {
+    try {
+      const { nik } = req.params;
+
+      if (!nik) {
+        res.status(400).json({
+          success: false,
+          message: "NIK wajib diisi",
+        });
+        return;
+      }
+
+      const user = await authService.findOne(nik);
+
+      if (!user) {
+        res.status(404).json({
+          success: false,
+          message: "User tidak ditemukan",
+        });
+        return;
+      }
+
+      res.json({
+        success: true,
+        message: "Data user berhasil diambil",
+        data: user,
+      });
+    } catch (err: any) {
+      console.error("Find one user error:", err);
+      res.status(500).json({
+        success: false,
+        message: "Terjadi kesalahan server",
+      });
+    }
+  },
+
+  updateUser: async (req: Request, res: Response): Promise<void> => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      res.status(400).json({
+        success: false,
+        message: "Data input tidak valid",
+        errors: errors.array(),
+      });
+      return;
+    }
+
+    try {
+      const { nik } = req.params;
+      const { nama, email, password, role } = req.body;
+
+      if (!nik) {
+        res.status(400).json({
+          success: false,
+          message: "NIK wajib diisi",
+        });
+        return;
+      }
+
+      const updateData: any = {};
+      if (nama !== undefined) updateData.nama = nama;
+      if (email !== undefined) updateData.email = email;
+      if (password) updateData.password = await bcrypt.hash(password, 12);
+      if (role !== undefined) updateData.role = role;
+
+      const updated = await authService.updateUserAdmin(nik, updateData);
+
+      res.json({
+        success: true,
+        message: "User berhasil diperbarui",
+        data: updated,
+      });
+    } catch (err: any) {
+      console.error("Update user error:", err);
       res.status(500).json({
         success: false,
         message: "Terjadi kesalahan server",

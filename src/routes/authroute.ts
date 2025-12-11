@@ -1,9 +1,11 @@
 import express from "express";
 import { authController } from "../controllers/authcontroller";
-import { body } from "express-validator";
+import { body, param, query } from "express-validator";
 import rateLimit from "express-rate-limit";
 import { Role } from "../../generated/prisma";
 import { authMiddleware } from "../middleware/authmiddleware";
+import { authorize } from "../middleware/authorize";
+import { validate } from "../middleware/validate";
 
 const router = express.Router();
 
@@ -76,6 +78,73 @@ router.post("/forgot-password", authController.forgotPassword);
 
 // RESET PASSWORD
 router.post("/reset-password", authController.resetPassword);
+
+// GET All Users: Hanya admin yang boleh melihat daftar user
+router.get(
+  "/",
+  authMiddleware,
+  authorize([Role.staff, Role.staff_prodi, Role.kepala_bagian_akademik]),
+  [
+    query("role")
+      .optional()
+      .isIn(Object.values(Role))
+      .withMessage(
+        `Role harus salah satu dari: ${Object.values(Role).join(", ")}`
+      ),
+  ],
+  validate,
+  authController.findAll
+);
+
+// GET One User: Hanya kepala_bagian_akademik yang boleh melihat detail user
+router.get(
+  "/:nik",
+  authMiddleware,
+  authorize([Role.kepala_bagian_akademik]),
+  [
+    param("nik")
+      .notEmpty()
+      .withMessage("NIK wajib diisi")
+      .trim()
+  ],
+  validate,
+  authController.findOne
+);
+
+// UPDATE User: Hanya kepala_bagian_akademik yang boleh mengubah user lain
+router.put(
+  "/:nik",
+  authMiddleware,
+  authorize([Role.kepala_bagian_akademik]),
+  [
+    param("nik")
+      .notEmpty()
+      .withMessage("NIK wajib diisi")
+      .trim(),
+    body("nama").optional().isString().trim(),
+    body("email")
+      .optional()
+      .isEmail()
+      .withMessage("Format email tidak valid")
+      .normalizeEmail(),
+    body("password")
+      .optional()
+      .isLength({ min: 8 })
+      .withMessage("Password minimal 8 karakter")
+      .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/)
+      .withMessage(
+        "Password harus mengandung huruf besar, huruf kecil, dan angka"
+      ),
+    body("role")
+      .optional()
+      .isIn(Object.values(Role))
+      .withMessage(
+        `Role harus salah satu dari: ${Object.values(Role).join(", ")}`
+      ),
+  ],
+  validate,
+  authController.updateUser
+);
 
 // UPDATE AKUN (diproteksi JWT)
 router.put(

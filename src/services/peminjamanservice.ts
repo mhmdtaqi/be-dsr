@@ -623,7 +623,21 @@ export const peminjamanService = {
   findOne: (id: number) =>
     prisma.peminjamanP.findUnique({
       where: { id },
-      include: {
+      select: {
+        id: true,
+        userNik: true,
+        kodeLokasi: true,
+        lokasiTambahan: true,
+        no_hp: true,
+        Agenda: true,
+        waktuMulai: true,
+        waktuSelesai: true,
+        verifikasi: true,
+        status: true,
+        qrCode: true,
+        waktuAmbil: true,
+        waktuKembali: true,
+        createdAt: true,
         items: {
           include: {
             barangUnit: {

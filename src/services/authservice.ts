@@ -2,6 +2,20 @@ import prisma from "../prismaClient";
 import { Role } from "../../generated/prisma";
 
 export const authService = {
+  findAll: (filters?: { role?: Role }) =>
+    prisma.user.findMany({
+      where: filters || {},
+      select: {
+        nik: true,
+        nomor_identitas_tunggal: true,
+        email: true,
+        nama: true,
+        role: true,
+        createdAt: true,
+      },
+      orderBy: { createdAt: 'desc' },
+    }),
+
   findByEmail: (email: string) =>
     prisma.user.findUnique({
       where: { email },
@@ -62,6 +76,17 @@ export const authService = {
       },
     }),
 
+  findOne: (nik: string) =>
+    prisma.user.findUnique({
+      where: { nik },
+      select: {
+        nik: true,
+        email: true,
+        nama: true,
+        role: true,
+      },
+    }),
+
   // ✅ update data akun user (nama/email/password/resetToken)
   // nik diambil dari user yg sedang login (misal dari JWT)
   updateUserByNik: (
@@ -108,6 +133,25 @@ export const authService = {
         nama: true,
         role: true,
         createdAt: true,
+      },
+    });
+  },
+
+  updateUserAdmin: (nik: string, data: { nama?: string; email?: string; password?: string; role?: Role }) => {
+    const updateData: any = {};
+    if (data.nama !== undefined) updateData.nama = data.nama;
+    if (data.email !== undefined) updateData.email = data.email;
+    if (data.password !== undefined) updateData.password = data.password;
+    if (data.role !== undefined) updateData.role = data.role;
+
+    return prisma.user.update({
+      where: { nik },
+      data: updateData,
+      select: {
+        nik: true,
+        email: true,
+        nama: true,
+        role: true,
       },
     });
   },
