@@ -18,6 +18,8 @@ model User {
   createdAt               DateTime      @default(now())
   updateAt                DateTime      @updatedAt
   nomor_identitas_tunggal String        @unique
+  resetToken              String?
+  resetTokenExpiry        DateTime?
   barangUnit              BarangUnit[]
   peminjamanP             PeminjamanP[]
 }

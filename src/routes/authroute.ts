@@ -17,23 +17,15 @@ const loginLimiter = rateLimit({
   },
   standardHeaders: true,
   legacyHeaders: false,
-});
-
-const registerLimiter = rateLimit({
-  windowMs: 60 * 60 * 1000,
-  max: 3,
-  message: {
-    success: false,
-    message: "Terlalu banyak percobaan registrasi. Silakan coba lagi nanti",
+  keyGenerator: (req) => {
+    console.log('Rate limit key for login:', req.body?.email);
+    return (req.body?.email || '').toLowerCase();
   },
-  standardHeaders: true,
-  legacyHeaders: false,
 });
 
 // REGISTER
 router.post(
   "/register",
-  registerLimiter,
   [
     body("nik")
       .notEmpty()
@@ -78,6 +70,12 @@ router.post(
   ],
   authController.login
 );
+
+// FORGOT PASSWORD
+router.post("/forgot-password", authController.forgotPassword);
+
+// RESET PASSWORD
+router.post("/reset-password", authController.resetPassword);
 
 // UPDATE AKUN (diproteksi JWT)
 router.put(

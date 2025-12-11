@@ -1,8 +1,11 @@
 import { Request, Response } from "express";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import crypto from "crypto";
 import { validationResult } from "express-validator";
 import { authService } from "../services/authservice";
+import { sendResetEmail } from "../utils/emailSender";
+import prisma from "../prismaClient";
 import { Role } from "../../generated/prisma";
 
 export const authController = {
@@ -195,6 +198,114 @@ export const authController = {
           stack: err.stack,
           code: err.code,
         }),
+      });
+    }
+  },
+
+  forgotPassword: async (req: Request, res: Response): Promise<void> => {
+    try {
+      const { email } = req.body;
+
+      if (!email) {
+        res.status(400).json({
+          success: false,
+          message: "Email wajib diisi",
+        });
+        return;
+      }
+
+      console.log("Forgot password request for email:", email);
+
+      const user = await authService.findByEmail(email);
+      if (!user) {
+        // Return success to prevent email enumeration
+        res.json({
+          success: true,
+          message: "Jika email terdaftar, link reset akan dikirim",
+        });
+        return;
+      }
+
+      // Generate reset token
+      const resetToken = crypto.randomBytes(32).toString("hex");
+      const resetTokenExpiry = new Date(Date.now() + 15 * 60 * 1000); // 15 minutes
+
+      // Save token to database
+      await authService.updateUserByNik(user.nik, {
+        resetToken,
+        resetTokenExpiry,
+      });
+
+      // Send reset email
+      await sendResetEmail(email, resetToken);
+
+      res.json({
+        success: true,
+        message: "Link reset password telah dikirim ke email Anda",
+      });
+    } catch (err: any) {
+      console.error("Forgot password error:", err);
+      res.status(500).json({
+        success: false,
+        message: "Terjadi kesalahan server",
+      });
+    }
+  },
+
+  resetPassword: async (req: Request, res: Response): Promise<void> => {
+    try {
+      const { token, password } = req.body;
+
+      if (!token || !password) {
+        res.status(400).json({
+          success: false,
+          message: "Token dan password wajib diisi",
+        });
+        return;
+      }
+
+      console.log("Reset password attempt with token");
+
+      // Find user by reset token
+      const user = await authService.findByResetToken(token);
+      if (!user || !user.resetTokenExpiry) {
+        res.status(400).json({
+          success: false,
+          message: "Token reset tidak valid",
+        });
+        return;
+      }
+
+      // Check if token is expired
+      if (new Date() > user.resetTokenExpiry) {
+        res.status(400).json({
+          success: false,
+          message: "Token reset telah kadaluarsa",
+        });
+        return;
+      }
+
+      // Hash new password
+      const hashedPassword = await bcrypt.hash(password, 12);
+
+      // Update password and clear reset token
+      await authService.updateUserByNik(user.nik, {
+        password: hashedPassword,
+        resetToken: null,
+        resetTokenExpiry: null,
+      });
+
+      console.log("Password reset successful for user:", user.nik);
+
+      res.json({
+        success: true,
+        message: "Password berhasil direset",
+      });
+    } catch (err: any) {
+      console.error("Reset password error:", err);
+      res.status(500).json({
+        success: false,
+        message: "Terjadi kesalahan server",
       });
     }
   },

@@ -128,7 +128,9 @@ exports.Prisma.UserScalarFieldEnum = {
   role: 'role',
   createdAt: 'createdAt',
   updateAt: 'updateAt',
-  nomor_identitas_tunggal: 'nomor_identitas_tunggal'
+  nomor_identitas_tunggal: 'nomor_identitas_tunggal',
+  resetToken: 'resetToken',
+  resetTokenExpiry: 'resetTokenExpiry'
 };
 
 exports.Prisma.DataBarangScalarFieldEnum = {
