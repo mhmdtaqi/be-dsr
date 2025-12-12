@@ -193,7 +193,7 @@ export const peminjamanService = {
       }
 
       return newPeminjaman;
-    });
+    }, { timeout: 10000 });
 
     return pinjam;
   },
