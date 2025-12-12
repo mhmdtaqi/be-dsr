@@ -296,32 +296,32 @@ export const peminjamanService = {
       );
     }
 
-    // Helper: cek apakah jenis_barang termasuk proyektor/infokus
-    const isProyektorJenis = (jenis: string | null | undefined) => {
+    // Helper: cek apakah jenis_barang termasuk proyektor, microphone, sound system
+    const isStaffProdiJenis = (jenis: string | null | undefined) => {
       if (!jenis) return false;
       const j = jenis.toLowerCase();
-      return j.includes("proyektor") || j.includes("infokus");
+      return j.includes("proyektor") || j.includes("microphone") || j.includes("sound system");
     };
 
-    const semuaBarangProyektor = pem.items.every((item) =>
-      isProyektorJenis(item.barangUnit?.dataBarang?.jenis_barang)
+    const semuaBarangStaffProdi = pem.items.every((item) =>
+      isStaffProdiJenis(item.barangUnit?.dataBarang?.jenis_barang)
     );
 
-    const adaBarangNonProyektor = pem.items.some(
-      (item) => !isProyektorJenis(item.barangUnit?.dataBarang?.jenis_barang)
+    const adaBarangNonStaffProdi = pem.items.some(
+      (item) => !isStaffProdiJenis(item.barangUnit?.dataBarang?.jenis_barang)
     );
 
     // RULE ROLE VERIFIKASI
     if (role === Role.staff_prodi) {
-      if (!semuaBarangProyektor) {
+      if (!semuaBarangStaffProdi) {
         throw new Error(
-          "Staff Prodi hanya boleh memverifikasi peminjaman proyektor/infokus"
+          "Staff Prodi hanya boleh memverifikasi peminjaman proyektor, microphone, sound system"
         );
       }
     } else if (role === Role.kepala_bagian_akademik) {
-      if (!adaBarangNonProyektor) {
+      if (!adaBarangNonStaffProdi) {
         throw new Error(
-          "Peminjaman ini hanya berisi proyektor/infokus dan harus diverifikasi oleh Staff Prodi"
+          "Peminjaman ini hanya berisi proyektor, microphone, sound system dan harus diverifikasi oleh Staff Prodi"
         );
       }
     } else {
