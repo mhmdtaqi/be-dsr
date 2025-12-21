@@ -79,6 +79,9 @@ router.post("/forgot-password", authController.forgotPassword);
 // RESET PASSWORD
 router.post("/reset-password", authController.resetPassword);
 
+// GET ME (current user)
+router.get("/me", authMiddleware, authController.me);
+
 // GET All Users: Hanya admin yang boleh melihat daftar user
 router.get(
   "/",

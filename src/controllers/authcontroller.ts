@@ -511,4 +511,47 @@ export const authController = {
       });
     }
   },
+
+  // Get current user info from token
+  me: async (req: Request, res: Response): Promise<void> => {
+    try {
+      // authMiddleware mengisi req.user dari JWT
+      const userFromToken = (req as any).user as { nik: string };
+      if (!userFromToken?.nik) {
+        console.log("Invalid or missing token in me request");
+        res.status(401).json({
+          success: false,
+          message: "Token tidak valid",
+        });
+        return;
+      }
+
+      const user = await authService.findOne(userFromToken.nik);
+
+      if (!user) {
+        res.status(404).json({
+          success: false,
+          message: "User tidak ditemukan",
+        });
+        return;
+      }
+
+      res.json({
+        success: true,
+        message: "Data user berhasil diambil",
+        data: {
+          nik: user.nik,
+          nama: user.nama,
+          email: user.email,
+          role: user.role,
+        },
+      });
+    } catch (err: any) {
+      console.error("Me error:", err);
+      res.status(500).json({
+        success: false,
+        message: "Terjadi kesalahan server",
+      });
+    }
+  },
 };

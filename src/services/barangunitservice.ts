@@ -76,6 +76,39 @@ export const barangUnitService = {
             status: true,
           },
         },
+        peminjamanItems: {
+          where: {
+            peminjaman: {
+              status: {
+                in: ['booking', 'aktif'] // Hanya peminjaman aktif
+              }
+            }
+          },
+          include: {
+            peminjaman: {
+              select: {
+                id: true,
+                verifikasi: true,
+                status: true,
+                userNik: true,
+                Agenda: true,
+                waktuMulai: true,
+                waktuSelesai: true,
+                user: {
+                  select: {
+                    nama: true,
+                    email: true,
+                  }
+                }
+              }
+            }
+          },
+          orderBy: {
+            peminjaman: {
+              waktuMulai: 'desc'
+            }
+          }
+        },
       },
       orderBy: {
         createdAt: "desc",

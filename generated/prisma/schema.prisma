@@ -14,6 +14,7 @@ model User {
   nik                     String        @id
   email                   String        @unique
   password                String
+  jurusan                 Jurusan       @default(umum)
   role                    Role          @default(civitas_faste)
   createdAt               DateTime      @default(now())
   updateAt                DateTime      @updatedAt
@@ -34,6 +35,7 @@ model DataBarang {
 model DataLokasi {
   kode_lokasi String        @id
   lokasi      String
+  jurusan     Jurusan       @default(umum)
   status      StatusLokasi  @default(tidakDipinjam)
   barangUnit  BarangUnit[]
   monitoring  Monitoring[]
@@ -46,6 +48,7 @@ model BarangUnit {
   lokasi          String
   nikUser         String
   status          StatusB          @default(Tersedia)
+  jurusan         Jurusan          @default(umum)
   createdAt       DateTime         @default(now())
   dataBarang      DataBarang       @relation(fields: [kodeBarang], references: [kode_barang])
   dataLokasi      DataLokasi       @relation(fields: [lokasi], references: [kode_lokasi])
@@ -116,6 +119,11 @@ enum Role {
   staff
   kepala_bagian_akademik
   staff_prodi
+}
+
+enum Jurusan {
+  umum
+  tif
 }
 
 enum StatusBooking {

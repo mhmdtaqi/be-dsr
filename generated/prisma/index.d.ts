@@ -68,6 +68,14 @@ export namespace $Enums {
 export type Role = (typeof Role)[keyof typeof Role]
 
 
+export const Jurusan: {
+  umum: 'umum',
+  tif: 'tif'
+};
+
+export type Jurusan = (typeof Jurusan)[keyof typeof Jurusan]
+
+
 export const StatusBooking: {
   pending: 'pending',
   diterima: 'diterima',
@@ -117,6 +125,10 @@ export type StatusLokasi = (typeof StatusLokasi)[keyof typeof StatusLokasi]
 export type Role = $Enums.Role
 
 export const Role: typeof $Enums.Role
+
+export type Jurusan = $Enums.Jurusan
+
+export const Jurusan: typeof $Enums.Jurusan
 
 export type StatusBooking = $Enums.StatusBooking
 
@@ -1795,6 +1807,7 @@ export namespace Prisma {
     nik: string | null
     email: string | null
     password: string | null
+    jurusan: $Enums.Jurusan | null
     role: $Enums.Role | null
     createdAt: Date | null
     updateAt: Date | null
@@ -1808,6 +1821,7 @@ export namespace Prisma {
     nik: string | null
     email: string | null
     password: string | null
+    jurusan: $Enums.Jurusan | null
     role: $Enums.Role | null
     createdAt: Date | null
     updateAt: Date | null
@@ -1821,6 +1835,7 @@ export namespace Prisma {
     nik: number
     email: number
     password: number
+    jurusan: number
     role: number
     createdAt: number
     updateAt: number
@@ -1836,6 +1851,7 @@ export namespace Prisma {
     nik?: true
     email?: true
     password?: true
+    jurusan?: true
     role?: true
     createdAt?: true
     updateAt?: true
@@ -1849,6 +1865,7 @@ export namespace Prisma {
     nik?: true
     email?: true
     password?: true
+    jurusan?: true
     role?: true
     createdAt?: true
     updateAt?: true
@@ -1862,6 +1879,7 @@ export namespace Prisma {
     nik?: true
     email?: true
     password?: true
+    jurusan?: true
     role?: true
     createdAt?: true
     updateAt?: true
@@ -1948,6 +1966,7 @@ export namespace Prisma {
     nik: string
     email: string
     password: string
+    jurusan: $Enums.Jurusan
     role: $Enums.Role
     createdAt: Date
     updateAt: Date
@@ -1978,6 +1997,7 @@ export namespace Prisma {
     nik?: boolean
     email?: boolean
     password?: boolean
+    jurusan?: boolean
     role?: boolean
     createdAt?: boolean
     updateAt?: boolean
@@ -1994,6 +2014,7 @@ export namespace Prisma {
     nik?: boolean
     email?: boolean
     password?: boolean
+    jurusan?: boolean
     role?: boolean
     createdAt?: boolean
     updateAt?: boolean
@@ -2007,6 +2028,7 @@ export namespace Prisma {
     nik?: boolean
     email?: boolean
     password?: boolean
+    jurusan?: boolean
     role?: boolean
     createdAt?: boolean
     updateAt?: boolean
@@ -2020,6 +2042,7 @@ export namespace Prisma {
     nik?: boolean
     email?: boolean
     password?: boolean
+    jurusan?: boolean
     role?: boolean
     createdAt?: boolean
     updateAt?: boolean
@@ -2028,7 +2051,7 @@ export namespace Prisma {
     resetTokenExpiry?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"nama" | "nik" | "email" | "password" | "role" | "createdAt" | "updateAt" | "nomor_identitas_tunggal" | "resetToken" | "resetTokenExpiry", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"nama" | "nik" | "email" | "password" | "jurusan" | "role" | "createdAt" | "updateAt" | "nomor_identitas_tunggal" | "resetToken" | "resetTokenExpiry", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     barangUnit?: boolean | User$barangUnitArgs<ExtArgs>
     peminjamanP?: boolean | User$peminjamanPArgs<ExtArgs>
@@ -2048,6 +2071,7 @@ export namespace Prisma {
       nik: string
       email: string
       password: string
+      jurusan: $Enums.Jurusan
       role: $Enums.Role
       createdAt: Date
       updateAt: Date
@@ -2483,6 +2507,7 @@ export namespace Prisma {
     readonly nik: FieldRef<"User", 'String'>
     readonly email: FieldRef<"User", 'String'>
     readonly password: FieldRef<"User", 'String'>
+    readonly jurusan: FieldRef<"User", 'Jurusan'>
     readonly role: FieldRef<"User", 'Role'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updateAt: FieldRef<"User", 'DateTime'>
@@ -4000,18 +4025,21 @@ export namespace Prisma {
   export type DataLokasiMinAggregateOutputType = {
     kode_lokasi: string | null
     lokasi: string | null
+    jurusan: $Enums.Jurusan | null
     status: $Enums.StatusLokasi | null
   }
 
   export type DataLokasiMaxAggregateOutputType = {
     kode_lokasi: string | null
     lokasi: string | null
+    jurusan: $Enums.Jurusan | null
     status: $Enums.StatusLokasi | null
   }
 
   export type DataLokasiCountAggregateOutputType = {
     kode_lokasi: number
     lokasi: number
+    jurusan: number
     status: number
     _all: number
   }
@@ -4020,18 +4048,21 @@ export namespace Prisma {
   export type DataLokasiMinAggregateInputType = {
     kode_lokasi?: true
     lokasi?: true
+    jurusan?: true
     status?: true
   }
 
   export type DataLokasiMaxAggregateInputType = {
     kode_lokasi?: true
     lokasi?: true
+    jurusan?: true
     status?: true
   }
 
   export type DataLokasiCountAggregateInputType = {
     kode_lokasi?: true
     lokasi?: true
+    jurusan?: true
     status?: true
     _all?: true
   }
@@ -4111,6 +4142,7 @@ export namespace Prisma {
   export type DataLokasiGroupByOutputType = {
     kode_lokasi: string
     lokasi: string
+    jurusan: $Enums.Jurusan
     status: $Enums.StatusLokasi
     _count: DataLokasiCountAggregateOutputType | null
     _min: DataLokasiMinAggregateOutputType | null
@@ -4134,6 +4166,7 @@ export namespace Prisma {
   export type DataLokasiSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     kode_lokasi?: boolean
     lokasi?: boolean
+    jurusan?: boolean
     status?: boolean
     barangUnit?: boolean | DataLokasi$barangUnitArgs<ExtArgs>
     monitoring?: boolean | DataLokasi$monitoringArgs<ExtArgs>
@@ -4144,22 +4177,25 @@ export namespace Prisma {
   export type DataLokasiSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     kode_lokasi?: boolean
     lokasi?: boolean
+    jurusan?: boolean
     status?: boolean
   }, ExtArgs["result"]["dataLokasi"]>
 
   export type DataLokasiSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     kode_lokasi?: boolean
     lokasi?: boolean
+    jurusan?: boolean
     status?: boolean
   }, ExtArgs["result"]["dataLokasi"]>
 
   export type DataLokasiSelectScalar = {
     kode_lokasi?: boolean
     lokasi?: boolean
+    jurusan?: boolean
     status?: boolean
   }
 
-  export type DataLokasiOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"kode_lokasi" | "lokasi" | "status", ExtArgs["result"]["dataLokasi"]>
+  export type DataLokasiOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"kode_lokasi" | "lokasi" | "jurusan" | "status", ExtArgs["result"]["dataLokasi"]>
   export type DataLokasiInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     barangUnit?: boolean | DataLokasi$barangUnitArgs<ExtArgs>
     monitoring?: boolean | DataLokasi$monitoringArgs<ExtArgs>
@@ -4179,6 +4215,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       kode_lokasi: string
       lokasi: string
+      jurusan: $Enums.Jurusan
       status: $Enums.StatusLokasi
     }, ExtArgs["result"]["dataLokasi"]>
     composites: {}
@@ -4608,6 +4645,7 @@ export namespace Prisma {
   interface DataLokasiFieldRefs {
     readonly kode_lokasi: FieldRef<"DataLokasi", 'String'>
     readonly lokasi: FieldRef<"DataLokasi", 'String'>
+    readonly jurusan: FieldRef<"DataLokasi", 'Jurusan'>
     readonly status: FieldRef<"DataLokasi", 'StatusLokasi'>
   }
     
@@ -5103,6 +5141,7 @@ export namespace Prisma {
     lokasi: string | null
     nikUser: string | null
     status: $Enums.StatusB | null
+    jurusan: $Enums.Jurusan | null
     createdAt: Date | null
   }
 
@@ -5112,6 +5151,7 @@ export namespace Prisma {
     lokasi: string | null
     nikUser: string | null
     status: $Enums.StatusB | null
+    jurusan: $Enums.Jurusan | null
     createdAt: Date | null
   }
 
@@ -5121,6 +5161,7 @@ export namespace Prisma {
     lokasi: number
     nikUser: number
     status: number
+    jurusan: number
     createdAt: number
     _all: number
   }
@@ -5132,6 +5173,7 @@ export namespace Prisma {
     lokasi?: true
     nikUser?: true
     status?: true
+    jurusan?: true
     createdAt?: true
   }
 
@@ -5141,6 +5183,7 @@ export namespace Prisma {
     lokasi?: true
     nikUser?: true
     status?: true
+    jurusan?: true
     createdAt?: true
   }
 
@@ -5150,6 +5193,7 @@ export namespace Prisma {
     lokasi?: true
     nikUser?: true
     status?: true
+    jurusan?: true
     createdAt?: true
     _all?: true
   }
@@ -5232,6 +5276,7 @@ export namespace Prisma {
     lokasi: string
     nikUser: string
     status: $Enums.StatusB
+    jurusan: $Enums.Jurusan
     createdAt: Date
     _count: BarangUnitCountAggregateOutputType | null
     _min: BarangUnitMinAggregateOutputType | null
@@ -5258,6 +5303,7 @@ export namespace Prisma {
     lokasi?: boolean
     nikUser?: boolean
     status?: boolean
+    jurusan?: boolean
     createdAt?: boolean
     dataBarang?: boolean | DataBarangDefaultArgs<ExtArgs>
     dataLokasi?: boolean | DataLokasiDefaultArgs<ExtArgs>
@@ -5273,6 +5319,7 @@ export namespace Prisma {
     lokasi?: boolean
     nikUser?: boolean
     status?: boolean
+    jurusan?: boolean
     createdAt?: boolean
     dataBarang?: boolean | DataBarangDefaultArgs<ExtArgs>
     dataLokasi?: boolean | DataLokasiDefaultArgs<ExtArgs>
@@ -5285,6 +5332,7 @@ export namespace Prisma {
     lokasi?: boolean
     nikUser?: boolean
     status?: boolean
+    jurusan?: boolean
     createdAt?: boolean
     dataBarang?: boolean | DataBarangDefaultArgs<ExtArgs>
     dataLokasi?: boolean | DataLokasiDefaultArgs<ExtArgs>
@@ -5297,10 +5345,11 @@ export namespace Prisma {
     lokasi?: boolean
     nikUser?: boolean
     status?: boolean
+    jurusan?: boolean
     createdAt?: boolean
   }
 
-  export type BarangUnitOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"nup" | "kodeBarang" | "lokasi" | "nikUser" | "status" | "createdAt", ExtArgs["result"]["barangUnit"]>
+  export type BarangUnitOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"nup" | "kodeBarang" | "lokasi" | "nikUser" | "status" | "jurusan" | "createdAt", ExtArgs["result"]["barangUnit"]>
   export type BarangUnitInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     dataBarang?: boolean | DataBarangDefaultArgs<ExtArgs>
     dataLokasi?: boolean | DataLokasiDefaultArgs<ExtArgs>
@@ -5335,6 +5384,7 @@ export namespace Prisma {
       lokasi: string
       nikUser: string
       status: $Enums.StatusB
+      jurusan: $Enums.Jurusan
       createdAt: Date
     }, ExtArgs["result"]["barangUnit"]>
     composites: {}
@@ -5769,6 +5819,7 @@ export namespace Prisma {
     readonly lokasi: FieldRef<"BarangUnit", 'String'>
     readonly nikUser: FieldRef<"BarangUnit", 'String'>
     readonly status: FieldRef<"BarangUnit", 'StatusB'>
+    readonly jurusan: FieldRef<"BarangUnit", 'Jurusan'>
     readonly createdAt: FieldRef<"BarangUnit", 'DateTime'>
   }
     
@@ -10882,6 +10933,7 @@ export namespace Prisma {
     nik: 'nik',
     email: 'email',
     password: 'password',
+    jurusan: 'jurusan',
     role: 'role',
     createdAt: 'createdAt',
     updateAt: 'updateAt',
@@ -10905,6 +10957,7 @@ export namespace Prisma {
   export const DataLokasiScalarFieldEnum: {
     kode_lokasi: 'kode_lokasi',
     lokasi: 'lokasi',
+    jurusan: 'jurusan',
     status: 'status'
   };
 
@@ -10917,6 +10970,7 @@ export namespace Prisma {
     lokasi: 'lokasi',
     nikUser: 'nikUser',
     status: 'status',
+    jurusan: 'jurusan',
     createdAt: 'createdAt'
   };
 
@@ -11020,6 +11074,20 @@ export namespace Prisma {
    * Reference to a field of type 'String[]'
    */
   export type ListStringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Jurusan'
+   */
+  export type EnumJurusanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Jurusan'>
+    
+
+
+  /**
+   * Reference to a field of type 'Jurusan[]'
+   */
+  export type ListEnumJurusanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Jurusan[]'>
     
 
 
@@ -11160,6 +11228,7 @@ export namespace Prisma {
     nik?: StringFilter<"User"> | string
     email?: StringFilter<"User"> | string
     password?: StringFilter<"User"> | string
+    jurusan?: EnumJurusanFilter<"User"> | $Enums.Jurusan
     role?: EnumRoleFilter<"User"> | $Enums.Role
     createdAt?: DateTimeFilter<"User"> | Date | string
     updateAt?: DateTimeFilter<"User"> | Date | string
@@ -11175,6 +11244,7 @@ export namespace Prisma {
     nik?: SortOrder
     email?: SortOrder
     password?: SortOrder
+    jurusan?: SortOrder
     role?: SortOrder
     createdAt?: SortOrder
     updateAt?: SortOrder
@@ -11194,6 +11264,7 @@ export namespace Prisma {
     NOT?: UserWhereInput | UserWhereInput[]
     nama?: StringFilter<"User"> | string
     password?: StringFilter<"User"> | string
+    jurusan?: EnumJurusanFilter<"User"> | $Enums.Jurusan
     role?: EnumRoleFilter<"User"> | $Enums.Role
     createdAt?: DateTimeFilter<"User"> | Date | string
     updateAt?: DateTimeFilter<"User"> | Date | string
@@ -11208,6 +11279,7 @@ export namespace Prisma {
     nik?: SortOrder
     email?: SortOrder
     password?: SortOrder
+    jurusan?: SortOrder
     role?: SortOrder
     createdAt?: SortOrder
     updateAt?: SortOrder
@@ -11227,6 +11299,7 @@ export namespace Prisma {
     nik?: StringWithAggregatesFilter<"User"> | string
     email?: StringWithAggregatesFilter<"User"> | string
     password?: StringWithAggregatesFilter<"User"> | string
+    jurusan?: EnumJurusanWithAggregatesFilter<"User"> | $Enums.Jurusan
     role?: EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updateAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
@@ -11286,6 +11359,7 @@ export namespace Prisma {
     NOT?: DataLokasiWhereInput | DataLokasiWhereInput[]
     kode_lokasi?: StringFilter<"DataLokasi"> | string
     lokasi?: StringFilter<"DataLokasi"> | string
+    jurusan?: EnumJurusanFilter<"DataLokasi"> | $Enums.Jurusan
     status?: EnumStatusLokasiFilter<"DataLokasi"> | $Enums.StatusLokasi
     barangUnit?: BarangUnitListRelationFilter
     monitoring?: MonitoringListRelationFilter
@@ -11295,6 +11369,7 @@ export namespace Prisma {
   export type DataLokasiOrderByWithRelationInput = {
     kode_lokasi?: SortOrder
     lokasi?: SortOrder
+    jurusan?: SortOrder
     status?: SortOrder
     barangUnit?: BarangUnitOrderByRelationAggregateInput
     monitoring?: MonitoringOrderByRelationAggregateInput
@@ -11307,6 +11382,7 @@ export namespace Prisma {
     OR?: DataLokasiWhereInput[]
     NOT?: DataLokasiWhereInput | DataLokasiWhereInput[]
     lokasi?: StringFilter<"DataLokasi"> | string
+    jurusan?: EnumJurusanFilter<"DataLokasi"> | $Enums.Jurusan
     status?: EnumStatusLokasiFilter<"DataLokasi"> | $Enums.StatusLokasi
     barangUnit?: BarangUnitListRelationFilter
     monitoring?: MonitoringListRelationFilter
@@ -11316,6 +11392,7 @@ export namespace Prisma {
   export type DataLokasiOrderByWithAggregationInput = {
     kode_lokasi?: SortOrder
     lokasi?: SortOrder
+    jurusan?: SortOrder
     status?: SortOrder
     _count?: DataLokasiCountOrderByAggregateInput
     _max?: DataLokasiMaxOrderByAggregateInput
@@ -11328,6 +11405,7 @@ export namespace Prisma {
     NOT?: DataLokasiScalarWhereWithAggregatesInput | DataLokasiScalarWhereWithAggregatesInput[]
     kode_lokasi?: StringWithAggregatesFilter<"DataLokasi"> | string
     lokasi?: StringWithAggregatesFilter<"DataLokasi"> | string
+    jurusan?: EnumJurusanWithAggregatesFilter<"DataLokasi"> | $Enums.Jurusan
     status?: EnumStatusLokasiWithAggregatesFilter<"DataLokasi"> | $Enums.StatusLokasi
   }
 
@@ -11340,6 +11418,7 @@ export namespace Prisma {
     lokasi?: StringFilter<"BarangUnit"> | string
     nikUser?: StringFilter<"BarangUnit"> | string
     status?: EnumStatusBFilter<"BarangUnit"> | $Enums.StatusB
+    jurusan?: EnumJurusanFilter<"BarangUnit"> | $Enums.Jurusan
     createdAt?: DateTimeFilter<"BarangUnit"> | Date | string
     dataBarang?: XOR<DataBarangScalarRelationFilter, DataBarangWhereInput>
     dataLokasi?: XOR<DataLokasiScalarRelationFilter, DataLokasiWhereInput>
@@ -11354,6 +11433,7 @@ export namespace Prisma {
     lokasi?: SortOrder
     nikUser?: SortOrder
     status?: SortOrder
+    jurusan?: SortOrder
     createdAt?: SortOrder
     dataBarang?: DataBarangOrderByWithRelationInput
     dataLokasi?: DataLokasiOrderByWithRelationInput
@@ -11371,6 +11451,7 @@ export namespace Prisma {
     lokasi?: StringFilter<"BarangUnit"> | string
     nikUser?: StringFilter<"BarangUnit"> | string
     status?: EnumStatusBFilter<"BarangUnit"> | $Enums.StatusB
+    jurusan?: EnumJurusanFilter<"BarangUnit"> | $Enums.Jurusan
     createdAt?: DateTimeFilter<"BarangUnit"> | Date | string
     dataBarang?: XOR<DataBarangScalarRelationFilter, DataBarangWhereInput>
     dataLokasi?: XOR<DataLokasiScalarRelationFilter, DataLokasiWhereInput>
@@ -11385,6 +11466,7 @@ export namespace Prisma {
     lokasi?: SortOrder
     nikUser?: SortOrder
     status?: SortOrder
+    jurusan?: SortOrder
     createdAt?: SortOrder
     _count?: BarangUnitCountOrderByAggregateInput
     _max?: BarangUnitMaxOrderByAggregateInput
@@ -11400,6 +11482,7 @@ export namespace Prisma {
     lokasi?: StringWithAggregatesFilter<"BarangUnit"> | string
     nikUser?: StringWithAggregatesFilter<"BarangUnit"> | string
     status?: EnumStatusBWithAggregatesFilter<"BarangUnit"> | $Enums.StatusB
+    jurusan?: EnumJurusanWithAggregatesFilter<"BarangUnit"> | $Enums.Jurusan
     createdAt?: DateTimeWithAggregatesFilter<"BarangUnit"> | Date | string
   }
 
@@ -11714,6 +11797,7 @@ export namespace Prisma {
     nik: string
     email: string
     password: string
+    jurusan?: $Enums.Jurusan
     role?: $Enums.Role
     createdAt?: Date | string
     updateAt?: Date | string
@@ -11729,6 +11813,7 @@ export namespace Prisma {
     nik: string
     email: string
     password: string
+    jurusan?: $Enums.Jurusan
     role?: $Enums.Role
     createdAt?: Date | string
     updateAt?: Date | string
@@ -11744,6 +11829,7 @@ export namespace Prisma {
     nik?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    jurusan?: EnumJurusanFieldUpdateOperationsInput | $Enums.Jurusan
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11759,6 +11845,7 @@ export namespace Prisma {
     nik?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    jurusan?: EnumJurusanFieldUpdateOperationsInput | $Enums.Jurusan
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11774,6 +11861,7 @@ export namespace Prisma {
     nik: string
     email: string
     password: string
+    jurusan?: $Enums.Jurusan
     role?: $Enums.Role
     createdAt?: Date | string
     updateAt?: Date | string
@@ -11787,6 +11875,7 @@ export namespace Prisma {
     nik?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    jurusan?: EnumJurusanFieldUpdateOperationsInput | $Enums.Jurusan
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11800,6 +11889,7 @@ export namespace Prisma {
     nik?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    jurusan?: EnumJurusanFieldUpdateOperationsInput | $Enums.Jurusan
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11857,6 +11947,7 @@ export namespace Prisma {
   export type DataLokasiCreateInput = {
     kode_lokasi: string
     lokasi: string
+    jurusan?: $Enums.Jurusan
     status?: $Enums.StatusLokasi
     barangUnit?: BarangUnitCreateNestedManyWithoutDataLokasiInput
     monitoring?: MonitoringCreateNestedManyWithoutDataLokasiInput
@@ -11866,6 +11957,7 @@ export namespace Prisma {
   export type DataLokasiUncheckedCreateInput = {
     kode_lokasi: string
     lokasi: string
+    jurusan?: $Enums.Jurusan
     status?: $Enums.StatusLokasi
     barangUnit?: BarangUnitUncheckedCreateNestedManyWithoutDataLokasiInput
     monitoring?: MonitoringUncheckedCreateNestedManyWithoutDataLokasiInput
@@ -11875,6 +11967,7 @@ export namespace Prisma {
   export type DataLokasiUpdateInput = {
     kode_lokasi?: StringFieldUpdateOperationsInput | string
     lokasi?: StringFieldUpdateOperationsInput | string
+    jurusan?: EnumJurusanFieldUpdateOperationsInput | $Enums.Jurusan
     status?: EnumStatusLokasiFieldUpdateOperationsInput | $Enums.StatusLokasi
     barangUnit?: BarangUnitUpdateManyWithoutDataLokasiNestedInput
     monitoring?: MonitoringUpdateManyWithoutDataLokasiNestedInput
@@ -11884,6 +11977,7 @@ export namespace Prisma {
   export type DataLokasiUncheckedUpdateInput = {
     kode_lokasi?: StringFieldUpdateOperationsInput | string
     lokasi?: StringFieldUpdateOperationsInput | string
+    jurusan?: EnumJurusanFieldUpdateOperationsInput | $Enums.Jurusan
     status?: EnumStatusLokasiFieldUpdateOperationsInput | $Enums.StatusLokasi
     barangUnit?: BarangUnitUncheckedUpdateManyWithoutDataLokasiNestedInput
     monitoring?: MonitoringUncheckedUpdateManyWithoutDataLokasiNestedInput
@@ -11893,24 +11987,28 @@ export namespace Prisma {
   export type DataLokasiCreateManyInput = {
     kode_lokasi: string
     lokasi: string
+    jurusan?: $Enums.Jurusan
     status?: $Enums.StatusLokasi
   }
 
   export type DataLokasiUpdateManyMutationInput = {
     kode_lokasi?: StringFieldUpdateOperationsInput | string
     lokasi?: StringFieldUpdateOperationsInput | string
+    jurusan?: EnumJurusanFieldUpdateOperationsInput | $Enums.Jurusan
     status?: EnumStatusLokasiFieldUpdateOperationsInput | $Enums.StatusLokasi
   }
 
   export type DataLokasiUncheckedUpdateManyInput = {
     kode_lokasi?: StringFieldUpdateOperationsInput | string
     lokasi?: StringFieldUpdateOperationsInput | string
+    jurusan?: EnumJurusanFieldUpdateOperationsInput | $Enums.Jurusan
     status?: EnumStatusLokasiFieldUpdateOperationsInput | $Enums.StatusLokasi
   }
 
   export type BarangUnitCreateInput = {
     nup: string
     status?: $Enums.StatusB
+    jurusan?: $Enums.Jurusan
     createdAt?: Date | string
     dataBarang: DataBarangCreateNestedOneWithoutBarangUnitInput
     dataLokasi: DataLokasiCreateNestedOneWithoutBarangUnitInput
@@ -11925,6 +12023,7 @@ export namespace Prisma {
     lokasi: string
     nikUser: string
     status?: $Enums.StatusB
+    jurusan?: $Enums.Jurusan
     createdAt?: Date | string
     monitoring?: MonitoringUncheckedCreateNestedManyWithoutBarangUnitInput
     peminjamanItems?: PeminjamanItemUncheckedCreateNestedManyWithoutBarangUnitInput
@@ -11933,6 +12032,7 @@ export namespace Prisma {
   export type BarangUnitUpdateInput = {
     nup?: StringFieldUpdateOperationsInput | string
     status?: EnumStatusBFieldUpdateOperationsInput | $Enums.StatusB
+    jurusan?: EnumJurusanFieldUpdateOperationsInput | $Enums.Jurusan
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     dataBarang?: DataBarangUpdateOneRequiredWithoutBarangUnitNestedInput
     dataLokasi?: DataLokasiUpdateOneRequiredWithoutBarangUnitNestedInput
@@ -11947,6 +12047,7 @@ export namespace Prisma {
     lokasi?: StringFieldUpdateOperationsInput | string
     nikUser?: StringFieldUpdateOperationsInput | string
     status?: EnumStatusBFieldUpdateOperationsInput | $Enums.StatusB
+    jurusan?: EnumJurusanFieldUpdateOperationsInput | $Enums.Jurusan
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     monitoring?: MonitoringUncheckedUpdateManyWithoutBarangUnitNestedInput
     peminjamanItems?: PeminjamanItemUncheckedUpdateManyWithoutBarangUnitNestedInput
@@ -11958,12 +12059,14 @@ export namespace Prisma {
     lokasi: string
     nikUser: string
     status?: $Enums.StatusB
+    jurusan?: $Enums.Jurusan
     createdAt?: Date | string
   }
 
   export type BarangUnitUpdateManyMutationInput = {
     nup?: StringFieldUpdateOperationsInput | string
     status?: EnumStatusBFieldUpdateOperationsInput | $Enums.StatusB
+    jurusan?: EnumJurusanFieldUpdateOperationsInput | $Enums.Jurusan
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -11973,6 +12076,7 @@ export namespace Prisma {
     lokasi?: StringFieldUpdateOperationsInput | string
     nikUser?: StringFieldUpdateOperationsInput | string
     status?: EnumStatusBFieldUpdateOperationsInput | $Enums.StatusB
+    jurusan?: EnumJurusanFieldUpdateOperationsInput | $Enums.Jurusan
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -12299,6 +12403,13 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
+  export type EnumJurusanFilter<$PrismaModel = never> = {
+    equals?: $Enums.Jurusan | EnumJurusanFieldRefInput<$PrismaModel>
+    in?: $Enums.Jurusan[] | ListEnumJurusanFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Jurusan[] | ListEnumJurusanFieldRefInput<$PrismaModel>
+    not?: NestedEnumJurusanFilter<$PrismaModel> | $Enums.Jurusan
+  }
+
   export type EnumRoleFilter<$PrismaModel = never> = {
     equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
     in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
@@ -12373,6 +12484,7 @@ export namespace Prisma {
     nik?: SortOrder
     email?: SortOrder
     password?: SortOrder
+    jurusan?: SortOrder
     role?: SortOrder
     createdAt?: SortOrder
     updateAt?: SortOrder
@@ -12386,6 +12498,7 @@ export namespace Prisma {
     nik?: SortOrder
     email?: SortOrder
     password?: SortOrder
+    jurusan?: SortOrder
     role?: SortOrder
     createdAt?: SortOrder
     updateAt?: SortOrder
@@ -12399,6 +12512,7 @@ export namespace Prisma {
     nik?: SortOrder
     email?: SortOrder
     password?: SortOrder
+    jurusan?: SortOrder
     role?: SortOrder
     createdAt?: SortOrder
     updateAt?: SortOrder
@@ -12423,6 +12537,16 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedStringFilter<$PrismaModel>
     _max?: NestedStringFilter<$PrismaModel>
+  }
+
+  export type EnumJurusanWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Jurusan | EnumJurusanFieldRefInput<$PrismaModel>
+    in?: $Enums.Jurusan[] | ListEnumJurusanFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Jurusan[] | ListEnumJurusanFieldRefInput<$PrismaModel>
+    not?: NestedEnumJurusanWithAggregatesFilter<$PrismaModel> | $Enums.Jurusan
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumJurusanFilter<$PrismaModel>
+    _max?: NestedEnumJurusanFilter<$PrismaModel>
   }
 
   export type EnumRoleWithAggregatesFilter<$PrismaModel = never> = {
@@ -12519,18 +12643,21 @@ export namespace Prisma {
   export type DataLokasiCountOrderByAggregateInput = {
     kode_lokasi?: SortOrder
     lokasi?: SortOrder
+    jurusan?: SortOrder
     status?: SortOrder
   }
 
   export type DataLokasiMaxOrderByAggregateInput = {
     kode_lokasi?: SortOrder
     lokasi?: SortOrder
+    jurusan?: SortOrder
     status?: SortOrder
   }
 
   export type DataLokasiMinOrderByAggregateInput = {
     kode_lokasi?: SortOrder
     lokasi?: SortOrder
+    jurusan?: SortOrder
     status?: SortOrder
   }
 
@@ -12582,6 +12709,7 @@ export namespace Prisma {
     lokasi?: SortOrder
     nikUser?: SortOrder
     status?: SortOrder
+    jurusan?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -12591,6 +12719,7 @@ export namespace Prisma {
     lokasi?: SortOrder
     nikUser?: SortOrder
     status?: SortOrder
+    jurusan?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -12600,6 +12729,7 @@ export namespace Prisma {
     lokasi?: SortOrder
     nikUser?: SortOrder
     status?: SortOrder
+    jurusan?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -12909,6 +13039,10 @@ export namespace Prisma {
 
   export type StringFieldUpdateOperationsInput = {
     set?: string
+  }
+
+  export type EnumJurusanFieldUpdateOperationsInput = {
+    set?: $Enums.Jurusan
   }
 
   export type EnumRoleFieldUpdateOperationsInput = {
@@ -13505,6 +13639,13 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
+  export type NestedEnumJurusanFilter<$PrismaModel = never> = {
+    equals?: $Enums.Jurusan | EnumJurusanFieldRefInput<$PrismaModel>
+    in?: $Enums.Jurusan[] | ListEnumJurusanFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Jurusan[] | ListEnumJurusanFieldRefInput<$PrismaModel>
+    not?: NestedEnumJurusanFilter<$PrismaModel> | $Enums.Jurusan
+  }
+
   export type NestedEnumRoleFilter<$PrismaModel = never> = {
     equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
     in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
@@ -13574,6 +13715,16 @@ export namespace Prisma {
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntFilter<$PrismaModel> | number
+  }
+
+  export type NestedEnumJurusanWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Jurusan | EnumJurusanFieldRefInput<$PrismaModel>
+    in?: $Enums.Jurusan[] | ListEnumJurusanFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Jurusan[] | ListEnumJurusanFieldRefInput<$PrismaModel>
+    not?: NestedEnumJurusanWithAggregatesFilter<$PrismaModel> | $Enums.Jurusan
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumJurusanFilter<$PrismaModel>
+    _max?: NestedEnumJurusanFilter<$PrismaModel>
   }
 
   export type NestedEnumRoleWithAggregatesFilter<$PrismaModel = never> = {
@@ -13757,6 +13908,7 @@ export namespace Prisma {
   export type BarangUnitCreateWithoutUserInput = {
     nup: string
     status?: $Enums.StatusB
+    jurusan?: $Enums.Jurusan
     createdAt?: Date | string
     dataBarang: DataBarangCreateNestedOneWithoutBarangUnitInput
     dataLokasi: DataLokasiCreateNestedOneWithoutBarangUnitInput
@@ -13769,6 +13921,7 @@ export namespace Prisma {
     kodeBarang: string
     lokasi: string
     status?: $Enums.StatusB
+    jurusan?: $Enums.Jurusan
     createdAt?: Date | string
     monitoring?: MonitoringUncheckedCreateNestedManyWithoutBarangUnitInput
     peminjamanItems?: PeminjamanItemUncheckedCreateNestedManyWithoutBarangUnitInput
@@ -13856,6 +14009,7 @@ export namespace Prisma {
     lokasi?: StringFilter<"BarangUnit"> | string
     nikUser?: StringFilter<"BarangUnit"> | string
     status?: EnumStatusBFilter<"BarangUnit"> | $Enums.StatusB
+    jurusan?: EnumJurusanFilter<"BarangUnit"> | $Enums.Jurusan
     createdAt?: DateTimeFilter<"BarangUnit"> | Date | string
   }
 
@@ -13899,6 +14053,7 @@ export namespace Prisma {
   export type BarangUnitCreateWithoutDataBarangInput = {
     nup: string
     status?: $Enums.StatusB
+    jurusan?: $Enums.Jurusan
     createdAt?: Date | string
     dataLokasi: DataLokasiCreateNestedOneWithoutBarangUnitInput
     user: UserCreateNestedOneWithoutBarangUnitInput
@@ -13911,6 +14066,7 @@ export namespace Prisma {
     lokasi: string
     nikUser: string
     status?: $Enums.StatusB
+    jurusan?: $Enums.Jurusan
     createdAt?: Date | string
     monitoring?: MonitoringUncheckedCreateNestedManyWithoutBarangUnitInput
     peminjamanItems?: PeminjamanItemUncheckedCreateNestedManyWithoutBarangUnitInput
@@ -13945,6 +14101,7 @@ export namespace Prisma {
   export type BarangUnitCreateWithoutDataLokasiInput = {
     nup: string
     status?: $Enums.StatusB
+    jurusan?: $Enums.Jurusan
     createdAt?: Date | string
     dataBarang: DataBarangCreateNestedOneWithoutBarangUnitInput
     user: UserCreateNestedOneWithoutBarangUnitInput
@@ -13957,6 +14114,7 @@ export namespace Prisma {
     kodeBarang: string
     nikUser: string
     status?: $Enums.StatusB
+    jurusan?: $Enums.Jurusan
     createdAt?: Date | string
     monitoring?: MonitoringUncheckedCreateNestedManyWithoutBarangUnitInput
     peminjamanItems?: PeminjamanItemUncheckedCreateNestedManyWithoutBarangUnitInput
@@ -14134,6 +14292,7 @@ export namespace Prisma {
   export type DataLokasiCreateWithoutBarangUnitInput = {
     kode_lokasi: string
     lokasi: string
+    jurusan?: $Enums.Jurusan
     status?: $Enums.StatusLokasi
     monitoring?: MonitoringCreateNestedManyWithoutDataLokasiInput
     peminjamanP?: PeminjamanPCreateNestedManyWithoutLokasiInput
@@ -14142,6 +14301,7 @@ export namespace Prisma {
   export type DataLokasiUncheckedCreateWithoutBarangUnitInput = {
     kode_lokasi: string
     lokasi: string
+    jurusan?: $Enums.Jurusan
     status?: $Enums.StatusLokasi
     monitoring?: MonitoringUncheckedCreateNestedManyWithoutDataLokasiInput
     peminjamanP?: PeminjamanPUncheckedCreateNestedManyWithoutLokasiInput
@@ -14157,6 +14317,7 @@ export namespace Prisma {
     nik: string
     email: string
     password: string
+    jurusan?: $Enums.Jurusan
     role?: $Enums.Role
     createdAt?: Date | string
     updateAt?: Date | string
@@ -14171,6 +14332,7 @@ export namespace Prisma {
     nik: string
     email: string
     password: string
+    jurusan?: $Enums.Jurusan
     role?: $Enums.Role
     createdAt?: Date | string
     updateAt?: Date | string
@@ -14273,6 +14435,7 @@ export namespace Prisma {
   export type DataLokasiUpdateWithoutBarangUnitInput = {
     kode_lokasi?: StringFieldUpdateOperationsInput | string
     lokasi?: StringFieldUpdateOperationsInput | string
+    jurusan?: EnumJurusanFieldUpdateOperationsInput | $Enums.Jurusan
     status?: EnumStatusLokasiFieldUpdateOperationsInput | $Enums.StatusLokasi
     monitoring?: MonitoringUpdateManyWithoutDataLokasiNestedInput
     peminjamanP?: PeminjamanPUpdateManyWithoutLokasiNestedInput
@@ -14281,6 +14444,7 @@ export namespace Prisma {
   export type DataLokasiUncheckedUpdateWithoutBarangUnitInput = {
     kode_lokasi?: StringFieldUpdateOperationsInput | string
     lokasi?: StringFieldUpdateOperationsInput | string
+    jurusan?: EnumJurusanFieldUpdateOperationsInput | $Enums.Jurusan
     status?: EnumStatusLokasiFieldUpdateOperationsInput | $Enums.StatusLokasi
     monitoring?: MonitoringUncheckedUpdateManyWithoutDataLokasiNestedInput
     peminjamanP?: PeminjamanPUncheckedUpdateManyWithoutLokasiNestedInput
@@ -14302,6 +14466,7 @@ export namespace Prisma {
     nik?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    jurusan?: EnumJurusanFieldUpdateOperationsInput | $Enums.Jurusan
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -14316,6 +14481,7 @@ export namespace Prisma {
     nik?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    jurusan?: EnumJurusanFieldUpdateOperationsInput | $Enums.Jurusan
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -14413,6 +14579,7 @@ export namespace Prisma {
   export type DataLokasiCreateWithoutPeminjamanPInput = {
     kode_lokasi: string
     lokasi: string
+    jurusan?: $Enums.Jurusan
     status?: $Enums.StatusLokasi
     barangUnit?: BarangUnitCreateNestedManyWithoutDataLokasiInput
     monitoring?: MonitoringCreateNestedManyWithoutDataLokasiInput
@@ -14421,6 +14588,7 @@ export namespace Prisma {
   export type DataLokasiUncheckedCreateWithoutPeminjamanPInput = {
     kode_lokasi: string
     lokasi: string
+    jurusan?: $Enums.Jurusan
     status?: $Enums.StatusLokasi
     barangUnit?: BarangUnitUncheckedCreateNestedManyWithoutDataLokasiInput
     monitoring?: MonitoringUncheckedCreateNestedManyWithoutDataLokasiInput
@@ -14436,6 +14604,7 @@ export namespace Prisma {
     nik: string
     email: string
     password: string
+    jurusan?: $Enums.Jurusan
     role?: $Enums.Role
     createdAt?: Date | string
     updateAt?: Date | string
@@ -14450,6 +14619,7 @@ export namespace Prisma {
     nik: string
     email: string
     password: string
+    jurusan?: $Enums.Jurusan
     role?: $Enums.Role
     createdAt?: Date | string
     updateAt?: Date | string
@@ -14522,6 +14692,7 @@ export namespace Prisma {
   export type DataLokasiUpdateWithoutPeminjamanPInput = {
     kode_lokasi?: StringFieldUpdateOperationsInput | string
     lokasi?: StringFieldUpdateOperationsInput | string
+    jurusan?: EnumJurusanFieldUpdateOperationsInput | $Enums.Jurusan
     status?: EnumStatusLokasiFieldUpdateOperationsInput | $Enums.StatusLokasi
     barangUnit?: BarangUnitUpdateManyWithoutDataLokasiNestedInput
     monitoring?: MonitoringUpdateManyWithoutDataLokasiNestedInput
@@ -14530,6 +14701,7 @@ export namespace Prisma {
   export type DataLokasiUncheckedUpdateWithoutPeminjamanPInput = {
     kode_lokasi?: StringFieldUpdateOperationsInput | string
     lokasi?: StringFieldUpdateOperationsInput | string
+    jurusan?: EnumJurusanFieldUpdateOperationsInput | $Enums.Jurusan
     status?: EnumStatusLokasiFieldUpdateOperationsInput | $Enums.StatusLokasi
     barangUnit?: BarangUnitUncheckedUpdateManyWithoutDataLokasiNestedInput
     monitoring?: MonitoringUncheckedUpdateManyWithoutDataLokasiNestedInput
@@ -14551,6 +14723,7 @@ export namespace Prisma {
     nik?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    jurusan?: EnumJurusanFieldUpdateOperationsInput | $Enums.Jurusan
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -14565,6 +14738,7 @@ export namespace Prisma {
     nik?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    jurusan?: EnumJurusanFieldUpdateOperationsInput | $Enums.Jurusan
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -14667,6 +14841,7 @@ export namespace Prisma {
   export type BarangUnitCreateWithoutPeminjamanItemsInput = {
     nup: string
     status?: $Enums.StatusB
+    jurusan?: $Enums.Jurusan
     createdAt?: Date | string
     dataBarang: DataBarangCreateNestedOneWithoutBarangUnitInput
     dataLokasi: DataLokasiCreateNestedOneWithoutBarangUnitInput
@@ -14680,6 +14855,7 @@ export namespace Prisma {
     lokasi: string
     nikUser: string
     status?: $Enums.StatusB
+    jurusan?: $Enums.Jurusan
     createdAt?: Date | string
     monitoring?: MonitoringUncheckedCreateNestedManyWithoutBarangUnitInput
   }
@@ -14745,6 +14921,7 @@ export namespace Prisma {
   export type BarangUnitUpdateWithoutPeminjamanItemsInput = {
     nup?: StringFieldUpdateOperationsInput | string
     status?: EnumStatusBFieldUpdateOperationsInput | $Enums.StatusB
+    jurusan?: EnumJurusanFieldUpdateOperationsInput | $Enums.Jurusan
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     dataBarang?: DataBarangUpdateOneRequiredWithoutBarangUnitNestedInput
     dataLokasi?: DataLokasiUpdateOneRequiredWithoutBarangUnitNestedInput
@@ -14758,6 +14935,7 @@ export namespace Prisma {
     lokasi?: StringFieldUpdateOperationsInput | string
     nikUser?: StringFieldUpdateOperationsInput | string
     status?: EnumStatusBFieldUpdateOperationsInput | $Enums.StatusB
+    jurusan?: EnumJurusanFieldUpdateOperationsInput | $Enums.Jurusan
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     monitoring?: MonitoringUncheckedUpdateManyWithoutBarangUnitNestedInput
   }
@@ -14813,6 +14991,7 @@ export namespace Prisma {
   export type DataLokasiCreateWithoutMonitoringInput = {
     kode_lokasi: string
     lokasi: string
+    jurusan?: $Enums.Jurusan
     status?: $Enums.StatusLokasi
     barangUnit?: BarangUnitCreateNestedManyWithoutDataLokasiInput
     peminjamanP?: PeminjamanPCreateNestedManyWithoutLokasiInput
@@ -14821,6 +15000,7 @@ export namespace Prisma {
   export type DataLokasiUncheckedCreateWithoutMonitoringInput = {
     kode_lokasi: string
     lokasi: string
+    jurusan?: $Enums.Jurusan
     status?: $Enums.StatusLokasi
     barangUnit?: BarangUnitUncheckedCreateNestedManyWithoutDataLokasiInput
     peminjamanP?: PeminjamanPUncheckedCreateNestedManyWithoutLokasiInput
@@ -14834,6 +15014,7 @@ export namespace Prisma {
   export type BarangUnitCreateWithoutMonitoringInput = {
     nup: string
     status?: $Enums.StatusB
+    jurusan?: $Enums.Jurusan
     createdAt?: Date | string
     dataBarang: DataBarangCreateNestedOneWithoutBarangUnitInput
     dataLokasi: DataLokasiCreateNestedOneWithoutBarangUnitInput
@@ -14847,6 +15028,7 @@ export namespace Prisma {
     lokasi: string
     nikUser: string
     status?: $Enums.StatusB
+    jurusan?: $Enums.Jurusan
     createdAt?: Date | string
     peminjamanItems?: PeminjamanItemUncheckedCreateNestedManyWithoutBarangUnitInput
   }
@@ -14870,6 +15052,7 @@ export namespace Prisma {
   export type DataLokasiUpdateWithoutMonitoringInput = {
     kode_lokasi?: StringFieldUpdateOperationsInput | string
     lokasi?: StringFieldUpdateOperationsInput | string
+    jurusan?: EnumJurusanFieldUpdateOperationsInput | $Enums.Jurusan
     status?: EnumStatusLokasiFieldUpdateOperationsInput | $Enums.StatusLokasi
     barangUnit?: BarangUnitUpdateManyWithoutDataLokasiNestedInput
     peminjamanP?: PeminjamanPUpdateManyWithoutLokasiNestedInput
@@ -14878,6 +15061,7 @@ export namespace Prisma {
   export type DataLokasiUncheckedUpdateWithoutMonitoringInput = {
     kode_lokasi?: StringFieldUpdateOperationsInput | string
     lokasi?: StringFieldUpdateOperationsInput | string
+    jurusan?: EnumJurusanFieldUpdateOperationsInput | $Enums.Jurusan
     status?: EnumStatusLokasiFieldUpdateOperationsInput | $Enums.StatusLokasi
     barangUnit?: BarangUnitUncheckedUpdateManyWithoutDataLokasiNestedInput
     peminjamanP?: PeminjamanPUncheckedUpdateManyWithoutLokasiNestedInput
@@ -14897,6 +15081,7 @@ export namespace Prisma {
   export type BarangUnitUpdateWithoutMonitoringInput = {
     nup?: StringFieldUpdateOperationsInput | string
     status?: EnumStatusBFieldUpdateOperationsInput | $Enums.StatusB
+    jurusan?: EnumJurusanFieldUpdateOperationsInput | $Enums.Jurusan
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     dataBarang?: DataBarangUpdateOneRequiredWithoutBarangUnitNestedInput
     dataLokasi?: DataLokasiUpdateOneRequiredWithoutBarangUnitNestedInput
@@ -14910,6 +15095,7 @@ export namespace Prisma {
     lokasi?: StringFieldUpdateOperationsInput | string
     nikUser?: StringFieldUpdateOperationsInput | string
     status?: EnumStatusBFieldUpdateOperationsInput | $Enums.StatusB
+    jurusan?: EnumJurusanFieldUpdateOperationsInput | $Enums.Jurusan
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     peminjamanItems?: PeminjamanItemUncheckedUpdateManyWithoutBarangUnitNestedInput
   }
@@ -14919,6 +15105,7 @@ export namespace Prisma {
     kodeBarang: string
     lokasi: string
     status?: $Enums.StatusB
+    jurusan?: $Enums.Jurusan
     createdAt?: Date | string
   }
 
@@ -14942,6 +15129,7 @@ export namespace Prisma {
   export type BarangUnitUpdateWithoutUserInput = {
     nup?: StringFieldUpdateOperationsInput | string
     status?: EnumStatusBFieldUpdateOperationsInput | $Enums.StatusB
+    jurusan?: EnumJurusanFieldUpdateOperationsInput | $Enums.Jurusan
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     dataBarang?: DataBarangUpdateOneRequiredWithoutBarangUnitNestedInput
     dataLokasi?: DataLokasiUpdateOneRequiredWithoutBarangUnitNestedInput
@@ -14954,6 +15142,7 @@ export namespace Prisma {
     kodeBarang?: StringFieldUpdateOperationsInput | string
     lokasi?: StringFieldUpdateOperationsInput | string
     status?: EnumStatusBFieldUpdateOperationsInput | $Enums.StatusB
+    jurusan?: EnumJurusanFieldUpdateOperationsInput | $Enums.Jurusan
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     monitoring?: MonitoringUncheckedUpdateManyWithoutBarangUnitNestedInput
     peminjamanItems?: PeminjamanItemUncheckedUpdateManyWithoutBarangUnitNestedInput
@@ -14964,6 +15153,7 @@ export namespace Prisma {
     kodeBarang?: StringFieldUpdateOperationsInput | string
     lokasi?: StringFieldUpdateOperationsInput | string
     status?: EnumStatusBFieldUpdateOperationsInput | $Enums.StatusB
+    jurusan?: EnumJurusanFieldUpdateOperationsInput | $Enums.Jurusan
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -15026,12 +15216,14 @@ export namespace Prisma {
     lokasi: string
     nikUser: string
     status?: $Enums.StatusB
+    jurusan?: $Enums.Jurusan
     createdAt?: Date | string
   }
 
   export type BarangUnitUpdateWithoutDataBarangInput = {
     nup?: StringFieldUpdateOperationsInput | string
     status?: EnumStatusBFieldUpdateOperationsInput | $Enums.StatusB
+    jurusan?: EnumJurusanFieldUpdateOperationsInput | $Enums.Jurusan
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     dataLokasi?: DataLokasiUpdateOneRequiredWithoutBarangUnitNestedInput
     user?: UserUpdateOneRequiredWithoutBarangUnitNestedInput
@@ -15044,6 +15236,7 @@ export namespace Prisma {
     lokasi?: StringFieldUpdateOperationsInput | string
     nikUser?: StringFieldUpdateOperationsInput | string
     status?: EnumStatusBFieldUpdateOperationsInput | $Enums.StatusB
+    jurusan?: EnumJurusanFieldUpdateOperationsInput | $Enums.Jurusan
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     monitoring?: MonitoringUncheckedUpdateManyWithoutBarangUnitNestedInput
     peminjamanItems?: PeminjamanItemUncheckedUpdateManyWithoutBarangUnitNestedInput
@@ -15054,6 +15247,7 @@ export namespace Prisma {
     lokasi?: StringFieldUpdateOperationsInput | string
     nikUser?: StringFieldUpdateOperationsInput | string
     status?: EnumStatusBFieldUpdateOperationsInput | $Enums.StatusB
+    jurusan?: EnumJurusanFieldUpdateOperationsInput | $Enums.Jurusan
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -15062,6 +15256,7 @@ export namespace Prisma {
     kodeBarang: string
     nikUser: string
     status?: $Enums.StatusB
+    jurusan?: $Enums.Jurusan
     createdAt?: Date | string
   }
 
@@ -15096,6 +15291,7 @@ export namespace Prisma {
   export type BarangUnitUpdateWithoutDataLokasiInput = {
     nup?: StringFieldUpdateOperationsInput | string
     status?: EnumStatusBFieldUpdateOperationsInput | $Enums.StatusB
+    jurusan?: EnumJurusanFieldUpdateOperationsInput | $Enums.Jurusan
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     dataBarang?: DataBarangUpdateOneRequiredWithoutBarangUnitNestedInput
     user?: UserUpdateOneRequiredWithoutBarangUnitNestedInput
@@ -15108,6 +15304,7 @@ export namespace Prisma {
     kodeBarang?: StringFieldUpdateOperationsInput | string
     nikUser?: StringFieldUpdateOperationsInput | string
     status?: EnumStatusBFieldUpdateOperationsInput | $Enums.StatusB
+    jurusan?: EnumJurusanFieldUpdateOperationsInput | $Enums.Jurusan
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     monitoring?: MonitoringUncheckedUpdateManyWithoutBarangUnitNestedInput
     peminjamanItems?: PeminjamanItemUncheckedUpdateManyWithoutBarangUnitNestedInput
@@ -15118,6 +15315,7 @@ export namespace Prisma {
     kodeBarang?: StringFieldUpdateOperationsInput | string
     nikUser?: StringFieldUpdateOperationsInput | string
     status?: EnumStatusBFieldUpdateOperationsInput | $Enums.StatusB
+    jurusan?: EnumJurusanFieldUpdateOperationsInput | $Enums.Jurusan
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 

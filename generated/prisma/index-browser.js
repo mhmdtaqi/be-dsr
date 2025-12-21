@@ -125,6 +125,7 @@ exports.Prisma.UserScalarFieldEnum = {
   nik: 'nik',
   email: 'email',
   password: 'password',
+  jurusan: 'jurusan',
   role: 'role',
   createdAt: 'createdAt',
   updateAt: 'updateAt',
@@ -142,6 +143,7 @@ exports.Prisma.DataBarangScalarFieldEnum = {
 exports.Prisma.DataLokasiScalarFieldEnum = {
   kode_lokasi: 'kode_lokasi',
   lokasi: 'lokasi',
+  jurusan: 'jurusan',
   status: 'status'
 };
 
@@ -151,6 +153,7 @@ exports.Prisma.BarangUnitScalarFieldEnum = {
   lokasi: 'lokasi',
   nikUser: 'nikUser',
   status: 'status',
+  jurusan: 'jurusan',
   createdAt: 'createdAt'
 };
 
@@ -213,6 +216,11 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
+exports.Jurusan = exports.$Enums.Jurusan = {
+  umum: 'umum',
+  tif: 'tif'
+};
+
 exports.Role = exports.$Enums.Role = {
   civitas_faste: 'civitas_faste',
   staff: 'staff',
