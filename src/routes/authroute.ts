@@ -54,6 +54,12 @@ router.post(
       .withMessage(
         `Role harus salah satu dari: ${Object.values(Role).join(", ")}`
       ),
+    body("jurusan")
+      .optional()
+      .isIn(Object.values(Jurusan))
+      .withMessage(
+        `Jurusan harus salah satu dari: ${Object.values(Jurusan).join(", ")}`
+      ),
   ],
   authController.register
 );
@@ -158,6 +164,12 @@ router.put(
       .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/)
       .withMessage(
         "Password harus mengandung huruf besar, huruf kecil, dan angka"
+      ),
+    body("jurusan")
+      .optional()
+      .isIn(Object.values(Jurusan))
+      .withMessage(
+        `Jurusan harus salah satu dari: ${Object.values(Jurusan).join(", ")}`
       ),
   ],
   authController.updateMe
