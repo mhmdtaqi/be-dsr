@@ -42,11 +42,7 @@ router.post(
       .normalizeEmail(),
     body("password")
       .isLength({ min: 8 })
-      .withMessage("Password minimal 8 karakter")
-      .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/)
-      .withMessage(
-        "Password harus mengandung huruf besar, huruf kecil, dan angka"
-      ),
+      .withMessage("Password minimal 8 karakter"),
     body("nama").notEmpty().withMessage("Nama wajib diisi").trim(),
     body("role")
       .optional()
