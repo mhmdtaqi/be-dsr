@@ -325,9 +325,11 @@ export const lokasiController = {
     }
   },
 
-  findAvailable: async (_req: Request, res: Response): Promise<void> => {
+  findAvailable: async (req: Request, res: Response): Promise<void> => {
     try {
-      const data = await lokasiService.findAvailable();
+      const user = (req as any).user; // From auth middleware
+      const userJurusan = user?.jurusan;
+      const data = await lokasiService.findAvailable(userJurusan);
 
       res.json({
         success: true,

@@ -416,11 +416,15 @@ export const barangUnitController = {
 
   // ✅ baru: daftar barang Tersedia & jenis boleh dipinjam (untuk civitas)
   findAvailableForPeminjaman: async (
-    _req: Request,
+    req: Request,
     res: Response
   ): Promise<void> => {
     try {
-      const data = await barangUnitService.findAvailableForPeminjaman();
+      const user = (req as any).user; // From auth middleware
+      const userJurusan = user?.jurusan;
+      const data = await barangUnitService.findAvailableForPeminjaman(
+        userJurusan
+      );
       res.json({
         success: true,
         message: "Data barang yang dapat dipinjam berhasil diambil",

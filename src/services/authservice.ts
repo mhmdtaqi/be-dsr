@@ -67,9 +67,13 @@ export const authService = {
     password: string;
     nama: string;
     role?: Role;
+    jurusan?: Jurusan;
   }) =>
     prisma.user.create({
-      data,
+      data: {
+        ...data,
+        jurusan: data.jurusan || "umum",
+      },
       select: {
         nik: true,
         nomor_identitas_tunggal: true,

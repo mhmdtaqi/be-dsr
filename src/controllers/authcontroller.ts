@@ -47,8 +47,15 @@ export const authController = {
     }
 
     try {
-      const { nik, nomor_identitas_tunggal, email, password, nama, role } =
-        req.body;
+      const {
+        nik,
+        nomor_identitas_tunggal,
+        email,
+        password,
+        nama,
+        role,
+        jurusan,
+      } = req.body;
 
       console.log("Register attempt for email:", email, "NIK:", nik);
 
@@ -88,6 +95,7 @@ export const authController = {
         password: hashed,
         nama,
         role: userRole,
+        jurusan,
       });
 
       console.log("User created successfully:", newUser.nik);

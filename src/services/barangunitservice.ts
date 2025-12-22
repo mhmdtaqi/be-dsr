@@ -1,5 +1,5 @@
 import prisma from "../prismaClient";
-import { Prisma, StatusB } from "../../generated/prisma";
+import { Prisma, StatusB, Jurusan } from "../../generated/prisma";
 
 // jenis_barang yang boleh dipinjam civitas
 const ALLOWED_JENIS = ["Proyektor", "Microphone", "Sound System"];
@@ -230,14 +230,22 @@ export const barangUnitService = {
   },
 
   // ✅ daftar barang yang Tersedia dan jenisnya boleh dipinjam (untuk civitas)
-  findAvailableForPeminjaman: () =>
-    prisma.barangUnit.findMany({
-      where: {
-        status: StatusB.Tersedia,
-        dataBarang: {
-          jenis_barang: { in: ALLOWED_JENIS },
-        },
+  findAvailableForPeminjaman: (userJurusan?: string) => {
+    const where: any = {
+      status: StatusB.Tersedia,
+      dataBarang: {
+        jenis_barang: { in: ALLOWED_JENIS },
       },
+    };
+
+    if (userJurusan) {
+      where.jurusan = {
+        in: [userJurusan as Jurusan, Jurusan.umum],
+      };
+    }
+
+    return prisma.barangUnit.findMany({
+      where,
       select: {
         nup: true,
         status: true,
@@ -251,5 +259,6 @@ export const barangUnitService = {
       orderBy: {
         nup: "asc",
       },
-    }),
+    });
+  },
 };
