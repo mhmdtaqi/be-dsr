@@ -187,6 +187,7 @@ export const authController = {
         {
           nik: user.nik,
           role: user.role,
+          jurusan: user.jurusan,
         },
         secret,
         { expiresIn: "1h" }
@@ -203,6 +204,7 @@ export const authController = {
             email: user.email,
             nama: user.nama,
             role: user.role,
+            jurusan: user.jurusan,
           },
         },
       });

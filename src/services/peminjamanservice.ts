@@ -601,12 +601,24 @@ export const peminjamanService = {
     userNik?: string;
     status?: StatusP;
     verifikasi?: StatusBooking;
+    jurusan?: string;
   }) => {
     const where: Prisma.PeminjamanPWhereInput = {};
 
     if (filters?.userNik) where.userNik = filters.userNik;
     if (filters?.status) where.status = filters.status;
     if (filters?.verifikasi) where.verifikasi = filters.verifikasi;
+
+    // Filter for staff: only peminjaman with items from their jurusan
+    if (filters?.jurusan) {
+      where.items = {
+        some: {
+          barangUnit: {
+            jurusan: filters.jurusan as Jurusan,
+          },
+        },
+      };
+    }
 
     return prisma.peminjamanP.findMany({
       where,

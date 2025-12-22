@@ -66,16 +66,26 @@ export const peminjamanController = {
     try {
       const userRole = req.user?.role;
       const userNik = req.user?.nik;
+      const userJurusan = req.user?.jurusan;
       const { status, verifikasi } = req.query;
 
       const filters: {
         userNik?: string;
         status?: StatusP;
         verifikasi?: StatusBooking;
+        jurusan?: string;
       } = {};
 
       if (userRole === Role.civitas_faste && userNik) {
         filters.userNik = userNik;
+      }
+
+      // Staff and Staff Prodi can only see peminjaman with items from their jurusan
+      if (
+        (userRole === Role.staff || userRole === Role.staff_prodi) &&
+        userJurusan
+      ) {
+        filters.jurusan = userJurusan;
       }
 
       if (status && Object.values(StatusP).includes(status as StatusP)) {
@@ -279,7 +289,8 @@ export const peminjamanController = {
       console.error("Activate peminjaman error:", err);
       res.status(400).json({
         success: false,
-        message: err.message || "Terjadi kesalahan saat mengaktifkan peminjaman",
+        message:
+          err.message || "Terjadi kesalahan saat mengaktifkan peminjaman",
       });
     }
   },
