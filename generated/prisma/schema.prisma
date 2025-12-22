@@ -124,6 +124,10 @@ enum Role {
 enum Jurusan {
   umum
   tif
+  si
+  te
+  ti
+  mt
 }
 
 enum StatusBooking {

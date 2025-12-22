@@ -218,7 +218,11 @@ exports.Prisma.NullsOrder = {
 };
 exports.Jurusan = exports.$Enums.Jurusan = {
   umum: 'umum',
-  tif: 'tif'
+  tif: 'tif',
+  si: 'si',
+  te: 'te',
+  ti: 'ti',
+  mt: 'mt'
 };
 
 exports.Role = exports.$Enums.Role = {

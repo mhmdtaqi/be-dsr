@@ -70,7 +70,11 @@ export type Role = (typeof Role)[keyof typeof Role]
 
 export const Jurusan: {
   umum: 'umum',
-  tif: 'tif'
+  tif: 'tif',
+  si: 'si',
+  te: 'te',
+  ti: 'ti',
+  mt: 'mt'
 };
 
 export type Jurusan = (typeof Jurusan)[keyof typeof Jurusan]
