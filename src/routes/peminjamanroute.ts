@@ -190,7 +190,7 @@ router.post(
 );
 
 // External cron triggers for cron-job.org
-router.post("/cron/external/activate", async (req, res) => {
+router.get("/cron/external/activate", async (req, res) => {
   const { secret } = req.query;
   if (secret !== process.env.CRON_SECRET) {
     return res.status(403).json({ success: false, message: "Unauthorized" });
@@ -204,7 +204,7 @@ router.post("/cron/external/activate", async (req, res) => {
   }
 });
 
-router.post("/cron/external/complete", async (req, res) => {
+router.get("/cron/external/complete", async (req, res) => {
   const { secret } = req.query;
   if (secret !== process.env.CRON_SECRET) {
     return res.status(403).json({ success: false, message: "Unauthorized" });
@@ -218,7 +218,7 @@ router.post("/cron/external/complete", async (req, res) => {
   }
 });
 
-router.post("/cron/external/cancel-pending", async (req, res) => {
+router.get("/cron/external/cancel-pending", async (req, res) => {
   const { secret } = req.query;
   if (secret !== process.env.CRON_SECRET) {
     return res.status(403).json({ success: false, message: "Unauthorized" });
