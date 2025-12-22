@@ -150,7 +150,7 @@ export const autoCompleteBookings = cron.schedule("*/1 * * * *", async () => {
  */
 export const autoCancelPending = async () => {
   try {
-    const cutoffTime = dayjs().subtract(30, "minute").toDate();
+    const cutoffTime = dayjs().subtract(1, "minute").toDate();
 
     const pendingBookings = await prisma.peminjamanP.findMany({
       where: {
