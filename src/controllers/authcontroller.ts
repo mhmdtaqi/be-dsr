@@ -6,7 +6,7 @@ import { validationResult } from "express-validator";
 import { authService } from "../services/authservice";
 import { sendResetEmail } from "../utils/emailSender";
 import prisma from "../prismaClient";
-import { Role } from "../../generated/prisma";
+import { Role, Jurusan } from "../../generated/prisma";
 
 export const authController = {
   findAll: async (req: Request, res: Response): Promise<void> => {
@@ -385,7 +385,7 @@ export const authController = {
 
     try {
       const { nik } = req.params;
-      const { nama, email, password, role } = req.body;
+      const { nama, email, password, role, jurusan } = req.body;
 
       if (!nik) {
         res.status(400).json({
@@ -400,6 +400,7 @@ export const authController = {
       if (email !== undefined) updateData.email = email;
       if (password) updateData.password = await bcrypt.hash(password, 12);
       if (role !== undefined) updateData.role = role;
+      if (jurusan !== undefined) updateData.jurusan = jurusan;
 
       const updated = await authService.updateUserAdmin(nik, updateData);
 
@@ -441,10 +442,11 @@ export const authController = {
         return;
       }
 
-      const { nama, email, password } = req.body as {
+      const { nama, email, password, jurusan } = req.body as {
         nama?: string;
         email?: string;
         password?: string;
+        jurusan?: Jurusan;
       };
 
       console.log("Update attempt for user:", userFromToken.nik);
@@ -459,11 +461,13 @@ export const authController = {
         nama?: string;
         email?: string;
         password?: string;
+        jurusan?: Jurusan;
       } = {};
 
       if (nama !== undefined) updatePayload.nama = nama;
       if (email !== undefined) updatePayload.email = email;
       if (hashed !== undefined) updatePayload.password = hashed;
+      if (jurusan !== undefined) updatePayload.jurusan = jurusan;
 
       console.log("Updating user profile for:", userFromToken.nik);
       const updated = await authService.updateUserByNik(
@@ -480,6 +484,7 @@ export const authController = {
           email: updated.email,
           nama: updated.nama,
           role: updated.role,
+          jurusan: updated.jurusan,
         },
       });
     } catch (err: any) {
@@ -544,6 +549,7 @@ export const authController = {
           nama: user.nama,
           email: user.email,
           role: user.role,
+          jurusan: user.jurusan,
         },
       });
     } catch (err: any) {

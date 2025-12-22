@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { monitoringService } from "../services/monitoringservice";
 import { Prisma, KondisiBarangM } from "../../generated/prisma";
 import { v4 as uuidv4 } from "uuid";
+import cloudinary from "../utils/cloudinary";
 
 export const monitoringController = {
   create: async (req: Request, res: Response): Promise<void> => {
@@ -13,15 +14,15 @@ export const monitoringController = {
         kondisiBarang,
         lokasiBarang,
         lokasiTambahan,
-        foto,
         keterangan,
       } = req.body;
 
       // Validasi input wajib
-      if (!nupBarang || !waktu || !plt || !kondisiBarang || !foto) {
+      if (!nupBarang || !waktu || !plt || !kondisiBarang || !req.file) {
         res.status(400).json({
           success: false,
-          message: "NUP barang, waktu, PLT, kondisi barang, dan foto wajib diisi"
+          message:
+            "NUP barang, waktu, PLT, kondisi barang, dan foto wajib diisi",
         });
         return;
       }
@@ -30,7 +31,9 @@ export const monitoringController = {
       if (!Object.values(KondisiBarangM).includes(kondisiBarang)) {
         res.status(400).json({
           success: false,
-          message: `Kondisi barang harus salah satu dari: ${Object.values(KondisiBarangM).join(", ")}`
+          message: `Kondisi barang harus salah satu dari: ${Object.values(
+            KondisiBarangM
+          ).join(", ")}`,
         });
         return;
       }
@@ -40,18 +43,20 @@ export const monitoringController = {
       if (!barangExists) {
         res.status(404).json({
           success: false,
-          message: `Barang dengan NUP ${nupBarang} tidak ditemukan`
+          message: `Barang dengan NUP ${nupBarang} tidak ditemukan`,
         });
         return;
       }
 
       // Validasi lokasi jika menggunakan lokasiBarang
       if (lokasiBarang) {
-        const lokasiExists = await monitoringService.checkLokasiExists(lokasiBarang);
+        const lokasiExists = await monitoringService.checkLokasiExists(
+          lokasiBarang
+        );
         if (!lokasiExists) {
           res.status(404).json({
             success: false,
-            message: `Lokasi dengan kode ${lokasiBarang} tidak ditemukan`
+            message: `Lokasi dengan kode ${lokasiBarang} tidak ditemukan`,
           });
           return;
         }
@@ -61,7 +66,29 @@ export const monitoringController = {
       if (lokasiBarang && lokasiTambahan) {
         res.status(400).json({
           success: false,
-          message: "Tidak boleh mengisi lokasiBarang dan lokasiTambahan bersamaan"
+          message:
+            "Tidak boleh mengisi lokasiBarang dan lokasiTambahan bersamaan",
+        });
+        return;
+      }
+
+      // Upload foto ke Cloudinary
+      let fotoUrl: string;
+      try {
+        const base64 = `data:${
+          req.file!.mimetype
+        };base64,${req.file!.buffer.toString("base64")}`;
+        const result = await cloudinary.uploader.upload(base64, {
+          folder: "monitoring",
+          public_id: `monitoring_${Date.now()}`,
+          resource_type: "image",
+        });
+        fotoUrl = result.secure_url;
+      } catch (uploadError) {
+        console.error("Cloudinary upload error:", uploadError);
+        res.status(500).json({
+          success: false,
+          message: "Gagal mengupload foto",
         });
         return;
       }
@@ -77,23 +104,24 @@ export const monitoringController = {
         kondisiBarang: kondisiBarang as KondisiBarangM,
         lokasiBarang: lokasiBarang || undefined,
         lokasiTambahan: lokasiTambahan || undefined,
-        foto,
+        foto: fotoUrl,
         keterangan: keterangan || undefined,
       });
 
       res.status(201).json({
         success: true,
         message: "Log monitoring berhasil ditambahkan",
-        data
+        data,
       });
     } catch (err: any) {
       console.error("Create monitoring error:", err);
 
       if (err instanceof Prisma.PrismaClientKnownRequestError) {
-        if (err.code === 'P2003') {
+        if (err.code === "P2003") {
           res.status(400).json({
             success: false,
-            message: "Foreign key constraint gagal. Pastikan NUP barang dan kode lokasi valid"
+            message:
+              "Foreign key constraint gagal. Pastikan NUP barang dan kode lokasi valid",
           });
           return;
         }
@@ -101,14 +129,15 @@ export const monitoringController = {
 
       res.status(500).json({
         success: false,
-        message: "Terjadi kesalahan server"
+        message: "Terjadi kesalahan server",
       });
     }
   },
 
   findAll: async (req: Request, res: Response): Promise<void> => {
     try {
-      const { nupBarang, kondisiBarang, lokasiBarang, startDate, endDate } = req.query;
+      const { nupBarang, kondisiBarang, lokasiBarang, startDate, endDate } =
+        req.query;
 
       // Build filters
       const filters: {
@@ -119,23 +148,26 @@ export const monitoringController = {
         endDate?: Date;
       } = {};
 
-      if (nupBarang && typeof nupBarang === 'string') {
+      if (nupBarang && typeof nupBarang === "string") {
         filters.nupBarang = nupBarang;
       }
 
-      if (kondisiBarang && Object.values(KondisiBarangM).includes(kondisiBarang as KondisiBarangM)) {
+      if (
+        kondisiBarang &&
+        Object.values(KondisiBarangM).includes(kondisiBarang as KondisiBarangM)
+      ) {
         filters.kondisiBarang = kondisiBarang as KondisiBarangM;
       }
 
-      if (lokasiBarang && typeof lokasiBarang === 'string') {
+      if (lokasiBarang && typeof lokasiBarang === "string") {
         filters.lokasiBarang = lokasiBarang;
       }
 
-      if (startDate && typeof startDate === 'string') {
+      if (startDate && typeof startDate === "string") {
         filters.startDate = new Date(startDate);
       }
 
-      if (endDate && typeof endDate === 'string') {
+      if (endDate && typeof endDate === "string") {
         filters.endDate = new Date(endDate);
       }
 
@@ -146,13 +178,13 @@ export const monitoringController = {
         message: "Data monitoring berhasil diambil",
         data,
         total: data.length,
-        filters: Object.keys(filters).length > 0 ? filters : null
+        filters: Object.keys(filters).length > 0 ? filters : null,
       });
     } catch (err: any) {
       console.error("Find all monitoring error:", err);
       res.status(500).json({
         success: false,
-        message: "Terjadi kesalahan server"
+        message: "Terjadi kesalahan server",
       });
     }
   },
@@ -164,7 +196,7 @@ export const monitoringController = {
       if (!id) {
         res.status(400).json({
           success: false,
-          message: "ID monitoring wajib diisi"
+          message: "ID monitoring wajib diisi",
         });
         return;
       }
@@ -174,7 +206,7 @@ export const monitoringController = {
       if (!data) {
         res.status(404).json({
           success: false,
-          message: `Monitoring dengan ID ${id} tidak ditemukan`
+          message: `Monitoring dengan ID ${id} tidak ditemukan`,
         });
         return;
       }
@@ -182,13 +214,13 @@ export const monitoringController = {
       res.json({
         success: true,
         message: "Data monitoring berhasil diambil",
-        data
+        data,
       });
     } catch (err: any) {
       console.error("Find one monitoring error:", err);
       res.status(500).json({
         success: false,
-        message: "Terjadi kesalahan server"
+        message: "Terjadi kesalahan server",
       });
     }
   },
@@ -209,16 +241,24 @@ export const monitoringController = {
       if (!id) {
         res.status(400).json({
           success: false,
-          message: "ID monitoring wajib diisi"
+          message: "ID monitoring wajib diisi",
         });
         return;
       }
 
       // Validasi minimal ada satu field untuk update
-      if (!waktu && !plt && !kondisiBarang && !lokasiBarang && !lokasiTambahan && !foto && !keterangan) {
+      if (
+        !waktu &&
+        !plt &&
+        !kondisiBarang &&
+        !lokasiBarang &&
+        !lokasiTambahan &&
+        !foto &&
+        !keterangan
+      ) {
         res.status(400).json({
           success: false,
-          message: "Minimal satu field harus diisi untuk update"
+          message: "Minimal satu field harus diisi untuk update",
         });
         return;
       }
@@ -228,7 +268,7 @@ export const monitoringController = {
       if (!exists) {
         res.status(404).json({
           success: false,
-          message: `Monitoring dengan ID ${id} tidak ditemukan`
+          message: `Monitoring dengan ID ${id} tidak ditemukan`,
         });
         return;
       }
@@ -238,21 +278,27 @@ export const monitoringController = {
 
       if (waktu) updateData.waktu = new Date(waktu);
       if (plt) updateData.plt = plt;
-      if (kondisiBarang && Object.values(KondisiBarangM).includes(kondisiBarang)) {
+      if (
+        kondisiBarang &&
+        Object.values(KondisiBarangM).includes(kondisiBarang)
+      ) {
         updateData.kondisiBarang = kondisiBarang as KondisiBarangM;
       }
       if (lokasiBarang) {
-        const lokasiExists = await monitoringService.checkLokasiExists(lokasiBarang);
+        const lokasiExists = await monitoringService.checkLokasiExists(
+          lokasiBarang
+        );
         if (!lokasiExists) {
           res.status(404).json({
             success: false,
-            message: `Lokasi dengan kode ${lokasiBarang} tidak ditemukan`
+            message: `Lokasi dengan kode ${lokasiBarang} tidak ditemukan`,
           });
           return;
         }
         updateData.dataLokasi = { connect: { kode_lokasi: lokasiBarang } };
       }
-      if (lokasiTambahan !== undefined) updateData.lokasiTambahan = lokasiTambahan || null;
+      if (lokasiTambahan !== undefined)
+        updateData.lokasiTambahan = lokasiTambahan || null;
       if (foto) updateData.foto = foto;
       if (keterangan !== undefined) updateData.keterangan = keterangan || null;
 
@@ -261,16 +307,16 @@ export const monitoringController = {
       res.json({
         success: true,
         message: "Data monitoring berhasil diupdate",
-        data
+        data,
       });
     } catch (err: any) {
       console.error("Update monitoring error:", err);
 
       if (err instanceof Prisma.PrismaClientKnownRequestError) {
-        if (err.code === 'P2025') {
+        if (err.code === "P2025") {
           res.status(404).json({
             success: false,
-            message: "Monitoring tidak ditemukan"
+            message: "Monitoring tidak ditemukan",
           });
           return;
         }
@@ -278,7 +324,7 @@ export const monitoringController = {
 
       res.status(500).json({
         success: false,
-        message: "Terjadi kesalahan server"
+        message: "Terjadi kesalahan server",
       });
     }
   },
@@ -290,7 +336,7 @@ export const monitoringController = {
       if (!id) {
         res.status(400).json({
           success: false,
-          message: "ID monitoring wajib diisi"
+          message: "ID monitoring wajib diisi",
         });
         return;
       }
@@ -300,7 +346,7 @@ export const monitoringController = {
       if (!exists) {
         res.status(404).json({
           success: false,
-          message: `Monitoring dengan ID ${id} tidak ditemukan`
+          message: `Monitoring dengan ID ${id} tidak ditemukan`,
         });
         return;
       }
@@ -310,16 +356,16 @@ export const monitoringController = {
       res.json({
         success: true,
         message: "Data monitoring berhasil dihapus",
-        data
+        data,
       });
     } catch (err: any) {
       console.error("Delete monitoring error:", err);
 
       if (err instanceof Prisma.PrismaClientKnownRequestError) {
-        if (err.code === 'P2025') {
+        if (err.code === "P2025") {
           res.status(404).json({
             success: false,
-            message: "Monitoring tidak ditemukan"
+            message: "Monitoring tidak ditemukan",
           });
           return;
         }
@@ -327,7 +373,7 @@ export const monitoringController = {
 
       res.status(500).json({
         success: false,
-        message: "Terjadi kesalahan server"
+        message: "Terjadi kesalahan server",
       });
     }
   },
@@ -339,7 +385,7 @@ export const monitoringController = {
       if (!nup) {
         res.status(400).json({
           success: false,
-          message: "NUP barang wajib diisi"
+          message: "NUP barang wajib diisi",
         });
         return;
       }
@@ -348,7 +394,7 @@ export const monitoringController = {
       if (!barangExists) {
         res.status(404).json({
           success: false,
-          message: `Barang dengan NUP ${nup} tidak ditemukan`
+          message: `Barang dengan NUP ${nup} tidak ditemukan`,
         });
         return;
       }
@@ -359,14 +405,14 @@ export const monitoringController = {
         success: true,
         message: "Riwayat monitoring barang berhasil diambil",
         data,
-        total: data.length
+        total: data.length,
       });
     } catch (err: any) {
       console.error("Find by barang error:", err);
       res.status(500).json({
         success: false,
-        message: "Terjadi kesalahan server"
+        message: "Terjadi kesalahan server",
       });
     }
-  }
+  },
 };

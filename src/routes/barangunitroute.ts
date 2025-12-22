@@ -4,7 +4,7 @@ import { authMiddleware } from "../middleware/authmiddleware";
 import { authorize } from "../middleware/authorize";
 import { body, param, query } from "express-validator";
 import { validate } from "../middleware/validate";
-import { Role, StatusB } from "../../generated/prisma";
+import { Role, StatusB, Jurusan, KondisiBarangM } from "../../generated/prisma";
 
 const router = Router();
 
@@ -20,18 +20,9 @@ router.post(
       .trim()
       .isLength({ min: 5, max: 50 })
       .withMessage("NUP harus 5-50 karakter"),
-    body("kodeBarang")
-      .notEmpty()
-      .withMessage("Kode barang wajib diisi")
-      .trim(),
-    body("lokasi")
-      .notEmpty()
-      .withMessage("Lokasi wajib diisi")
-      .trim(),
-    body("nikUser")
-      .notEmpty()
-      .withMessage("NIK user wajib diisi")
-      .trim(),
+    body("kodeBarang").notEmpty().withMessage("Kode barang wajib diisi").trim(),
+    body("lokasi").notEmpty().withMessage("Lokasi wajib diisi").trim(),
+    body("nikUser").notEmpty().withMessage("NIK user wajib diisi").trim(),
     body("status")
       .optional()
       .isIn(Object.values(StatusB))
@@ -85,26 +76,18 @@ router.get(
     Role.staff_prodi,
     Role.kepala_bagian_akademik,
   ]),
-  [
-    param("nup")
-      .notEmpty()
-      .withMessage("NUP wajib diisi")
-      .trim(),
-  ],
+  [param("nup").notEmpty().withMessage("NUP wajib diisi").trim()],
   validate,
   barangUnitController.findOne
 );
 
-// PUT: Staff dan Staff Prodi boleh update barang unit
+// PUT: Staff, Staff Prodi, dan Kepala Bagian Akademik boleh update barang unit
 router.put(
   "/:nup",
   authMiddleware,
-  authorize([Role.staff, Role.staff_prodi]),
+  authorize([Role.staff, Role.staff_prodi, Role.kepala_bagian_akademik]),
   [
-    param("nup")
-      .notEmpty()
-      .withMessage("NUP wajib diisi")
-      .trim(),
+    param("nup").notEmpty().withMessage("NUP wajib diisi").trim(),
     body("kodeBarang").optional().trim(),
     body("lokasi").optional().trim(),
     body("nikUser").optional().trim(),
@@ -125,10 +108,7 @@ router.patch(
   authMiddleware,
   authorize([Role.staff, Role.staff_prodi]),
   [
-    param("nup")
-      .notEmpty()
-      .withMessage("NUP wajib diisi")
-      .trim(),
+    param("nup").notEmpty().withMessage("NUP wajib diisi").trim(),
     body("status")
       .notEmpty()
       .withMessage("Status wajib diisi")
@@ -146,12 +126,7 @@ router.delete(
   "/:nup",
   authMiddleware,
   authorize([Role.staff]),
-  [
-    param("nup")
-      .notEmpty()
-      .withMessage("NUP wajib diisi")
-      .trim(),
-  ],
+  [param("nup").notEmpty().withMessage("NUP wajib diisi").trim()],
   validate,
   barangUnitController.delete
 );

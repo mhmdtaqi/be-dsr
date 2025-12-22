@@ -1,11 +1,19 @@
 import { Request, Response } from "express";
 import { barangUnitService } from "../services/barangunitservice";
-import { Prisma, StatusB } from "../../generated/prisma";
+import { Prisma, StatusB, Jurusan } from "../../generated/prisma";
 
 export const barangUnitController = {
   create: async (req: Request, res: Response): Promise<void> => {
     try {
-      const { nup, kodeBarang, lokasi, nikUser, status } = req.body;
+      const {
+        nup,
+        kodeBarang,
+        lokasi,
+        nikUser,
+        status,
+        jurusan,
+        kondisiBarang,
+      } = req.body;
 
       if (!nup || !kodeBarang || !lokasi || !nikUser) {
         res.status(400).json({
@@ -58,6 +66,11 @@ export const barangUnitController = {
         barangStatus = status as StatusB;
       }
 
+      let barangJurusan: Jurusan = Jurusan.umum;
+      if (jurusan && Object.values(Jurusan).includes(jurusan as Jurusan)) {
+        barangJurusan = jurusan as Jurusan;
+      }
+
       const data = await barangUnitService.create({
         nup,
         dataBarang: {
@@ -70,6 +83,7 @@ export const barangUnitController = {
           connect: { nik: nikUser },
         },
         status: barangStatus,
+        jurusan: barangJurusan,
       });
 
       res.status(201).json({
@@ -182,7 +196,8 @@ export const barangUnitController = {
   update: async (req: Request, res: Response): Promise<void> => {
     try {
       const { nup } = req.params;
-      const { kodeBarang, lokasi, nikUser, status } = req.body;
+      const { kodeBarang, lokasi, nikUser, status, jurusan, createdAt } =
+        req.body;
 
       if (!nup) {
         res.status(400).json({
@@ -192,7 +207,7 @@ export const barangUnitController = {
         return;
       }
 
-      if (!kodeBarang && !lokasi && !nikUser && !status) {
+      if (!kodeBarang && !lokasi && !nikUser && !status && !jurusan) {
         res.status(400).json({
           success: false,
           message: "Minimal satu field harus diisi untuk update",
@@ -212,8 +227,9 @@ export const barangUnitController = {
       const updateData: Prisma.BarangUnitUpdateInput = {};
 
       if (kodeBarang) {
-        const barangExists =
-          await barangUnitService.checkDataBarangExists(kodeBarang);
+        const barangExists = await barangUnitService.checkDataBarangExists(
+          kodeBarang
+        );
         if (!barangExists) {
           res.status(404).json({
             success: false,
@@ -225,8 +241,7 @@ export const barangUnitController = {
       }
 
       if (lokasi) {
-        const lokasiExists =
-          await barangUnitService.checkLokasiExists(lokasi);
+        const lokasiExists = await barangUnitService.checkLokasiExists(lokasi);
         if (!lokasiExists) {
           res.status(404).json({
             success: false,
@@ -238,8 +253,7 @@ export const barangUnitController = {
       }
 
       if (nikUser) {
-        const userExists =
-          await barangUnitService.checkUserExists(nikUser);
+        const userExists = await barangUnitService.checkUserExists(nikUser);
         if (!userExists) {
           res.status(404).json({
             success: false,
@@ -252,6 +266,14 @@ export const barangUnitController = {
 
       if (status && Object.values(StatusB).includes(status)) {
         updateData.status = status as StatusB;
+      }
+
+      if (jurusan && Object.values(Jurusan).includes(jurusan as Jurusan)) {
+        updateData.jurusan = jurusan as Jurusan;
+      }
+
+      if (createdAt) {
+        updateData.createdAt = new Date(createdAt);
       }
 
       const data = await barangUnitService.update(nup, updateData);

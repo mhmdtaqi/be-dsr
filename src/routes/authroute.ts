@@ -2,7 +2,7 @@ import express from "express";
 import { authController } from "../controllers/authcontroller";
 import { body, param, query } from "express-validator";
 import rateLimit from "express-rate-limit";
-import { Role } from "../../generated/prisma";
+import { Role, Jurusan } from "../../generated/prisma";
 import { authMiddleware } from "../middleware/authmiddleware";
 import { authorize } from "../middleware/authorize";
 import { validate } from "../middleware/validate";
@@ -14,14 +14,13 @@ const loginLimiter = rateLimit({
   max: 5,
   message: {
     success: false,
-    message:
-      "Terlalu banyak percobaan login. Silakan coba lagi dalam 15 menit",
+    message: "Terlalu banyak percobaan login. Silakan coba lagi dalam 15 menit",
   },
   standardHeaders: true,
   legacyHeaders: false,
   keyGenerator: (req) => {
-    console.log('Rate limit key for login:', req.body?.email);
-    return (req.body?.email || '').toLowerCase();
+    console.log("Rate limit key for login:", req.body?.email);
+    return (req.body?.email || "").toLowerCase();
   },
 });
 
@@ -104,12 +103,7 @@ router.get(
   "/:nik",
   authMiddleware,
   authorize([Role.kepala_bagian_akademik]),
-  [
-    param("nik")
-      .notEmpty()
-      .withMessage("NIK wajib diisi")
-      .trim()
-  ],
+  [param("nik").notEmpty().withMessage("NIK wajib diisi").trim()],
   validate,
   authController.findOne
 );
@@ -120,10 +114,7 @@ router.put(
   authMiddleware,
   authorize([Role.kepala_bagian_akademik]),
   [
-    param("nik")
-      .notEmpty()
-      .withMessage("NIK wajib diisi")
-      .trim(),
+    param("nik").notEmpty().withMessage("NIK wajib diisi").trim(),
     body("nama").optional().isString().trim(),
     body("email")
       .optional()

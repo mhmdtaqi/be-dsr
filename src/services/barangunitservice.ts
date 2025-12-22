@@ -27,6 +27,7 @@ export const barangUnitService = {
             kode_lokasi: true,
             lokasi: true,
             status: true,
+            jurusan: true,
           },
         },
         user: {
@@ -74,15 +75,16 @@ export const barangUnitService = {
             kode_lokasi: true,
             lokasi: true,
             status: true,
+            jurusan: true,
           },
         },
         peminjamanItems: {
           where: {
             peminjaman: {
               status: {
-                in: ['booking', 'aktif'] // Hanya peminjaman aktif
-              }
-            }
+                in: ["booking", "aktif"], // Hanya peminjaman aktif
+              },
+            },
           },
           include: {
             peminjaman: {
@@ -98,16 +100,16 @@ export const barangUnitService = {
                   select: {
                     nama: true,
                     email: true,
-                  }
-                }
-              }
-            }
+                  },
+                },
+              },
+            },
           },
           orderBy: {
             peminjaman: {
-              waktuMulai: 'desc'
-            }
-          }
+              waktuMulai: "desc",
+            },
+          },
         },
       },
       orderBy: {
@@ -140,13 +142,16 @@ export const barangUnitService = {
             kode_lokasi: true,
             lokasi: true,
             status: true,
+            jurusan: true,
           },
         },
         monitoring: {
           select: {
             id: true,
             waktu: true,
+            plt: true,
             kondisiBarang: true,
+            foto: true,
             keterangan: true,
           },
           orderBy: {

@@ -6,6 +6,7 @@ import {
   StatusBooking,
   StatusLokasi,
   Role,
+  Jurusan,
 } from "../../generated/prisma";
 
 // ✅ hanya jenis_barang berikut yang boleh dipinjam
@@ -141,59 +142,62 @@ export const peminjamanService = {
       }
     }
 
-    const pinjam = await prisma.$transaction(async (tx) => {
-      const newPeminjaman = await tx.peminjamanP.create({
-        data: {
-          userNik,
-          kodeLokasi: kodeLokasi || null,
-          lokasiTambahan: lokasiTambahan || null,
-          no_hp,
-          Agenda,
-          waktuMulai: new Date(waktuMulai),
-          waktuSelesai: new Date(waktuSelesai),
-          status: StatusP.booking,
-          verifikasi: StatusBooking.pending,
-          items: {
-            create: barangList.map((nup: string) => ({
-              nupBarang: nup,
-            })),
+    const pinjam = await prisma.$transaction(
+      async (tx) => {
+        const newPeminjaman = await tx.peminjamanP.create({
+          data: {
+            userNik,
+            kodeLokasi: kodeLokasi || null,
+            lokasiTambahan: lokasiTambahan || null,
+            no_hp,
+            Agenda,
+            waktuMulai: new Date(waktuMulai),
+            waktuSelesai: new Date(waktuSelesai),
+            status: StatusP.booking,
+            verifikasi: StatusBooking.pending,
+            items: {
+              create: barangList.map((nup: string) => ({
+                nupBarang: nup,
+              })),
+            },
           },
-        },
-        include: {
-          items: {
-            include: {
-              barangUnit: {
-                include: {
-                  dataBarang: true,
+          include: {
+            items: {
+              include: {
+                barangUnit: {
+                  include: {
+                    dataBarang: true,
+                  },
                 },
               },
             },
-          },
-          user: {
-            select: {
-              nik: true,
-              nama: true,
-              email: true,
+            user: {
+              select: {
+                nik: true,
+                nama: true,
+                email: true,
+              },
             },
+            lokasi: true,
           },
-          lokasi: true,
-        },
-      });
-
-      await tx.barangUnit.updateMany({
-        where: { nup: { in: barangList } },
-        data: { status: StatusB.TidakTersedia },
-      });
-
-      if (kodeLokasi) {
-        await tx.dataLokasi.update({
-          where: { kode_lokasi: kodeLokasi },
-          data: { status: StatusLokasi.dipinjam },
         });
-      }
 
-      return newPeminjaman;
-    }, { timeout: 10000 });
+        await tx.barangUnit.updateMany({
+          where: { nup: { in: barangList } },
+          data: { status: StatusB.TidakTersedia },
+        });
+
+        if (kodeLokasi) {
+          await tx.dataLokasi.update({
+            where: { kode_lokasi: kodeLokasi },
+            data: { status: StatusLokasi.dipinjam },
+          });
+        }
+
+        return newPeminjaman;
+      },
+      { timeout: 10000 }
+    );
 
     return pinjam;
   },
@@ -226,9 +230,7 @@ export const peminjamanService = {
     }
 
     if (pem.status === StatusP.aktif) {
-      throw new Error(
-        "Peminjaman sudah aktif, hubungi staff untuk pembatalan"
-      );
+      throw new Error("Peminjaman sudah aktif, hubungi staff untuk pembatalan");
     }
 
     // Cancel dalam transaction
@@ -269,7 +271,7 @@ export const peminjamanService = {
     return result;
   },
 
-  // VERIFIKASI (staff_prodi & kepala_bagian_akademik)
+  // VERIFIKASI (staff_prodi & kepala_bagian_akademik & staff)
   verify: async (id: number, verifikasi: StatusBooking, role: Role) => {
     const pem = await prisma.peminjamanP.findUnique({
       where: { id },
@@ -283,6 +285,7 @@ export const peminjamanService = {
             },
           },
         },
+        lokasi: true,
       },
     });
 
@@ -300,7 +303,11 @@ export const peminjamanService = {
     const isStaffProdiJenis = (jenis: string | null | undefined) => {
       if (!jenis) return false;
       const j = jenis.toLowerCase();
-      return j.includes("proyektor") || j.includes("microphone") || j.includes("sound system");
+      return (
+        j.includes("proyektor") ||
+        j.includes("microphone") ||
+        j.includes("sound system")
+      );
     };
 
     const semuaBarangStaffProdi = pem.items.every((item) =>
@@ -310,6 +317,11 @@ export const peminjamanService = {
     const adaBarangNonStaffProdi = pem.items.some(
       (item) => !isStaffProdiJenis(item.barangUnit?.dataBarang?.jenis_barang)
     );
+
+    const semuaBarangUmum = pem.items.every(
+      (item) => item.barangUnit?.jurusan === Jurusan.umum
+    );
+    const lokasiUmum = !pem.kodeLokasi || pem.lokasi?.jurusan === Jurusan.umum;
 
     // RULE ROLE VERIFIKASI
     if (role === Role.staff_prodi) {
@@ -324,8 +336,16 @@ export const peminjamanService = {
           "Peminjaman ini hanya berisi proyektor, microphone, sound system dan harus diverifikasi oleh Staff Prodi"
         );
       }
+    } else if (role === Role.staff) {
+      if (!semuaBarangUmum || !lokasiUmum) {
+        throw new Error(
+          "Staff hanya boleh memverifikasi peminjaman dari jurusan umum"
+        );
+      }
     } else {
-      throw new Error("Anda tidak memiliki hak untuk memverifikasi peminjaman ini");
+      throw new Error(
+        "Anda tidak memiliki hak untuk memverifikasi peminjaman ini"
+      );
     }
 
     // Jika ditolak, kembalikan barang dan lokasi
@@ -493,8 +513,10 @@ export const peminjamanService = {
 
     // Boleh scan pickup selama status booking atau aktif
     if (pem.status !== StatusP.booking && pem.status !== StatusP.aktif) {
-      throw new Error("Peminjaman tidak dalam status yang dapat di-scan pickup");
-      }
+      throw new Error(
+        "Peminjaman tidak dalam status yang dapat di-scan pickup"
+      );
+    }
 
     const now = new Date();
 
@@ -606,13 +628,7 @@ export const peminjamanService = {
             role: true,
           },
         },
-        lokasi: {
-          select: {
-            kode_lokasi: true,
-            lokasi: true,
-            status: true,
-          },
-        },
+        lokasi: true,
       },
       orderBy: {
         createdAt: "desc",

@@ -1,12 +1,17 @@
 import cron from "node-cron";
 import prisma from "../prismaClient";
 import dayjs from "dayjs";
-import { StatusP, StatusB, StatusBooking, StatusLokasi } from "../../generated/prisma";
+import {
+  StatusP,
+  StatusB,
+  StatusBooking,
+  StatusLokasi,
+} from "../../generated/prisma";
 
 /**
- * CRON JOB 1: Auto-activate peminjaman ketika waktu mulai tiba
+ * Function to auto-activate bookings
  */
-export const autoActivateBookings = cron.schedule("*/1 * * * *", async () => {
+export const autoActivate = async () => {
   try {
     const now = new Date();
 
@@ -16,7 +21,7 @@ export const autoActivateBookings = cron.schedule("*/1 * * * *", async () => {
         verifikasi: StatusBooking.diterima,
         waktuMulai: { lte: now },
       },
-      include: { 
+      include: {
         items: true,
         lokasi: true,
       },
@@ -34,7 +39,7 @@ export const autoActivateBookings = cron.schedule("*/1 * * * *", async () => {
             data: { status: StatusP.aktif },
           });
 
-          const nupList = booking.items.map(item => item.nupBarang);
+          const nupList = booking.items.map((item) => item.nupBarang);
           await tx.barangUnit.updateMany({
             where: { nup: { in: nupList } },
             data: { status: StatusB.TidakTersedia },
@@ -50,18 +55,31 @@ export const autoActivateBookings = cron.schedule("*/1 * * * *", async () => {
 
         console.log(`[CRON] ✓ Booking ${booking.id} activated`);
       } catch (error) {
-        console.error(`[CRON] ✗ Failed to activate booking ${booking.id}:`, error);
+        console.error(
+          `[CRON] ✗ Failed to activate booking ${booking.id}:`,
+          error
+        );
       }
     }
   } catch (error) {
     console.error("[CRON] Auto-activate error:", error);
   }
+};
+
+/**
+ * CRON JOB 1: Auto-activate peminjaman ketika waktu mulai tiba
+ */
+export const autoActivateBookings = cron.schedule("*/1 * * * *", async () => {
+  // Skip in production (Vercel serverless doesn't support cron)
+  if (process.env.NODE_ENV === "production") return;
+
+  await autoActivate();
 });
 
 /**
- * CRON JOB 2: Auto-complete peminjaman ketika waktu selesai
+ * Function to auto-complete bookings
  */
-export const autoCompleteBookings = cron.schedule("*/1 * * * *", async () => {
+export const autoComplete = async () => {
   try {
     const now = new Date();
 
@@ -73,12 +91,14 @@ export const autoCompleteBookings = cron.schedule("*/1 * * * *", async () => {
       include: {
         items: true,
         lokasi: true,
-      }
+      },
     });
 
     if (activeBookings.length === 0) return;
 
-    console.log(`[CRON] Found ${activeBookings.length} active booking(s) to complete`);
+    console.log(
+      `[CRON] Found ${activeBookings.length} active booking(s) to complete`
+    );
 
     for (const booking of activeBookings) {
       try {
@@ -88,7 +108,7 @@ export const autoCompleteBookings = cron.schedule("*/1 * * * *", async () => {
             data: { status: StatusP.selesai },
           });
 
-          const nupList = booking.items.map(item => item.nupBarang);
+          const nupList = booking.items.map((item) => item.nupBarang);
           await tx.barangUnit.updateMany({
             where: { nup: { in: nupList } },
             data: { status: StatusB.Tersedia },
@@ -104,18 +124,31 @@ export const autoCompleteBookings = cron.schedule("*/1 * * * *", async () => {
 
         console.log(`[CRON] ✓ Booking ${booking.id} completed`);
       } catch (error) {
-        console.error(`[CRON] ✗ Failed to complete booking ${booking.id}:`, error);
+        console.error(
+          `[CRON] ✗ Failed to complete booking ${booking.id}:`,
+          error
+        );
       }
     }
   } catch (error) {
     console.error("[CRON] Auto-complete error:", error);
   }
+};
+
+/**
+ * CRON JOB 2: Auto-complete peminjaman ketika waktu selesai
+ */
+export const autoCompleteBookings = cron.schedule("*/1 * * * *", async () => {
+  // Skip in production (Vercel serverless doesn't support cron)
+  if (process.env.NODE_ENV === "production") return;
+
+  await autoComplete();
 });
 
 /**
- * CRON JOB 3: Auto-cancel pending peminjaman
+ * Function to auto-cancel pending bookings
  */
-export const autoCancelPendingBookings = cron.schedule("*/5 * * * *", async () => {
+export const autoCancelPending = async () => {
   try {
     const cutoffTime = dayjs().subtract(30, "minute").toDate();
 
@@ -125,7 +158,7 @@ export const autoCancelPendingBookings = cron.schedule("*/5 * * * *", async () =
         status: StatusP.booking,
         createdAt: { lte: cutoffTime },
       },
-      include: { 
+      include: {
         items: true,
         lokasi: true,
       },
@@ -133,20 +166,22 @@ export const autoCancelPendingBookings = cron.schedule("*/5 * * * *", async () =
 
     if (pendingBookings.length === 0) return;
 
-    console.log(`[CRON] Found ${pendingBookings.length} pending booking(s) to cancel`);
+    console.log(
+      `[CRON] Found ${pendingBookings.length} pending booking(s) to cancel`
+    );
 
     for (const booking of pendingBookings) {
       try {
         await prisma.$transaction(async (tx) => {
           await tx.peminjamanP.update({
             where: { id: booking.id },
-            data: { 
+            data: {
               status: StatusP.batal,
-              verifikasi: StatusBooking.ditolak 
+              verifikasi: StatusBooking.ditolak,
             },
           });
 
-          const nupList = booking.items.map(item => item.nupBarang);
+          const nupList = booking.items.map((item) => item.nupBarang);
           await tx.barangUnit.updateMany({
             where: { nup: { in: nupList } },
             data: { status: StatusB.Tersedia },
@@ -162,13 +197,29 @@ export const autoCancelPendingBookings = cron.schedule("*/5 * * * *", async () =
 
         console.log(`[CRON] ✓ Pending booking ${booking.id} auto-cancelled`);
       } catch (error) {
-        console.error(`[CRON] ✗ Failed to cancel booking ${booking.id}:`, error);
+        console.error(
+          `[CRON] ✗ Failed to cancel booking ${booking.id}:`,
+          error
+        );
       }
     }
   } catch (error) {
     console.error("[CRON] Auto-cancel error:", error);
   }
-});
+};
+
+/**
+ * CRON JOB 3: Auto-cancel pending peminjaman
+ */
+export const autoCancelPendingBookings = cron.schedule(
+  "*/1 * * * *",
+  async () => {
+    // Skip in production (Vercel serverless doesn't support cron)
+    if (process.env.NODE_ENV === "production") return;
+
+    await autoCancelPending();
+  }
+);
 
 /**
  * Start all cron jobs (mereka sudah auto-start, ini untuk logging saja)

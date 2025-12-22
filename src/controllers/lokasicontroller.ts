@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { lokasiService } from "../services/lokasiservice";
-import { Prisma, StatusLokasi } from "../../generated/prisma";
+import { Prisma, StatusLokasi, Jurusan } from "../../generated/prisma";
 
 export const lokasiController = {
   create: async (req: Request, res: Response): Promise<void> => {
@@ -9,9 +9,9 @@ export const lokasiController = {
 
       // Validasi input wajib
       if (!kode_lokasi || !lokasi) {
-        res.status(400).json({ 
+        res.status(400).json({
           success: false,
-          message: "Kode lokasi dan nama lokasi wajib diisi" 
+          message: "Kode lokasi dan nama lokasi wajib diisi",
         });
         return;
       }
@@ -19,9 +19,9 @@ export const lokasiController = {
       // Cek apakah kode lokasi sudah ada
       const exists = await lokasiService.checkExists(kode_lokasi);
       if (exists) {
-        res.status(409).json({ 
+        res.status(409).json({
           success: false,
-          message: `Lokasi dengan kode ${kode_lokasi} sudah terdaftar` 
+          message: `Lokasi dengan kode ${kode_lokasi} sudah terdaftar`,
         });
         return;
       }
@@ -35,30 +35,30 @@ export const lokasiController = {
       const data = await lokasiService.create({
         kode_lokasi,
         lokasi,
-        status: lokasiStatus
+        status: lokasiStatus,
       });
 
-      res.status(201).json({ 
+      res.status(201).json({
         success: true,
         message: "Data lokasi berhasil ditambahkan",
-        data 
+        data,
       });
     } catch (err: any) {
       console.error("Create lokasi error:", err);
 
       if (err instanceof Prisma.PrismaClientKnownRequestError) {
-        if (err.code === 'P2002') {
-          res.status(409).json({ 
+        if (err.code === "P2002") {
+          res.status(409).json({
             success: false,
-            message: "Kode lokasi sudah terdaftar" 
+            message: "Kode lokasi sudah terdaftar",
           });
           return;
         }
       }
 
-      res.status(500).json({ 
+      res.status(500).json({
         success: false,
-        message: "Terjadi kesalahan server" 
+        message: "Terjadi kesalahan server",
       });
     }
   },
@@ -70,24 +70,27 @@ export const lokasiController = {
       // Build filters
       const filters: { status?: StatusLokasi } = {};
 
-      if (status && Object.values(StatusLokasi).includes(status as StatusLokasi)) {
+      if (
+        status &&
+        Object.values(StatusLokasi).includes(status as StatusLokasi)
+      ) {
         filters.status = status as StatusLokasi;
       }
 
       const data = await lokasiService.findAll(filters);
-      
-      res.json({ 
+
+      res.json({
         success: true,
         message: "Data lokasi berhasil diambil",
         data,
         total: data.length,
-        filters: Object.keys(filters).length > 0 ? filters : null
+        filters: Object.keys(filters).length > 0 ? filters : null,
       });
     } catch (err: any) {
       console.error("Find all lokasi error:", err);
-      res.status(500).json({ 
+      res.status(500).json({
         success: false,
-        message: "Terjadi kesalahan server" 
+        message: "Terjadi kesalahan server",
       });
     }
   },
@@ -97,9 +100,9 @@ export const lokasiController = {
       const { kode } = req.params;
 
       if (!kode) {
-        res.status(400).json({ 
+        res.status(400).json({
           success: false,
-          message: "Kode lokasi wajib diisi" 
+          message: "Kode lokasi wajib diisi",
         });
         return;
       }
@@ -107,23 +110,23 @@ export const lokasiController = {
       const data = await lokasiService.findOne(kode);
 
       if (!data) {
-        res.status(404).json({ 
+        res.status(404).json({
           success: false,
-          message: `Lokasi dengan kode ${kode} tidak ditemukan` 
+          message: `Lokasi dengan kode ${kode} tidak ditemukan`,
         });
         return;
       }
 
-      res.json({ 
+      res.json({
         success: true,
         message: "Data lokasi berhasil diambil",
-        data 
+        data,
       });
     } catch (err: any) {
       console.error("Find one lokasi error:", err);
-      res.status(500).json({ 
+      res.status(500).json({
         success: false,
-        message: "Terjadi kesalahan server" 
+        message: "Terjadi kesalahan server",
       });
     }
   },
@@ -131,21 +134,22 @@ export const lokasiController = {
   update: async (req: Request, res: Response): Promise<void> => {
     try {
       const { kode } = req.params;
-      const { lokasi, status } = req.body;
+      const { lokasi, status, jurusan } = req.body;
 
       if (!kode) {
-        res.status(400).json({ 
+        res.status(400).json({
           success: false,
-          message: "Kode lokasi wajib diisi" 
+          message: "Kode lokasi wajib diisi",
         });
         return;
       }
 
       // Validasi minimal ada satu field untuk update
-      if (!lokasi && !status) {
-        res.status(400).json({ 
+      if (!lokasi && !status && !jurusan) {
+        res.status(400).json({
           success: false,
-          message: "Minimal satu field (lokasi atau status) harus diisi untuk update" 
+          message:
+            "Minimal satu field (lokasi, status, atau jurusan) harus diisi untuk update",
         });
         return;
       }
@@ -153,9 +157,9 @@ export const lokasiController = {
       // Cek apakah lokasi exists
       const exists = await lokasiService.checkExists(kode);
       if (!exists) {
-        res.status(404).json({ 
+        res.status(404).json({
           success: false,
-          message: `Lokasi dengan kode ${kode} tidak ditemukan` 
+          message: `Lokasi dengan kode ${kode} tidak ditemukan`,
         });
         return;
       }
@@ -166,30 +170,33 @@ export const lokasiController = {
       if (status && Object.values(StatusLokasi).includes(status)) {
         updateData.status = status as StatusLokasi;
       }
+      if (jurusan && Object.values(Jurusan).includes(jurusan as Jurusan)) {
+        updateData.jurusan = jurusan as Jurusan;
+      }
 
       const data = await lokasiService.update(kode, updateData);
 
-      res.json({ 
+      res.json({
         success: true,
         message: "Data lokasi berhasil diupdate",
-        data 
+        data,
       });
     } catch (err: any) {
       console.error("Update lokasi error:", err);
 
       if (err instanceof Prisma.PrismaClientKnownRequestError) {
-        if (err.code === 'P2025') {
-          res.status(404).json({ 
+        if (err.code === "P2025") {
+          res.status(404).json({
             success: false,
-            message: "Lokasi tidak ditemukan" 
+            message: "Lokasi tidak ditemukan",
           });
           return;
         }
       }
 
-      res.status(500).json({ 
+      res.status(500).json({
         success: false,
-        message: "Terjadi kesalahan server" 
+        message: "Terjadi kesalahan server",
       });
     }
   },
@@ -199,9 +206,9 @@ export const lokasiController = {
       const { kode } = req.params;
 
       if (!kode) {
-        res.status(400).json({ 
+        res.status(400).json({
           success: false,
-          message: "Kode lokasi wajib diisi" 
+          message: "Kode lokasi wajib diisi",
         });
         return;
       }
@@ -209,9 +216,9 @@ export const lokasiController = {
       // Cek apakah lokasi exists
       const exists = await lokasiService.checkExists(kode);
       if (!exists) {
-        res.status(404).json({ 
+        res.status(404).json({
           success: false,
-          message: `Lokasi dengan kode ${kode} tidak ditemukan` 
+          message: `Lokasi dengan kode ${kode} tidak ditemukan`,
         });
         return;
       }
@@ -219,50 +226,53 @@ export const lokasiController = {
       // Cek apakah lokasi sedang digunakan
       const inUse = await lokasiService.checkInUse(kode);
       if (inUse.hasBarang) {
-        res.status(409).json({ 
+        res.status(409).json({
           success: false,
-          message: "Tidak dapat menghapus lokasi karena masih ada barang unit di lokasi ini" 
+          message:
+            "Tidak dapat menghapus lokasi karena masih ada barang unit di lokasi ini",
         });
         return;
       }
       if (inUse.hasPeminjaman) {
-        res.status(409).json({ 
+        res.status(409).json({
           success: false,
-          message: "Tidak dapat menghapus lokasi karena masih ada peminjaman aktif di lokasi ini" 
+          message:
+            "Tidak dapat menghapus lokasi karena masih ada peminjaman aktif di lokasi ini",
         });
         return;
       }
 
       const data = await lokasiService.delete(kode);
 
-      res.json({ 
+      res.json({
         success: true,
         message: "Data lokasi berhasil dihapus",
-        data 
+        data,
       });
     } catch (err: any) {
       console.error("Delete lokasi error:", err);
 
       if (err instanceof Prisma.PrismaClientKnownRequestError) {
-        if (err.code === 'P2003') {
-          res.status(409).json({ 
+        if (err.code === "P2003") {
+          res.status(409).json({
             success: false,
-            message: "Tidak dapat menghapus lokasi karena masih memiliki data terkait" 
+            message:
+              "Tidak dapat menghapus lokasi karena masih memiliki data terkait",
           });
           return;
         }
-        if (err.code === 'P2025') {
-          res.status(404).json({ 
+        if (err.code === "P2025") {
+          res.status(404).json({
             success: false,
-            message: "Lokasi tidak ditemukan" 
+            message: "Lokasi tidak ditemukan",
           });
           return;
         }
       }
 
-      res.status(500).json({ 
+      res.status(500).json({
         success: false,
-        message: "Terjadi kesalahan server" 
+        message: "Terjadi kesalahan server",
       });
     }
   },
@@ -273,42 +283,44 @@ export const lokasiController = {
       const { status } = req.body;
 
       if (!kode) {
-        res.status(400).json({ 
+        res.status(400).json({
           success: false,
-          message: "Kode lokasi wajib diisi" 
+          message: "Kode lokasi wajib diisi",
         });
         return;
       }
 
       if (!status || !Object.values(StatusLokasi).includes(status)) {
-        res.status(400).json({ 
+        res.status(400).json({
           success: false,
-          message: `Status harus salah satu dari: ${Object.values(StatusLokasi).join(", ")}` 
+          message: `Status harus salah satu dari: ${Object.values(
+            StatusLokasi
+          ).join(", ")}`,
         });
         return;
       }
 
       const exists = await lokasiService.checkExists(kode);
       if (!exists) {
-        res.status(404).json({ 
+        res.status(404).json({
           success: false,
-          message: `Lokasi dengan kode ${kode} tidak ditemukan` 
+          message: `Lokasi dengan kode ${kode} tidak ditemukan`,
         });
         return;
       }
 
       const data = await lokasiService.setStatus(kode, status as StatusLokasi);
 
-      res.json({ 
+      res.json({
         success: true,
         message: "Status lokasi berhasil diupdate",
-        data 
+        data,
       });
     } catch (err: any) {
       console.error("Update status lokasi error:", err);
-      res.status(500).json({ 
+      res.status(500).json({
         success: false,
-        message: "Terjadi kesalahan server" 
+        message: "Terjadi kesalahan server",
       });
     }
   },
@@ -316,19 +328,19 @@ export const lokasiController = {
   findAvailable: async (_req: Request, res: Response): Promise<void> => {
     try {
       const data = await lokasiService.findAvailable();
-      
-      res.json({ 
+
+      res.json({
         success: true,
         message: "Data lokasi tersedia berhasil diambil",
         data,
-        total: data.length
+        total: data.length,
       });
     } catch (err: any) {
       console.error("Find available lokasi error:", err);
-      res.status(500).json({ 
+      res.status(500).json({
         success: false,
-        message: "Terjadi kesalahan server" 
+        message: "Terjadi kesalahan server",
       });
     }
-  }
+  },
 };

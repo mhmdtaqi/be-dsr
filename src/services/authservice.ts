@@ -1,5 +1,5 @@
 import prisma from "../prismaClient";
-import { Role } from "../../generated/prisma";
+import { Role, Jurusan } from "../../generated/prisma";
 
 export const authService = {
   findAll: (filters?: { role?: Role }) =>
@@ -11,9 +11,10 @@ export const authService = {
         email: true,
         nama: true,
         role: true,
+        jurusan: true,
         createdAt: true,
       },
-      orderBy: { createdAt: 'desc' },
+      orderBy: { createdAt: "desc" },
     }),
 
   findByEmail: (email: string) =>
@@ -26,6 +27,7 @@ export const authService = {
         password: true,
         nama: true,
         role: true,
+        jurusan: true,
         createdAt: true,
         resetToken: true,
         resetTokenExpiry: true,
@@ -40,6 +42,7 @@ export const authService = {
         email: true,
         nama: true,
         role: true,
+        jurusan: true,
       },
     }),
 
@@ -51,6 +54,7 @@ export const authService = {
         email: true,
         nama: true,
         role: true,
+        jurusan: true,
         resetToken: true,
         resetTokenExpiry: true,
       },
@@ -72,6 +76,7 @@ export const authService = {
         email: true,
         nama: true,
         role: true,
+        jurusan: true,
         createdAt: true,
       },
     }),
@@ -84,6 +89,7 @@ export const authService = {
         email: true,
         nama: true,
         role: true,
+        jurusan: true,
       },
     }),
 
@@ -95,6 +101,7 @@ export const authService = {
       nama?: string;
       email?: string;
       password?: string; // sudah di-hash sebelum dipassing ke sini
+      jurusan?: Jurusan;
       resetToken?: string | null;
       resetTokenExpiry?: Date | null;
     }
@@ -103,6 +110,7 @@ export const authService = {
       nama?: string;
       email?: string;
       password?: string;
+      jurusan?: Jurusan;
       resetToken?: string | null;
       resetTokenExpiry?: Date | null;
     } = {};
@@ -115,6 +123,9 @@ export const authService = {
     }
     if (data.password !== undefined) {
       updateData.password = data.password;
+    }
+    if (data.jurusan !== undefined) {
+      updateData.jurusan = data.jurusan;
     }
     if (data.resetToken !== undefined) {
       updateData.resetToken = data.resetToken;
@@ -132,17 +143,28 @@ export const authService = {
         email: true,
         nama: true,
         role: true,
+        jurusan: true,
         createdAt: true,
       },
     });
   },
 
-  updateUserAdmin: (nik: string, data: { nama?: string; email?: string; password?: string; role?: Role }) => {
+  updateUserAdmin: (
+    nik: string,
+    data: {
+      nama?: string;
+      email?: string;
+      password?: string;
+      role?: Role;
+      jurusan?: Jurusan;
+    }
+  ) => {
     const updateData: any = {};
     if (data.nama !== undefined) updateData.nama = data.nama;
     if (data.email !== undefined) updateData.email = data.email;
     if (data.password !== undefined) updateData.password = data.password;
     if (data.role !== undefined) updateData.role = data.role;
+    if (data.jurusan !== undefined) updateData.jurusan = data.jurusan;
 
     return prisma.user.update({
       where: { nik },
@@ -152,6 +174,7 @@ export const authService = {
         email: true,
         nama: true,
         role: true,
+        jurusan: true,
       },
     });
   },

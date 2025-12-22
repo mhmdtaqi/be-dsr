@@ -5,6 +5,7 @@ import { authorize } from "../middleware/authorize";
 import { body, param, query } from "express-validator";
 import { validate } from "../middleware/validate";
 import { Role, StatusP, StatusBooking } from "../../generated/prisma";
+import { autoCancelPending, autoActivate, autoComplete } from "../utils/cron";
 
 const router = Router();
 
@@ -84,9 +85,7 @@ router.get(
     query("verifikasi")
       .optional()
       .isIn(Object.values(StatusBooking))
-      .withMessage(
-        "Verifikasi harus salah satu dari nilai enum StatusBooking"
-      ),
+      .withMessage("Verifikasi harus salah satu dari nilai enum StatusBooking"),
   ],
   validate,
   peminjamanController.findAll
@@ -121,16 +120,14 @@ router.put(
 router.put(
   "/verify/:id",
   authMiddleware,
-  authorize([Role.kepala_bagian_akademik, Role.staff_prodi]),
+  authorize([Role.kepala_bagian_akademik, Role.staff_prodi, Role.staff]),
   [
     param("id").isInt({ min: 1 }).withMessage("ID harus berupa angka positif"),
     body("verifikasi")
       .notEmpty()
       .withMessage("Status verifikasi wajib diisi")
       .isIn(Object.values(StatusBooking))
-      .withMessage(
-        "Verifikasi harus salah satu dari nilai enum StatusBooking"
-      ),
+      .withMessage("Verifikasi harus salah satu dari nilai enum StatusBooking"),
   ],
   validate,
   peminjamanController.verify
@@ -175,5 +172,67 @@ router.post(
   validate,
   peminjamanController.scanReturn
 );
+
+// Manual trigger for cron (for testing)
+router.post(
+  "/cron/cancel-pending",
+  authMiddleware,
+  authorize([Role.staff, Role.staff_prodi, Role.kepala_bagian_akademik]),
+  async (req, res) => {
+    try {
+      await autoCancelPending();
+      res.json({ success: true, message: "Cron cancel pending executed" });
+    } catch (error) {
+      console.error("Manual cron error:", error);
+      res.status(500).json({ success: false, message: "Error executing cron" });
+    }
+  }
+);
+
+// External cron triggers for cron-job.org
+router.post("/cron/external/activate", async (req, res) => {
+  const { secret } = req.query;
+  if (secret !== process.env.CRON_SECRET) {
+    return res.status(403).json({ success: false, message: "Unauthorized" });
+  }
+  try {
+    await autoActivate();
+    res.json({ success: true, message: "External cron activate executed" });
+  } catch (error) {
+    console.error("External cron error:", error);
+    res.status(500).json({ success: false, message: "Error executing cron" });
+  }
+});
+
+router.post("/cron/external/complete", async (req, res) => {
+  const { secret } = req.query;
+  if (secret !== process.env.CRON_SECRET) {
+    return res.status(403).json({ success: false, message: "Unauthorized" });
+  }
+  try {
+    await autoComplete();
+    res.json({ success: true, message: "External cron complete executed" });
+  } catch (error) {
+    console.error("External cron error:", error);
+    res.status(500).json({ success: false, message: "Error executing cron" });
+  }
+});
+
+router.post("/cron/external/cancel-pending", async (req, res) => {
+  const { secret } = req.query;
+  if (secret !== process.env.CRON_SECRET) {
+    return res.status(403).json({ success: false, message: "Unauthorized" });
+  }
+  try {
+    await autoCancelPending();
+    res.json({
+      success: true,
+      message: "External cron cancel pending executed",
+    });
+  } catch (error) {
+    console.error("External cron error:", error);
+    res.status(500).json({ success: false, message: "Error executing cron" });
+  }
+});
 
 export default router;
