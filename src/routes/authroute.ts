@@ -100,21 +100,21 @@ router.get(
   authController.findAll
 );
 
-// GET One User: Hanya kepala_bagian_akademik yang boleh melihat detail user
+// GET One User: Staff, Staff Prodi, dan Kepala Bagian Akademik boleh melihat detail user
 router.get(
   "/:nik",
   authMiddleware,
-  authorize([Role.kepala_bagian_akademik]),
+  authorize([Role.staff, Role.staff_prodi, Role.kepala_bagian_akademik]),
   [param("nik").notEmpty().withMessage("NIK wajib diisi").trim()],
   validate,
   authController.findOne
 );
 
-// UPDATE User: Hanya kepala_bagian_akademik yang boleh mengubah user lain
+// UPDATE User: Staff, Staff Prodi, dan Kepala Bagian Akademik boleh mengubah user lain
 router.put(
   "/:nik",
   authMiddleware,
-  authorize([Role.kepala_bagian_akademik]),
+  authorize([Role.staff, Role.staff_prodi, Role.kepala_bagian_akademik]),
   [
     param("nik").notEmpty().withMessage("NIK wajib diisi").trim(),
     body("nama").optional().isString().trim(),
