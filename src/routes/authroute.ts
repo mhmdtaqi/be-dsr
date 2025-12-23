@@ -83,11 +83,16 @@ router.post("/reset-password", authController.resetPassword);
 // GET ME (current user)
 router.get("/me", authMiddleware, authController.me);
 
-// GET All Users: Hanya admin yang boleh melihat daftar user
+// GET All Users: Semua role boleh melihat daftar user
 router.get(
   "/",
   authMiddleware,
-  authorize([Role.staff, Role.staff_prodi, Role.kepala_bagian_akademik]),
+  authorize([
+    Role.civitas_faste,
+    Role.staff,
+    Role.staff_prodi,
+    Role.kepala_bagian_akademik,
+  ]),
   [
     query("role")
       .optional()
@@ -100,21 +105,31 @@ router.get(
   authController.findAll
 );
 
-// GET One User: Staff, Staff Prodi, dan Kepala Bagian Akademik boleh melihat detail user
+// GET One User: Semua role boleh melihat detail user
 router.get(
   "/:nik",
   authMiddleware,
-  authorize([Role.staff, Role.staff_prodi, Role.kepala_bagian_akademik]),
+  authorize([
+    Role.civitas_faste,
+    Role.staff,
+    Role.staff_prodi,
+    Role.kepala_bagian_akademik,
+  ]),
   [param("nik").notEmpty().withMessage("NIK wajib diisi").trim()],
   validate,
   authController.findOne
 );
 
-// UPDATE User: Staff, Staff Prodi, dan Kepala Bagian Akademik boleh mengubah user lain
+// UPDATE User: Semua role boleh mengubah user lain
 router.put(
   "/:nik",
   authMiddleware,
-  authorize([Role.staff, Role.staff_prodi, Role.kepala_bagian_akademik]),
+  authorize([
+    Role.civitas_faste,
+    Role.staff,
+    Role.staff_prodi,
+    Role.kepala_bagian_akademik,
+  ]),
   [
     param("nik").notEmpty().withMessage("NIK wajib diisi").trim(),
     body("nama").optional().isString().trim(),
