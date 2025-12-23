@@ -430,8 +430,15 @@ export const authController = {
 
   // Update akun (nama/email/password) user yang sedang login
   updateMe: async (req: Request, res: Response): Promise<void> => {
+    console.log("UpdateMe called with body:", req.body);
+    console.log(
+      "Headers:",
+      req.headers.authorization ? "Bearer token present" : "No auth header"
+    );
+
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
+      console.log("Validation errors:", errors.array());
       res.status(400).json({
         success: false,
         message: "Data input tidak valid",
@@ -443,6 +450,7 @@ export const authController = {
     try {
       // authMiddleware mengisi req.user dari JWT
       const userFromToken = (req as any).user as { nik: string };
+      console.log("User from token:", userFromToken);
       if (!userFromToken?.nik) {
         console.log("Invalid or missing token in update request");
         res.status(401).json({
@@ -459,7 +467,12 @@ export const authController = {
         jurusan?: Jurusan;
       };
 
-      console.log("Update attempt for user:", userFromToken.nik);
+      console.log("Update attempt for user:", userFromToken.nik, "with data:", {
+        nama,
+        email,
+        password: password ? "[REDACTED]" : undefined,
+        jurusan,
+      });
 
       let hashed: string | undefined;
       if (password) {
@@ -479,7 +492,15 @@ export const authController = {
       if (hashed !== undefined) updatePayload.password = hashed;
       if (jurusan !== undefined) updatePayload.jurusan = jurusan;
 
-      console.log("Updating user profile for:", userFromToken.nik);
+      console.log(
+        "Updating user profile for:",
+        userFromToken.nik,
+        "with payload:",
+        {
+          ...updatePayload,
+          password: updatePayload.password ? "[HASHED]" : undefined,
+        }
+      );
       const updated = await authService.updateUserByNik(
         userFromToken.nik,
         updatePayload

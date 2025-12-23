@@ -25,12 +25,20 @@ app.use(helmet());
 const allowedOrigins = [
   "http://localhost:3000",
   "https://bmn-faste.vercel.app",
+  "https://be-dsr.vercel.app",
 ];
 
 // Manual CORS middleware for Vercel
 app.use((req, res, next) => {
   const origin = req.headers.origin;
-  console.log("Request from origin:", origin);
+  console.log(
+    "CORS check - Request from origin:",
+    origin,
+    "Method:",
+    req.method,
+    "Path:",
+    req.path
+  );
   console.log("Allowed origins:", allowedOrigins);
 
   if (!origin || allowedOrigins.includes(origin)) {
@@ -44,13 +52,15 @@ app.use((req, res, next) => {
       "Content-Type, Authorization, X-Requested-With"
     );
     res.setHeader("Access-Control-Allow-Credentials", "true");
-    console.log("CORS allowed for origin:", origin);
+    console.log("CORS headers set for origin:", origin);
   } else {
-    console.log("CORS denied for origin:", origin);
+    console.log("CORS headers NOT set for origin:", origin);
+    // Still allow the request but without CORS headers
   }
 
   // Handle preflight requests
   if (req.method === "OPTIONS") {
+    console.log("Handling OPTIONS preflight");
     res.sendStatus(200);
     return;
   }
