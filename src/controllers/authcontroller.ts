@@ -447,10 +447,11 @@ export const authController = {
       return;
     }
 
+    // authMiddleware mengisi req.user dari JWT
+    const userFromToken = (req as any).user as { nik: string };
+    console.log("User from token:", userFromToken);
+
     try {
-      // authMiddleware mengisi req.user dari JWT
-      const userFromToken = (req as any).user as { nik: string };
-      console.log("User from token:", userFromToken);
       if (!userFromToken?.nik) {
         console.log("Invalid or missing token in update request");
         res.status(401).json({
@@ -519,7 +520,7 @@ export const authController = {
         },
       });
     } catch (err: any) {
-      console.error("Update akun error:", err);
+      console.error("Update akun error for user:", userFromToken.nik, err);
 
       // Provide more specific error messages based on error type
       let errorMessage = "Terjadi kesalahan server";
