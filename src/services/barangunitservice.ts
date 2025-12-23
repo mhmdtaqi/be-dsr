@@ -45,12 +45,14 @@ export const barangUnitService = {
     status?: StatusB;
     lokasi?: string;
     kodeBarang?: string;
+    jurusan?: string;
   }) => {
     const where: Prisma.BarangUnitWhereInput = {};
 
     if (filters?.status) where.status = filters.status;
     if (filters?.lokasi) where.lokasi = filters.lokasi;
     if (filters?.kodeBarang) where.kodeBarang = filters.kodeBarang;
+    if (filters?.jurusan) where.jurusan = filters.jurusan as Jurusan;
 
     return prisma.barangUnit.findMany({
       where,

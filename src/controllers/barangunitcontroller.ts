@@ -121,12 +121,15 @@ export const barangUnitController = {
 
   findAll: async (req: Request, res: Response): Promise<void> => {
     try {
+      const userRole = req.user?.role;
+      const userJurusan = req.user?.jurusan;
       const { status, lokasi, kodeBarang } = req.query;
 
       const filters: {
         status?: StatusB;
         lokasi?: string;
         kodeBarang?: string;
+        jurusan?: string;
       } = {};
 
       if (status && Object.values(StatusB).includes(status as StatusB)) {
