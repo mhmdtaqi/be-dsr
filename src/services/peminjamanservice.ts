@@ -151,6 +151,12 @@ export const peminjamanService = {
       throw new Error(`Barang tidak tersedia: ${unavailableList}`);
     }
 
+    // Cek bahwa semua barang memiliki jurusan yang sama (tidak boleh campur jurusan)
+    const jurusanSet = new Set(barangChecks.map((b) => b.jurusan));
+    if (jurusanSet.size > 1) {
+      throw new Error("Tidak boleh meminjam barang dari jurusan berbeda dalam satu peminjaman. Buat peminjaman terpisah untuk setiap jurusan.");
+    }
+
     // --- BAGIAN YANG DIHAPUS ---
     // Logika "Jika ada lokasi, barang harus umum" SUDAH DIHAPUS DI SINI.
     // Sekarang Barang Jurusan boleh dipinjam dengan lokasi apapun.
