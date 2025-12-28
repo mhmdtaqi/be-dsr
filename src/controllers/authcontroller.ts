@@ -475,6 +475,19 @@ export const authController = {
         jurusan,
       });
 
+      // Check if email is being updated and if it's already taken by another user
+      if (email !== undefined) {
+        const existingUser = await authService.findByEmail(email);
+        if (existingUser && existingUser.nik !== userFromToken.nik) {
+          console.log("Email already exists for another user:", email);
+          res.status(409).json({
+            success: false,
+            message: "Email sudah terdaftar",
+          });
+          return;
+        }
+      }
+
       let hashed: string | undefined;
       if (password) {
         console.log("Hashing new password for user:", userFromToken.nik);
@@ -529,6 +542,9 @@ export const authController = {
       if (err.code === "P1001") {
         errorMessage = "Tidak dapat terhubung ke database";
         statusCode = 503;
+      } else if (err.code === "P2002") {
+        errorMessage = "Data sudah ada di database";
+        statusCode = 409;
       } else if (err.code === "P2025") {
         errorMessage = "User tidak ditemukan";
         statusCode = 404;

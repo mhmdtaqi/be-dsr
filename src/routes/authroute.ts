@@ -120,6 +120,35 @@ router.get(
   authController.findOne
 );
 
+// UPDATE AKUN (diproteksi JWT)
+router.put(
+  "/akun",
+  authMiddleware,
+  [
+    body("nama").optional().isString().trim(),
+    body("email")
+      .optional()
+      .isEmail()
+      .withMessage("Format email tidak valid")
+      .normalizeEmail(),
+    body("password")
+      .optional()
+      .isLength({ min: 8 })
+      .withMessage("Password minimal 8 karakter")
+      .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/)
+      .withMessage(
+        "Password harus mengandung huruf besar, huruf kecil, dan angka"
+      ),
+    body("jurusan")
+      .optional()
+      .isIn(Object.values(Jurusan))
+      .withMessage(
+        `Jurusan harus salah satu dari: ${Object.values(Jurusan).join(", ")}`
+      ),
+  ],
+  authController.updateMe
+);
+
 // UPDATE User: Semua role boleh mengubah user lain
 router.put(
   "/:nik",
@@ -155,35 +184,6 @@ router.put(
   ],
   validate,
   authController.updateUser
-);
-
-// UPDATE AKUN (diproteksi JWT)
-router.put(
-  "/akun",
-  authMiddleware,
-  [
-    body("nama").optional().isString().trim(),
-    body("email")
-      .optional()
-      .isEmail()
-      .withMessage("Format email tidak valid")
-      .normalizeEmail(),
-    body("password")
-      .optional()
-      .isLength({ min: 8 })
-      .withMessage("Password minimal 8 karakter")
-      .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/)
-      .withMessage(
-        "Password harus mengandung huruf besar, huruf kecil, dan angka"
-      ),
-    body("jurusan")
-      .optional()
-      .isIn(Object.values(Jurusan))
-      .withMessage(
-        `Jurusan harus salah satu dari: ${Object.values(Jurusan).join(", ")}`
-      ),
-  ],
-  authController.updateMe
 );
 
 export default router;
