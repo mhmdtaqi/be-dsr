@@ -220,11 +220,7 @@ export const peminjamanService = {
           },
         });
 
-        // Update Status Barang -> Tidak Tersedia
-        await tx.barangUnit.updateMany({
-          where: { nup: { in: barangList } },
-          data: { status: StatusB.TidakTersedia },
-        });
+        // Barang tetap Tersedia sampai peminjaman aktif
 
         // Update Status Lokasi -> Dipinjam (Hanya jika pakai lokasi DB)
         if (kodeLokasi) {
@@ -441,23 +437,35 @@ export const peminjamanService = {
       );
     }
 
-    return await prisma.peminjamanP.update({
-      where: { id },
-      data: { status: StatusP.aktif },
-      include: {
-        items: {
-          include: {
-            barangUnit: {
-              include: {
-                dataBarang: true,
-              },
-            },
-          },
+    const result = await prisma.$transaction(async (tx) => {
+      const updated = await tx.peminjamanP.update({
+        where: { id },
+        data: { status: StatusP.aktif },
+        include: {
+          items: true,
+          user: true,
+          lokasi: true,
         },
-        user: true,
-        lokasi: true,
-      },
+      });
+
+      // Set barang TidakTersedia saat aktifkan manual
+      const nupList = updated.items.map((item) => item.nupBarang);
+      await tx.barangUnit.updateMany({
+        where: { nup: { in: nupList } },
+        data: { status: StatusB.TidakTersedia },
+      });
+
+      if (updated.kodeLokasi) {
+        await tx.dataLokasi.update({
+          where: { kode_lokasi: updated.kodeLokasi },
+          data: { status: StatusLokasi.dipinjam },
+        });
+      }
+
+      return updated;
     });
+
+    return result;
   },
 
   // SELESAIKAN (staff memproses pengembalian)
@@ -536,13 +544,10 @@ export const peminjamanService = {
     const now = new Date();
 
     const updated = await prisma.$transaction(async (tx) => {
-      // Set waktuAmbil pertama kali & status aktif kalau masih booking
+      // Set waktuAmbil pertama kali (hanya untuk pencatatan)
       const updateData: Prisma.PeminjamanPUpdateInput = {};
       if (!pem.waktuAmbil) {
         (updateData as any).waktuAmbil = now;
-      }
-      if (pem.status === StatusP.booking) {
-        (updateData as any).status = StatusP.aktif;
       }
 
       const pemAfterUpdate =
@@ -553,7 +558,7 @@ export const peminjamanService = {
             })
           : pem;
 
-      // Insert log scan
+      // Insert log scan (untuk pencatatan pickup)
       await tx.logScanBMN.create({
         data: {
           peminjamanId: id,
