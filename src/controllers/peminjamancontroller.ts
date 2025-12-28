@@ -8,8 +8,10 @@ export const peminjamanController = {
   create: async (req: Request, res: Response): Promise<void> => {
     try {
       const userNik = req.user?.nik;
+      console.log("DEBUG CONTROLLER: create peminjaman for userNik:", userNik);
 
       if (!userNik) {
+        console.log("DEBUG CONTROLLER: no userNik");
         res.status(401).json({
           success: false,
           message: "User tidak terautentikasi",
@@ -26,6 +28,7 @@ export const peminjamanController = {
         waktuSelesai,
         barangList,
       } = req.body;
+      console.log("DEBUG CONTROLLER: body:", { kodeLokasi, lokasiTambahan, no_hp, Agenda, waktuMulai, waktuSelesai, barangList });
 
       const data = await peminjamanService.create({
         userNik,

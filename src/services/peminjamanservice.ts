@@ -35,8 +35,12 @@ export const peminjamanService = {
       barangList,
     } = data;
 
+    console.log("DEBUG SERVICE: Starting peminjaman create for userNik:", userNik);
+    console.log("DEBUG SERVICE: Payload - kodeLokasi:", kodeLokasi, "lokasiTambahan:", lokasiTambahan, "barangList:", barangList);
+
     // 1. Validasi Input Dasar
     if (!barangList || barangList.length === 0) {
+      console.log("DEBUG SERVICE: barangList empty");
       throw new Error("Daftar barang (barangList) wajib diisi minimal 1 item");
     }
 
@@ -54,14 +58,17 @@ export const peminjamanService = {
     }
 
     // 2. Validasi User (Max Peminjaman & Peminjaman Aktif)
+    console.log("DEBUG SERVICE: Checking user validations");
     const existingActive = await prisma.peminjamanP.findFirst({
       where: {
         userNik,
         status: { in: [StatusP.booking, StatusP.aktif] },
       },
     });
+    console.log("DEBUG SERVICE: existingActive:", existingActive);
 
     if (existingActive) {
+      console.log("DEBUG SERVICE: User has active borrowing");
       throw new Error(
         "Anda masih memiliki peminjaman aktif. Selesaikan terlebih dahulu"
       );
@@ -73,12 +80,15 @@ export const peminjamanService = {
         NOT: { status: StatusP.batal },
       },
     });
+    console.log("DEBUG SERVICE: total borrowings:", total);
 
     if (total >= 3) {
+      console.log("DEBUG SERVICE: Max borrowings reached");
       throw new Error("Anda sudah mencapai batas maksimal 3 peminjaman");
     }
 
     // 3. Validasi Barang (Ketersediaan & Jenis)
+    console.log("DEBUG SERVICE: Checking barang validations");
     const barangChecks = await prisma.barangUnit.findMany({
       where: { nup: { in: barangList } },
       select: {
@@ -93,10 +103,12 @@ export const peminjamanService = {
         },
       },
     });
+    console.log("DEBUG SERVICE: barangChecks:", barangChecks);
 
     if (barangChecks.length !== barangList.length) {
       const foundNups = barangChecks.map((b) => b.nup);
       const notFound = barangList.filter((nup) => !foundNups.includes(nup));
+      console.log("DEBUG SERVICE: notFound barang:", notFound);
       throw new Error(`Barang tidak ditemukan: ${notFound.join(", ")}`);
     }
 
@@ -139,11 +151,14 @@ export const peminjamanService = {
 
     // 4. Validasi Lokasi (Jika pakai Lokasi Database)
     if (kodeLokasi) {
+      console.log("DEBUG SERVICE: Checking lokasi:", kodeLokasi);
       const lokasiData = await prisma.dataLokasi.findUnique({
         where: { kode_lokasi: kodeLokasi },
       });
+      console.log("DEBUG SERVICE: lokasiData:", lokasiData);
 
       if (!lokasiData) {
+        console.log("DEBUG SERVICE: lokasi not found");
         throw new Error(`Lokasi dengan kode ${kodeLokasi} tidak ditemukan`);
       }
 
