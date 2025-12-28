@@ -26,11 +26,15 @@ const allowedOrigins = [
   "http://localhost:3000",
   "https://fe-dsr.vercel.app",
   "https://be-dsr-sepia.vercel.app",
+  // URL spesifik dari screenshot error kamu:
+  "https://fe-o2t3fc9iu-reskipapa1s-projects.vercel.app",
 ];
 
 // Manual CORS middleware for Vercel
 app.use((req, res, next) => {
   const origin = req.headers.origin;
+  
+  // Log untuk debugging (bisa dihapus nanti jika log terlalu penuh)
   console.log(
     "CORS check - Request from origin:",
     origin,
@@ -39,9 +43,18 @@ app.use((req, res, next) => {
     "Path:",
     req.path
   );
-  console.log("Allowed origins:", allowedOrigins);
+  console.log("Allowed origins list:", allowedOrigins);
 
-  if (!origin || allowedOrigins.includes(origin)) {
+  // LOGIKA BARU:
+  // Izinkan jika origin ada di daftar allowedOrigins 
+  // ATAU jika origin adalah subdomain vercel.app (untuk preview deployment yang dinamis)
+  const isAllowed = 
+    !origin || 
+    allowedOrigins.includes(origin) || 
+    (origin && origin.endsWith(".vercel.app"));
+
+  if (isAllowed) {
+    // Gunakan origin yang merquest jika diizinkan, atau default ke allowedOrigins[0] jika null
     res.setHeader("Access-Control-Allow-Origin", origin || "*");
     res.setHeader(
       "Access-Control-Allow-Methods",
@@ -52,15 +65,16 @@ app.use((req, res, next) => {
       "Content-Type, Authorization, X-Requested-With"
     );
     res.setHeader("Access-Control-Allow-Credentials", "true");
-    console.log("CORS headers set for origin:", origin);
+    console.log("✅ CORS headers set for origin:", origin);
   } else {
-    console.log("CORS headers NOT set for origin:", origin);
-    // Still allow the request but without CORS headers
+    console.log("❌ CORS headers NOT set for origin:", origin);
+    // Request tetap lanjut, tapi browser akan memblokirnya karena tidak ada header
   }
 
   // Handle preflight requests
   if (req.method === "OPTIONS") {
     console.log("Handling OPTIONS preflight");
+    // Penting: Pastikan status 200 dikirim untuk OPTIONS
     res.sendStatus(200);
     return;
   }
