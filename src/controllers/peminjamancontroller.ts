@@ -38,19 +38,11 @@ export const peminjamanController = {
         barangList,
       });
 
-      const qr = await generateQR(`PINJAM-${data.id}`);
-
-      await prisma.peminjamanP.update({
-        where: { id: data.id },
-        data: { qrCode: qr },
-      });
-
       res.status(201).json({
         success: true,
         message: "Peminjaman berhasil dibuat. Menunggu verifikasi staff",
         data: {
           peminjaman: data,
-          qrCode: qr,
         },
       });
     } catch (err: any) {
@@ -142,11 +134,11 @@ export const peminjamanController = {
         return;
       }
 
-      // Generate QR if not exists
-      if (!data.qrCode) {
+      // Generate QR only if approved and not exists
+      if (!data.qrCode && data.verifikasi === StatusBooking.diterima) {
         const qr = await generateQR(`PINJAM-${data.id}`);
         data.qrCode = qr;
-        // Optionally save it
+        // Save it
         await prisma.peminjamanP.update({
           where: { id },
           data: { qrCode: qr },
@@ -249,6 +241,16 @@ export const peminjamanController = {
         verifikasi as StatusBooking,
         userRole
       );
+
+      // Generate QR code if approved
+      if (verifikasi === StatusBooking.diterima && !data.qrCode) {
+        const qr = await generateQR(`PINJAM-${data.id}`);
+        await prisma.peminjamanP.update({
+          where: { id },
+          data: { qrCode: qr },
+        });
+        data.qrCode = qr;
+      }
 
       res.json({
         success: true,

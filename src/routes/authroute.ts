@@ -120,14 +120,11 @@ router.get(
   authController.findOne
 );
 
-// UPDATE User: Semua role boleh mengubah user lain
+// UPDATE User: Hanya Kabag yang boleh mengubah user lain
 router.put(
   "/:nik",
   authMiddleware,
   authorize([
-    Role.civitas_faste,
-    Role.staff,
-    Role.staff_prodi,
     Role.kepala_bagian_akademik,
   ]),
   [
