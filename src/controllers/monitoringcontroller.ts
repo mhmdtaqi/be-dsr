@@ -7,6 +7,9 @@ import cloudinary from "../utils/cloudinary";
 export const monitoringController = {
   create: async (req: Request, res: Response): Promise<void> => {
     try {
+      // FIX: Casting req ke any untuk akses file tanpa type definition rumit
+      const file = (req as any).file;
+      
       const {
         nupBarang,
         waktu,
@@ -17,8 +20,8 @@ export const monitoringController = {
         keterangan,
       } = req.body;
 
-      // Validasi input wajib
-      if (!nupBarang || !waktu || !plt || !kondisiBarang || !req.file) {
+      // Validasi input wajib (gunakan variabel file)
+      if (!nupBarang || !waktu || !plt || !kondisiBarang || !file) {
         res.status(400).json({
           success: false,
           message:
@@ -75,9 +78,8 @@ export const monitoringController = {
       // Upload foto ke Cloudinary
       let fotoUrl: string;
       try {
-        const base64 = `data:${
-          req.file!.mimetype
-        };base64,${req.file!.buffer.toString("base64")}`;
+        // FIX: Gunakan variabel file yang sudah dicasting
+        const base64 = `data:${file.mimetype};base64,${file.buffer.toString("base64")}`;
         const result = await cloudinary.uploader.upload(base64, {
           folder: "monitoring",
           public_id: `monitoring_${Date.now()}`,
