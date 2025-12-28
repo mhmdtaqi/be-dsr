@@ -24,7 +24,7 @@ app.use(helmet({
 }));
 
 // Daftar origin static yang diizinkan
-const allowedOrigins = [
+const allowedOrigins =  [
   "http://localhost:3000",
   "https://fe-dsr.vercel.app",
   "https://be-dsr-sepia.vercel.app",
