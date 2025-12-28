@@ -10,7 +10,7 @@ import { autoCancelPending, autoActivate, autoComplete } from "../utils/cron";
 const router = Router();
 
 // POST create
-router.post(
+router.post (
   "/",
   authMiddleware,
   authorize([Role.civitas_faste]),
