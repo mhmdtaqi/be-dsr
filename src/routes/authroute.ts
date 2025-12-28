@@ -158,6 +158,12 @@ router.put(
 router.put(
   "/akun",
   authMiddleware,
+  authorize([
+    Role.civitas_faste,
+    Role.staff,
+    Role.staff_prodi,
+    Role.kepala_bagian_akademik,
+  ]),
   [
     body("nama").optional().isString().trim(),
     body("email")
