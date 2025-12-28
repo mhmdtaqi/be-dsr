@@ -68,17 +68,18 @@ export const peminjamanController = {
         jurusan?: string;
       } = {};
 
+      // 1. Civitas: Hanya lihat miliknya sendiri
       if (userRole === Role.civitas_faste && userNik) {
         filters.userNik = userNik;
       }
 
-      // Staff and Staff Prodi can only see peminjaman with items from their jurusan
-      if (
-        (userRole === Role.staff || userRole === Role.staff_prodi) &&
-        userJurusan
-      ) {
+      // 2. Staff Prodi: Filter berdasarkan jurusan STAFF (untuk melihat barang milik jurusan tsb)
+      if (userRole === Role.staff_prodi && userJurusan) {
         filters.jurusan = userJurusan;
       }
+      
+      // 3. Staff Umum (Role.staff): Melihat semua (atau barang umum), jadi biarkan filter jurusan kosong.
+      // Kecuali jika ada logic khusus. Defaultnya staff umum lihat semua request.
 
       if (status && Object.values(StatusP).includes(status as StatusP)) {
         filters.status = status as StatusP;
@@ -124,8 +125,7 @@ export const peminjamanController = {
       }
 
       const data = await peminjamanService.findOne(id);
-      console.log("FindOne data:", data);
-
+      
       if (!data) {
         res.status(404).json({
           success: false,
@@ -138,13 +138,13 @@ export const peminjamanController = {
       if (!data.qrCode && data.verifikasi === StatusBooking.diterima) {
         const qr = await generateQR(`PINJAM-${data.id}`);
         data.qrCode = qr;
-        // Save it
         await prisma.peminjamanP.update({
           where: { id },
           data: { qrCode: qr },
         });
       }
 
+      // Validasi akses untuk Civitas (hanya boleh lihat miliknya)
       if (userRole === Role.civitas_faste && data.userNik !== userNik) {
         res.status(403).json({
           success: false,
