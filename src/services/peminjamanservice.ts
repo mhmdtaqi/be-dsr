@@ -74,17 +74,24 @@ export const peminjamanService = {
       );
     }
 
+    // Hitung peminjaman per hari (bukan seumur hidup)
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+
     const total = await prisma.peminjamanP.count({
       where: {
         userNik,
         NOT: { status: StatusP.batal },
+        createdAt: { gte: today, lt: tomorrow },
       },
     });
-    console.log("DEBUG SERVICE: total borrowings:", total);
+    console.log("DEBUG SERVICE: total borrowings today:", total);
 
     if (total >= 3) {
-      console.log("DEBUG SERVICE: Max borrowings reached");
-      throw new Error("Anda sudah mencapai batas maksimal 3 peminjaman");
+      console.log("DEBUG SERVICE: Max borrowings per day reached");
+      throw new Error("Anda sudah mencapai batas maksimal 3 peminjaman per hari");
     }
 
     // 3. Validasi Barang (Ketersediaan & Jenis)
