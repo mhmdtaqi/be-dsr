@@ -57,6 +57,15 @@ export const peminjamanService = {
       );
     }
 
+    // Jika pinjam lokasi, maksimal 3 hari
+    if (kodeLokasi) {
+      const durationMs = new Date(waktuSelesai).getTime() - new Date(waktuMulai).getTime();
+      const durationDays = durationMs / (1000 * 60 * 60 * 24);
+      if (durationDays > 3) {
+        throw new Error("Peminjaman lokasi maksimal 3 hari");
+      }
+    }
+
     // 2. Validasi User (Max Peminjaman & Peminjaman Aktif)
     console.log("DEBUG SERVICE: Checking user validations");
     const existingActive = await prisma.peminjamanP.findFirst({
