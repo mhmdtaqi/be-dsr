@@ -24,8 +24,8 @@ app.use(helmet());
 // CORS configuration for Vercel serverless
 const allowedOrigins = [
   "http://localhost:3000",
-  "https://bmn-faste.vercel.app",
-  "https://be-dsr.vercel.app",
+  "https://fe-dsr.vercel.app",
+  "https://be-dsr-sepia.vercel.app",
 ];
 
 // Manual CORS middleware for Vercel
