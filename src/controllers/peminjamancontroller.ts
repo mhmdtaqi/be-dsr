@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { peminjamanService } from "../services/peminjamanservice";
 import { generateQR } from "../utils/generateQR";
-import { StatusBooking, StatusP, Role } from "../../generated/prisma";
+import { StatusBooking, StatusP, Role, Jurusan } from "../../generated/prisma";
 import prisma from "../prismaClient";
 
 export const peminjamanController = {
@@ -80,9 +80,10 @@ export const peminjamanController = {
       if (userRole === Role.staff_prodi && userJurusan) {
         filters.jurusan = userJurusan;
       }
-      
-      // 3. Staff Umum (Role.staff): Melihat semua (atau barang umum), jadi biarkan filter jurusan kosong.
-      // Kecuali jika ada logic khusus. Defaultnya staff umum lihat semua request.
+
+      // 3. Staff Umum (Role.staff): Melihat semua, tapi verify hanya umum
+
+      // 4. Kepala Bagian Akademik: Lihat semua
 
       if (status && Object.values(StatusP).includes(status as StatusP)) {
         filters.status = status as StatusP;
@@ -242,7 +243,8 @@ export const peminjamanController = {
       const data = await peminjamanService.verify(
         id,
         verifikasi as StatusBooking,
-        userRole
+        userRole,
+        req.user?.jurusan as Jurusan | undefined
       );
 
       // Generate QR code if approved

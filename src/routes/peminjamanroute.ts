@@ -120,7 +120,7 @@ router.put(
 router.put(
   "/verify/:id",
   authMiddleware,
-  authorize([Role.kepala_bagian_akademik, Role.staff_prodi, Role.staff]),
+  authorize([Role.staff_prodi, Role.staff]),
   [
     param("id").isInt({ min: 1 }).withMessage("ID harus berupa angka positif"),
     body("verifikasi")

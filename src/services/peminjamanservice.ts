@@ -309,7 +309,7 @@ export const peminjamanService = {
   },
 
   // VERIFIKASI (staff_prodi & kepala_bagian_akademik & staff)
-  verify: async (id: number, verifikasi: StatusBooking, role: Role) => {
+  verify: async (id: number, verifikasi: StatusBooking, role: Role, userJurusan?: Jurusan) => {
     const pem = await prisma.peminjamanP.findUnique({
       where: { id },
       include: {
@@ -336,42 +336,32 @@ export const peminjamanService = {
       );
     }
 
-    // Helper: cek apakah jenis_barang termasuk proyektor, microphone, sound system
-    const isStaffProdiJenis = (jenis: string | null | undefined) => {
-      if (!jenis) return false;
-      const j = jenis.toLowerCase();
-      return (
-        j.includes("proyektor") ||
-        j.includes("microphone") ||
-        j.includes("sound system")
-      );
-    };
 
-    const semuaBarangStaffProdi = pem.items.every((item) =>
-      isStaffProdiJenis(item.barangUnit?.dataBarang?.jenis_barang)
-    );
 
     // LOGIC VERIFIKASI YANG LEBIH FLEKSIBEL
     // Kita hapus aturan ketat lokasi vs barang.
     // Fokus pada ROLE USER vs JENIS BARANG.
     
-    // 1. Staff Prodi: Hanya boleh verify jika barangnya adalah "alat prodi" (Proyektor dll)
+    // 1. Staff Prodi: Hanya boleh verify jika ada barang dengan jurusan sama seperti jurusan staff_prodi
     if (role === Role.staff_prodi) {
-        if (!semuaBarangStaffProdi) {
+        if (!userJurusan) {
              // Jika ada barang yang BUKAN alat prodi, staff prodi mungkin tidak boleh akses?
              // Atau biarkan saja? Untuk amannya, kita izinkan jika ada minimal 1 barang prodi.
              // Tapi logic lama Anda ketat (harus semua). Kita ikuti logic lama tapi lebih loose.
-             const adaBarangProdi = pem.items.some((item) => isStaffProdiJenis(item.barangUnit?.dataBarang?.jenis_barang));
-             if (!adaBarangProdi) {
-                 throw new Error("Peminjaman ini tidak mengandung barang prodi");
+             const adaBarangJurusan = pem.items.some((item) => item.barangUnit?.jurusan === userJurusan);
+             if (!adaBarangJurusan) {
+                 throw new Error(`Peminjaman ini tidak mengandung barang jurusan ${userJurusan}`);
              }
         }
     } 
-    // 2. Staff Umum: Verifikasi sisanya (Barang Umum atau Campuran)
+    // 2. Staff Umum: Hanya verify peminjaman dengan barang jurusan umum
     else if (role === Role.staff) {
-        // Staff Umum boleh verifikasi apapun asalkan sistem Frontend mengizinkan tombolnya muncul.
-        // Tidak perlu throw error di sini kecuali benar-benar restricted.
+        const adaBarangUmum = pem.items.some((item) => item.barangUnit?.jurusan === Jurusan.umum);
+        if (!adaBarangUmum) {
+            throw new Error("Peminjaman ini tidak mengandung barang jurusan umum");
+        }
     }
+    // 3. Kepala Bagian Akademik: Boleh verify semua
 
     // Jika ditolak, kembalikan barang dan lokasi
     if (verifikasi === StatusBooking.ditolak) {
