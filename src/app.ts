@@ -12,109 +12,81 @@ import monitoringRoutes from "./routes/monitoringroute";
 import peminjamanRoutes from "./routes/peminjamanroute";
 import laporanRoutes from "./routes/laporanroute";
 
-// Load environment variables
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Security middleware
-app.use(helmet());
+// Security middleware - UPDATE DISINI
+// crossOriginResourcePolicy: { policy: "cross-origin" } PENTING agar frontend bisa akses resource
+app.use(helmet({
+  crossOriginResourcePolicy: { policy: "cross-origin" } 
+}));
 
-// CORS configuration for Vercel serverless
+// Daftar origin static yang diizinkan
 const allowedOrigins = [
   "http://localhost:3000",
   "https://fe-dsr.vercel.app",
   "https://be-dsr-sepia.vercel.app",
-  // URL spesifik dari screenshot error kamu:
-  "https://fe-o2t3fc9iu-reskipapa1s-projects.vercel.app",
 ];
 
-// Manual CORS middleware for Vercel
+// Middleware CORS Manual yang Lebih Kuat
 app.use((req, res, next) => {
   const origin = req.headers.origin;
   
-  // Log untuk debugging (bisa dihapus nanti jika log terlalu penuh)
-  console.log(
-    "CORS check - Request from origin:",
-    origin,
-    "Method:",
-    req.method,
-    "Path:",
-    req.path
-  );
-  console.log("Allowed origins list:", allowedOrigins);
+  // Log request masuk agar kita tahu origin-nya apa
+  console.log(`📡 Request from: ${origin || 'Unknown'} | Method: ${req.method} | Path: ${req.path}`);
 
-  // LOGIKA BARU:
-  // Izinkan jika origin ada di daftar allowedOrigins 
-  // ATAU jika origin adalah subdomain vercel.app (untuk preview deployment yang dinamis)
+  // IZINKAN JIKA:
+  // 1. Origin ada di list allowedOrigins
+  // 2. ATAU Origin berakhiran .vercel.app (untuk semua preview deployment)
+  // 3. ATAU tidak ada origin (misal dari Postman/Server-to-Server)
   const isAllowed = 
     !origin || 
     allowedOrigins.includes(origin) || 
     (origin && origin.endsWith(".vercel.app"));
 
   if (isAllowed) {
-    // Gunakan origin yang merquest jika diizinkan, atau default ke allowedOrigins[0] jika null
+    // Gunakan origin asli request agar browser senang
     res.setHeader("Access-Control-Allow-Origin", origin || "*");
-    res.setHeader(
-      "Access-Control-Allow-Methods",
-      "GET, POST, PUT, DELETE, OPTIONS, PATCH"
-    );
-    res.setHeader(
-      "Access-Control-Allow-Headers",
-      "Content-Type, Authorization, X-Requested-With"
-    );
+    res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, PATCH");
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Requested-With");
     res.setHeader("Access-Control-Allow-Credentials", "true");
-    console.log("✅ CORS headers set for origin:", origin);
+    console.log(`✅ CORS Diizinkan untuk: ${origin}`);
   } else {
-    console.log("❌ CORS headers NOT set for origin:", origin);
-    // Request tetap lanjut, tapi browser akan memblokirnya karena tidak ada header
+    console.log(`❌ CORS Ditolak untuk: ${origin}`);
   }
 
-  // Handle preflight requests
+  // Handle preflight OPTIONS langsung disini
   if (req.method === "OPTIONS") {
-    console.log("Handling OPTIONS preflight");
-    // Penting: Pastikan status 200 dikirim untuk OPTIONS
-    res.sendStatus(200);
+    res.status(200).end();
     return;
   }
 
   next();
 });
 
-// Body parser middleware
+// Body parser
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true, limit: "10mb" }));
 
-// Logging middleware
+// Logging
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 } else {
   app.use(morgan("combined"));
 }
 
-// Health check
+// Routes
 app.get("/", (_req: Request, res: Response) => {
-  res.json({
-    success: true,
-    message: "Backend DSR API is running",
-    version: "1.0.0",
-    timestamp: new Date().toISOString(),
-  });
+  res.json({ success: true, message: "Backend DSR API is running", version: "1.0.1" });
 });
 
 app.get("/health", (_req: Request, res: Response) => {
-  res.json({
-    success: true,
-    status: "healthy",
-    uptime: process.uptime(),
-    timestamp: new Date().toISOString(),
-  });
+  res.json({ success: true, status: "healthy" });
 });
 
-// API Routes
 const API_PREFIX = "/api";
-
 app.use(`${API_PREFIX}/auth`, authRoutes);
 app.use(`${API_PREFIX}/databarang`, databarangRoutes);
 app.use(`${API_PREFIX}/barangunit`, barangunitRoutes);
@@ -125,61 +97,18 @@ app.use(`${API_PREFIX}/laporan`, laporanRoutes);
 
 // 404 Handler
 app.use((_req: Request, res: Response) => {
-  res.status(404).json({
-    success: false,
-    message: "Endpoint not found",
-  });
+  res.status(404).json({ success: false, message: "Endpoint not found" });
 });
 
-// Global Error Handler
+// Error Handler
 app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
-  console.error("Global error handler:", err);
-
-  // Provide more specific error messages for common issues
-  let errorMessage = "Terjadi kesalahan server";
-  let statusCode = 500;
-
-  if ((err as any).code === "P1001") {
-    errorMessage = "Tidak dapat terhubung ke database";
-    statusCode = 503;
-  } else if ((err as any).code === "P2002") {
-    errorMessage = "Data duplikat ditemukan";
-    statusCode = 409;
-  } else if ((err as any).code === "P2025") {
-    errorMessage = "Data tidak ditemukan";
-    statusCode = 404;
-  } else if (err.message?.includes("CORS")) {
-    errorMessage = "Masalah konfigurasi CORS";
-    statusCode = 500;
-  } else if (err.message?.includes("JWT")) {
-    errorMessage = "Token tidak valid";
-    statusCode = 401;
-  } else if (err.message?.includes("bcrypt")) {
-    errorMessage = "Masalah enkripsi password";
-    statusCode = 500;
-  }
-
-  res.status(statusCode).json({
-    success: false,
-    message: process.env.NODE_ENV === "production" ? errorMessage : err.message,
-    ...(process.env.NODE_ENV === "development" && {
-      stack: err.stack,
-      code: (err as any).code,
-      originalMessage: err.message,
-    }),
-  });
+  console.error("Global error:", err);
+  res.status(500).json({ success: false, message: err.message || "Internal Server Error" });
 });
 
-// For Vercel serverless deployment
+// Server Start (Dev only)
 if (process.env.NODE_ENV !== "production") {
-  // Only start server in development
-  const server = app.listen(PORT, () => {
-    console.log("=================================");
-    console.log(`🚀 Server running on port ${PORT}`);
-    console.log(`📍 Environment: ${process.env.NODE_ENV || "development"}`);
-    console.log(`🌐 API URL: http://localhost:${PORT}${API_PREFIX}`);
-    console.log("=================================");
-  });
+  app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
 }
 
 export default app;
