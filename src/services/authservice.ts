@@ -19,7 +19,7 @@ export const authService = {
 
   findByEmail: (email: string) =>
     prisma.user.findUnique({
-      where: { email: email.toLowerCase() },
+      where: { email },
       select: {
         nik: true,
         nomor_identitas_tunggal: true,

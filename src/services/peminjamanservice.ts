@@ -78,6 +78,7 @@ export const peminjamanService = {
       select: {
         nup: true,
         status: true,
+        jurusan: true,
         dataBarang: {
           select: {
             jenis_barang: true,
@@ -122,6 +123,16 @@ export const peminjamanService = {
         .map((b) => `${b.nup} (${b.dataBarang?.jenis_barang})`)
         .join(", ");
       throw new Error(`Barang tidak tersedia: ${unavailableList}`);
+    }
+
+    // Validasi kombinasi: jika ada lokasi, hanya barang umum yang diperbolehkan
+    if (kodeLokasi || lokasiTambahan) {
+      const nonUmum = barangChecks.filter((b) => b.jurusan !== Jurusan.umum);
+      if (nonUmum.length > 0) {
+        throw new Error(
+          "Ketika meminjam lokasi, hanya barang umum yang diperbolehkan. Barang jurusan tidak dapat digabung dengan peminjaman lokasi."
+        );
+      }
     }
 
     if (kodeLokasi) {
@@ -318,34 +329,43 @@ export const peminjamanService = {
       (item) => !isStaffProdiJenis(item.barangUnit?.dataBarang?.jenis_barang)
     );
 
-    const semuaBarangUmum = pem.items.every(
-      (item) => item.barangUnit?.jurusan === Jurusan.umum
-    );
-    const lokasiUmum = !pem.kodeLokasi || pem.lokasi?.jurusan === Jurusan.umum;
-
-    // RULE ROLE VERIFIKASI
-    if (role === Role.staff_prodi) {
-      if (!semuaBarangStaffProdi) {
+    // UNIFIED VERIFICATION RULE
+    // Jika ada lokasi, maka diverifikasi oleh Staff Umum saja
+    if (pem.kodeLokasi || pem.lokasiTambahan) {
+      if (role !== Role.staff) {
         throw new Error(
-          "Staff Prodi hanya boleh memverifikasi peminjaman proyektor, microphone, sound system"
-        );
-      }
-    } else if (role === Role.kepala_bagian_akademik) {
-      if (!adaBarangNonStaffProdi) {
-        throw new Error(
-          "Peminjaman ini hanya berisi proyektor, microphone, sound system dan harus diverifikasi oleh Staff Prodi"
-        );
-      }
-    } else if (role === Role.staff) {
-      if (!semuaBarangUmum || !lokasiUmum) {
-        throw new Error(
-          "Staff hanya boleh memverifikasi peminjaman dari jurusan umum"
+          "Peminjaman lokasi + barang hanya dapat diverifikasi oleh Staff Umum"
         );
       }
     } else {
-      throw new Error(
-        "Anda tidak memiliki hak untuk memverifikasi peminjaman ini"
+      // Peminjaman barang saja (tanpa lokasi) - existing logic
+      const semuaBarangUmum = pem.items.every(
+        (item) => item.barangUnit?.jurusan === Jurusan.umum
       );
+
+      if (role === Role.staff_prodi) {
+        if (!semuaBarangStaffProdi) {
+          throw new Error(
+            "Staff Prodi hanya boleh memverifikasi peminjaman proyektor, microphone, sound system"
+          );
+        }
+      } else if (role === Role.kepala_bagian_akademik) {
+        if (!adaBarangNonStaffProdi) {
+          throw new Error(
+            "Peminjaman ini hanya berisi proyektor, microphone, sound system dan harus diverifikasi oleh Staff Prodi"
+          );
+        }
+      } else if (role === Role.staff) {
+        if (!semuaBarangUmum) {
+          throw new Error(
+            "Staff hanya boleh memverifikasi peminjaman barang umum tanpa lokasi"
+          );
+        }
+      } else {
+        throw new Error(
+          "Anda tidak memiliki hak untuk memverifikasi peminjaman ini"
+        );
+      }
     }
 
     // Jika ditolak, kembalikan barang dan lokasi
