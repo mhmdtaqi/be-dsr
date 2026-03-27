@@ -396,11 +396,31 @@ export const authController = {
     try {
       const { nik } = req.params;
       const { nama, email, password, role, jurusan } = req.body;
+      const requester = (req as any).user as { nik: string; role: string };
 
       if (!nik) {
         res.status(400).json({
           success: false,
           message: "NIK wajib diisi",
+        });
+        return;
+      }
+
+      // Fetch target user to check role
+      const targetUser = await authService.findOne(nik);
+      if (!targetUser) {
+        res.status(404).json({
+          success: false,
+          message: "User tidak ditemukan",
+        });
+        return;
+      }
+
+      // Kabag cannot edit Civitas accounts
+      if (requester.role === Role.kepala_bagian_akademik && targetUser.role === Role.civitas_faste) {
+        res.status(403).json({
+          success: false,
+          message: "Tidak diizinkan mengubah akun Civitas",
         });
         return;
       }
@@ -475,11 +495,11 @@ export const authController = {
         jurusan,
       });
 
-      // Check if email is being updated and if it's already taken by another user
+      // Check if email is being changed and if it already exists
       if (email !== undefined) {
         const existingUser = await authService.findByEmail(email);
         if (existingUser && existingUser.nik !== userFromToken.nik) {
-          console.log("Email already exists for another user:", email);
+          console.log("Email already exists:", email);
           res.status(409).json({
             success: false,
             message: "Email sudah terdaftar",
@@ -542,9 +562,6 @@ export const authController = {
       if (err.code === "P1001") {
         errorMessage = "Tidak dapat terhubung ke database";
         statusCode = 503;
-      } else if (err.code === "P2002") {
-        errorMessage = "Data sudah ada di database";
-        statusCode = 409;
       } else if (err.code === "P2025") {
         errorMessage = "User tidak ditemukan";
         statusCode = 404;

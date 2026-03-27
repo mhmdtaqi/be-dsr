@@ -1,15 +1,17 @@
 import { Request, Response } from "express";
 import { peminjamanService } from "../services/peminjamanservice";
 import { generateQR } from "../utils/generateQR";
-import { StatusBooking, StatusP, Role } from "../../generated/prisma";
+import { StatusBooking, StatusP, Role, Jurusan } from "../../generated/prisma";
 import prisma from "../prismaClient";
 
 export const peminjamanController = {
   create: async (req: Request, res: Response): Promise<void> => {
     try {
       const userNik = req.user?.nik;
+      console.log("DEBUG CONTROLLER: create peminjaman for userNik:", userNik);
 
       if (!userNik) {
+        console.log("DEBUG CONTROLLER: no userNik");
         res.status(401).json({
           success: false,
           message: "User tidak terautentikasi",
@@ -26,6 +28,7 @@ export const peminjamanController = {
         waktuSelesai,
         barangList,
       } = req.body;
+      console.log("DEBUG CONTROLLER: body:", { kodeLokasi, lokasiTambahan, no_hp, Agenda, waktuMulai, waktuSelesai, barangList });
 
       const data = await peminjamanService.create({
         userNik,
@@ -38,19 +41,11 @@ export const peminjamanController = {
         barangList,
       });
 
-      const qr = await generateQR(`PINJAM-${data.id}`);
-
-      await prisma.peminjamanP.update({
-        where: { id: data.id },
-        data: { qrCode: qr },
-      });
-
       res.status(201).json({
         success: true,
         message: "Peminjaman berhasil dibuat. Menunggu verifikasi staff",
         data: {
           peminjaman: data,
-          qrCode: qr,
         },
       });
     } catch (err: any) {
@@ -76,17 +71,19 @@ export const peminjamanController = {
         jurusan?: string;
       } = {};
 
+      // 1. Civitas: Hanya lihat miliknya sendiri
       if (userRole === Role.civitas_faste && userNik) {
         filters.userNik = userNik;
       }
 
-      // Staff and Staff Prodi can only see peminjaman with items from their jurusan
-      if (
-        (userRole === Role.staff || userRole === Role.staff_prodi) &&
-        userJurusan
-      ) {
+      // 2. Staff Prodi: Filter berdasarkan jurusan STAFF (untuk melihat barang milik jurusan tsb)
+      if (userRole === Role.staff_prodi && userJurusan) {
         filters.jurusan = userJurusan;
       }
+
+      // 3. Staff Umum (Role.staff): Melihat semua, tapi verify hanya umum
+
+      // 4. Kepala Bagian Akademik: Lihat semua
 
       if (status && Object.values(StatusP).includes(status as StatusP)) {
         filters.status = status as StatusP;
@@ -132,8 +129,7 @@ export const peminjamanController = {
       }
 
       const data = await peminjamanService.findOne(id);
-      console.log("FindOne data:", data);
-
+      
       if (!data) {
         res.status(404).json({
           success: false,
@@ -142,17 +138,17 @@ export const peminjamanController = {
         return;
       }
 
-      // Generate QR if not exists
-      if (!data.qrCode) {
+      // Generate QR only if approved and not exists
+      if (!data.qrCode && data.verifikasi === StatusBooking.diterima) {
         const qr = await generateQR(`PINJAM-${data.id}`);
         data.qrCode = qr;
-        // Optionally save it
         await prisma.peminjamanP.update({
           where: { id },
           data: { qrCode: qr },
         });
       }
 
+      // Validasi akses untuk Civitas (hanya boleh lihat miliknya)
       if (userRole === Role.civitas_faste && data.userNik !== userNik) {
         res.status(403).json({
           success: false,
@@ -247,8 +243,19 @@ export const peminjamanController = {
       const data = await peminjamanService.verify(
         id,
         verifikasi as StatusBooking,
-        userRole
+        userRole,
+        req.user?.jurusan as Jurusan | undefined
       );
+
+      // Generate QR code if approved
+      if (verifikasi === StatusBooking.diterima && !data.qrCode) {
+        const qr = await generateQR(`PINJAM-${data.id}`);
+        await prisma.peminjamanP.update({
+          where: { id },
+          data: { qrCode: qr },
+        });
+        data.qrCode = qr;
+      }
 
       res.json({
         success: true,

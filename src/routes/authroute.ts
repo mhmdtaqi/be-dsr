@@ -83,47 +83,17 @@ router.post("/reset-password", authController.resetPassword);
 // GET ME (current user)
 router.get("/me", authMiddleware, authController.me);
 
-// GET All Users: Semua role boleh melihat daftar user
-router.get(
-  "/",
-  authMiddleware,
-  authorize([
-    Role.civitas_faste,
-    Role.staff,
-    Role.staff_prodi,
-    Role.kepala_bagian_akademik,
-  ]),
-  [
-    query("role")
-      .optional()
-      .isIn(Object.values(Role))
-      .withMessage(
-        `Role harus salah satu dari: ${Object.values(Role).join(", ")}`
-      ),
-  ],
-  validate,
-  authController.findAll
-);
-
-// GET One User: Semua role boleh melihat detail user
-router.get(
-  "/:nik",
-  authMiddleware,
-  authorize([
-    Role.civitas_faste,
-    Role.staff,
-    Role.staff_prodi,
-    Role.kepala_bagian_akademik,
-  ]),
-  [param("nik").notEmpty().withMessage("NIK wajib diisi").trim()],
-  validate,
-  authController.findOne
-);
-
-// UPDATE AKUN (diproteksi JWT)
+// UPDATE AKUN SENDIRI (Pindahkan ke ATAS sebelum route /:nik)
+// Semua role yang login boleh akses ini
 router.put(
   "/akun",
   authMiddleware,
+  authorize([
+    Role.civitas_faste,
+    Role.staff,
+    Role.staff_prodi,
+    Role.kepala_bagian_akademik,
+  ]),
   [
     body("nama").optional().isString().trim(),
     body("email")
@@ -149,14 +119,48 @@ router.put(
   authController.updateMe
 );
 
-// UPDATE User: Semua role boleh mengubah user lain
-router.put(
+// GET All Users: Semua role boleh melihat daftar user
+router.get(
+  "/",
+  authMiddleware,
+  authorize([
+    Role.civitas_faste,
+    Role.staff,
+    Role.staff_prodi,
+    Role.kepala_bagian_akademik,
+  ]),
+  [
+    query("role")
+      .optional()
+      .isIn(Object.values(Role))
+      .withMessage(
+        `Role harus salah satu dari: ${Object.values(Role).join(", ")}`
+      ),
+  ],
+  validate,
+  authController.findAll
+);
+
+// GET One User: Semua role boleh melihat detail user (Route dinamis /:nik ditaruh di bawah route statis)
+router.get(
   "/:nik",
   authMiddleware,
   authorize([
     Role.civitas_faste,
     Role.staff,
     Role.staff_prodi,
+    Role.kepala_bagian_akademik,
+  ]),
+  [param("nik").notEmpty().withMessage("NIK wajib diisi").trim()],
+  validate,
+  authController.findOne
+);
+
+// UPDATE User Lain: Hanya Kabag yang boleh mengubah user lain
+router.put(
+  "/:nik",
+  authMiddleware,
+  authorize([
     Role.kepala_bagian_akademik,
   ]),
   [
